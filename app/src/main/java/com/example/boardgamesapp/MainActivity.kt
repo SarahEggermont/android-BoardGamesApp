@@ -3,19 +3,25 @@ package com.example.boardgamesapp
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.FloatingActionButton
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.currentBackStackEntryAsState
+import androidx.navigation.compose.rememberNavController
 import com.example.boardgamesapp.ui.theme.BoardGamesAppTheme
 
 class MainActivity : ComponentActivity() {
@@ -38,21 +44,70 @@ class MainActivity : ComponentActivity() {
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun BoardGamesApp() {
+    val navController = rememberNavController()
+    val currentBackStack by navController.currentBackStackEntryAsState()
+
     Scaffold(
         containerColor = MaterialTheme.colorScheme.surface,
         topBar = {
-            MyTopBar()
+            val canNavigateBack =
+                currentBackStack?.destination?.route == Destinations.DetailGame.name
+            MyTopBar(
+                canNavigateBack = canNavigateBack,
+                when (currentBackStack?.destination?.route) {
+                    Destinations.Library.name -> R.string.library_title
+                    Destinations.Favourites.name -> R.string.favourites_title
+                    Destinations.Explore.name -> R.string.explore_title
+                    Destinations.Profile.name -> R.string.profile_title
+                    else -> R.string.board_games
+                },
+                navController
+            ) {
+                navController.popBackStack()
+            }
         },
         bottomBar = {
-            MyBottomAppBar()
+            MyBottomAppBar(
+                navController,
+                onProfilePage = currentBackStack?.destination?.route == Destinations.Profile.name
+            )
+        },
+        floatingActionButton = {
+            var fabShown = false
+            val fabImageIcon = Icons.Default.Edit
+            when (currentBackStack?.destination?.route) {
+                Destinations.Library.name -> {
+                    fabShown = true
+                }
+
+                Destinations.Favourites.name -> {
+                    fabShown = true
+                }
+            }
+            if (fabShown) {
+                FloatingActionButton(onClick = { /* TODO */ }) {
+                    Icon(fabImageIcon, contentDescription = "Edit list")
+                }
+            }
         }
     ) { innerPadding ->
-        Column(
-            modifier = Modifier
-                .padding(innerPadding),
-            verticalArrangement = Arrangement.spacedBy(16.dp)
+        NavHost(
+            navController = navController,
+            startDestination = Destinations.Library.name,
+            modifier = Modifier.padding(innerPadding)
         ) {
-            Text("Test")
+            composable(Destinations.Library.name) {
+                Text(text = Destinations.Library.name)
+            }
+            composable(Destinations.Favourites.name) {
+                Text(text = Destinations.Favourites.name)
+            }
+            composable(Destinations.Explore.name) {
+                Text(text = Destinations.Explore.name)
+            }
+            composable(Destinations.Profile.name) {
+                Text(text = Destinations.Profile.name)
+            }
         }
     }
 }

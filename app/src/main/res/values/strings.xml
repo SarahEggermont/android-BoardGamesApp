@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">BoardGamesApp</string>
+    <string name="library_title">Your collection</string>
+    <string name="favourites_title">Your favourites</string>
+    <string name="explore_title">Explore more</string>
+    <string name="profile_title">Your profile</string>
+    <string name="board_games">Board Games Collection</string>
 </resources>
