@@ -22,6 +22,11 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import com.example.boardgamesapp.components.MyBottomAppBar
+import com.example.boardgamesapp.components.MyTopBar
+import com.example.boardgamesapp.fakeData.boardGames
+import com.example.boardgamesapp.screens.favourites.FavouritesScreen
+import com.example.boardgamesapp.screens.library.LibraryScreen
 import com.example.boardgamesapp.ui.theme.BoardGamesAppTheme
 
 class MainActivity : ComponentActivity() {
@@ -97,10 +102,12 @@ fun BoardGamesApp() {
             modifier = Modifier.padding(innerPadding)
         ) {
             composable(Destinations.Library.name) {
-                Text(text = Destinations.Library.name)
+                // TODO: vervangen door echte data
+                LibraryScreen(boardGames)
             }
             composable(Destinations.Favourites.name) {
-                Text(text = Destinations.Favourites.name)
+                // TODO: vervangen door echte data
+                FavouritesScreen(boardGames)
             }
             composable(Destinations.Explore.name) {
                 Text(text = Destinations.Explore.name)

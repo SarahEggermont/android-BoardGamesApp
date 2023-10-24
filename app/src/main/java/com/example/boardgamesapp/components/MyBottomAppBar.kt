@@ -1,4 +1,4 @@
-package com.example.boardgamesapp
+package com.example.boardgamesapp.components
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
@@ -15,6 +15,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.navigation.NavController
+import com.example.boardgamesapp.Destinations
 
 data class BottomAppBarElements(
     val label: String,
