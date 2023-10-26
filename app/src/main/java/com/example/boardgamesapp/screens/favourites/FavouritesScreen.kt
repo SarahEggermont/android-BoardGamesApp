@@ -9,11 +9,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import com.example.boardgamesapp.components.CardListItem
 import com.example.boardgamesapp.fakeData.BoardGame
 
 @Composable
-fun FavouritesScreen(games: List<BoardGame>) {
+fun FavouritesScreen(games: List<BoardGame>, navController: NavController) {
     Column(
         modifier = Modifier.padding(horizontal = 16.dp).verticalScroll(rememberScrollState()),
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -27,7 +28,9 @@ fun FavouritesScreen(games: List<BoardGame>) {
                 minPlayers = game.minPlayers,
                 maxPlayers = game.maxPlayers,
                 shortDescription = game.shortDescription,
-                image = game.image
+                thumbnail = game.thumbnail,
+                image = game.image,
+                navController = navController
             )
         }
         for (game in games) {
@@ -38,7 +41,9 @@ fun FavouritesScreen(games: List<BoardGame>) {
                 minPlayers = game.minPlayers,
                 maxPlayers = game.maxPlayers,
                 shortDescription = game.shortDescription,
-                image = game.image
+                thumbnail = game.thumbnail,
+                image = game.image,
+                navController = navController
             )
         }
     }

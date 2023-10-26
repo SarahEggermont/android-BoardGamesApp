@@ -25,6 +25,7 @@ import androidx.navigation.compose.rememberNavController
 import com.example.boardgamesapp.components.MyBottomAppBar
 import com.example.boardgamesapp.components.MyTopBar
 import com.example.boardgamesapp.fakeData.boardGames
+import com.example.boardgamesapp.screens.explore.ExploreScreen
 import com.example.boardgamesapp.screens.favourites.FavouritesScreen
 import com.example.boardgamesapp.screens.library.LibraryScreen
 import com.example.boardgamesapp.ui.theme.BoardGamesAppTheme
@@ -64,6 +65,7 @@ fun BoardGamesApp() {
                     Destinations.Favourites.name -> R.string.favourites_title
                     Destinations.Explore.name -> R.string.explore_title
                     Destinations.Profile.name -> R.string.profile_title
+                    Destinations.DetailGame.name -> R.string.detail_game_title
                     else -> R.string.board_games
                 },
                 navController
@@ -103,17 +105,21 @@ fun BoardGamesApp() {
         ) {
             composable(Destinations.Library.name) {
                 // TODO: vervangen door echte data
-                LibraryScreen(boardGames)
+                LibraryScreen(boardGames, navController)
             }
             composable(Destinations.Favourites.name) {
                 // TODO: vervangen door echte data
-                FavouritesScreen(boardGames)
+                FavouritesScreen(boardGames, navController)
             }
             composable(Destinations.Explore.name) {
-                Text(text = Destinations.Explore.name)
+                // TODO: vervangen door echte data
+                ExploreScreen(boardGames, navController)
             }
             composable(Destinations.Profile.name) {
                 Text(text = Destinations.Profile.name)
+            }
+            composable(Destinations.DetailGame.name) {
+                Text(text = Destinations.DetailGame.name)
             }
         }
     }
