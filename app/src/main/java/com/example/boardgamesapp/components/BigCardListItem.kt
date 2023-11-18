@@ -22,10 +22,8 @@ import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
-import com.example.boardgamesapp.Destinations
 import com.example.boardgamesapp.R
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -39,7 +37,7 @@ fun BigCardListItem(
     shortDescription: String,
     thumbnail: String,
     image: String,
-    navController: NavController
+    toDetailPage: () -> Unit
 ) {
     val configuration = LocalConfiguration.current
     val screenWidth = configuration.screenWidthDp.dp
@@ -50,7 +48,7 @@ fun BigCardListItem(
             containerColor = MaterialTheme.colorScheme.surface,
             contentColor = MaterialTheme.colorScheme.onSurface
         ),
-        onClick = { navController.navigate(Destinations.DetailGame.name) },
+        onClick = { toDetailPage() },
         border = BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant),
         modifier = Modifier
             .width(screenWidth - 32.dp)
@@ -70,7 +68,8 @@ fun BigCardListItem(
                         .data(thumbnail)
                         .crossfade(true)
                         .build(),
-                    placeholder = painterResource(R.drawable.placeholder),
+                    placeholder = painterResource(R.drawable.loading_img),
+                    error = painterResource(R.drawable.ic_broken_image),
                     contentDescription = "$title.jpg",
                     modifier = Modifier
                         .fillMaxHeight()

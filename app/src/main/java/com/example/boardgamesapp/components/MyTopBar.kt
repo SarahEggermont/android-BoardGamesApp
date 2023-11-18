@@ -14,8 +14,6 @@ import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.navigation.NavController
-import com.example.boardgamesapp.Destinations
 import com.example.boardgamesapp.R
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -23,7 +21,7 @@ import com.example.boardgamesapp.R
 fun MyTopBar(
     canNavigateBack: Boolean,
     @StringRes title: Int,
-    navController: NavController,
+    toProfilePage: () -> Unit,
     goBack: () -> Unit
 ) {
     CenterAlignedTopAppBar(
@@ -39,7 +37,7 @@ fun MyTopBar(
                 }
             } else {
                 // TODO: own app icon
-                val image = painterResource(R.drawable.placeholder)
+                val image = painterResource(R.drawable.ic_broken_image)
 //                Image(
 //                    painter = image,
 //                    contentDescription = "App icon",
@@ -48,7 +46,7 @@ fun MyTopBar(
             }
         },
         actions = {
-            IconButton(onClick = { navController.navigate(Destinations.Profile.name) }) {
+            IconButton(onClick = { toProfilePage() }) {
                 Icon(Icons.Filled.AccountCircle, contentDescription = "Go to profile")
             }
         }

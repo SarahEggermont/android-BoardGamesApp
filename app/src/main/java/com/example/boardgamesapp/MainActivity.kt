@@ -24,7 +24,6 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.example.boardgamesapp.components.MyBottomAppBar
 import com.example.boardgamesapp.components.MyTopBar
-import com.example.boardgamesapp.fakeData.boardGames
 import com.example.boardgamesapp.screens.explore.ExploreScreen
 import com.example.boardgamesapp.screens.favourites.FavouritesScreen
 import com.example.boardgamesapp.screens.library.LibraryScreen
@@ -68,14 +67,16 @@ fun BoardGamesApp() {
                     Destinations.DetailGame.name -> R.string.detail_game_title
                     else -> R.string.board_games
                 },
-                navController
+                toProfilePage = { navController.navigate(Destinations.Profile.name) }
             ) {
                 navController.popBackStack()
             }
         },
         bottomBar = {
             MyBottomAppBar(
-                navController,
+                goToFav = { navController.navigate(Destinations.Favourites.name) },
+                goToLib = { navController.navigate(Destinations.Library.name) },
+                goToExplore = { navController.navigate(Destinations.Explore.name) },
                 onProfilePage = currentBackStack?.destination?.route == Destinations.Profile.name
             )
         },
@@ -104,16 +105,19 @@ fun BoardGamesApp() {
             modifier = Modifier.padding(innerPadding)
         ) {
             composable(Destinations.Library.name) {
-                // TODO: vervangen door echte data
-                LibraryScreen(boardGames, navController)
+                LibraryScreen(toDetailPage = {
+                    navController.navigate(Destinations.DetailGame.name)
+                })
             }
             composable(Destinations.Favourites.name) {
-                // TODO: vervangen door echte data
-                FavouritesScreen(boardGames, navController)
+                FavouritesScreen(toDetailPage = {
+                    navController.navigate(Destinations.DetailGame.name)
+                })
             }
             composable(Destinations.Explore.name) {
-                // TODO: vervangen door echte data
-                ExploreScreen(boardGames, navController)
+                ExploreScreen(toDetailPage = {
+                    navController.navigate(Destinations.DetailGame.name)
+                })
             }
             composable(Destinations.Profile.name) {
                 Text(text = Destinations.Profile.name)

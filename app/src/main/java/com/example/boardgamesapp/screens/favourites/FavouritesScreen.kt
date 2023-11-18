@@ -12,13 +12,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import androidx.navigation.NavController
 import com.example.boardgamesapp.FavouritesGamesOverviewModel
 import com.example.boardgamesapp.components.CardListItem
 
 @Composable
 fun FavouritesScreen(
-    navController: NavController,
+    toDetailPage: () -> Unit,
     favouritesGamesOverviewModel: FavouritesGamesOverviewModel = viewModel()
 ) {
     val gamesOverviewState by favouritesGamesOverviewModel.uiState.collectAsState()
@@ -39,7 +38,7 @@ fun FavouritesScreen(
                 shortDescription = it.shortDescription,
                 thumbnail = it.thumbnail,
                 image = it.image,
-                navController = navController
+                toDetailPage = toDetailPage
             )
         }
     }

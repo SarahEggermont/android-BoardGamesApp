@@ -14,49 +14,50 @@ import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.navigation.NavController
 import com.example.boardgamesapp.Destinations
 
-data class BottomAppBarElements(
+data class BottomAppBarElement(
     val label: String,
-    val icon: ImageVector
+    val icon: ImageVector,
+    val goToPage: () -> Unit
 )
 
 @Composable
-fun MyBottomAppBar(navController: NavController, onProfilePage: Boolean) {
+fun MyBottomAppBar(
+    goToFav: () -> Unit,
+    goToLib: () -> Unit,
+    goToExplore: () -> Unit,
+    onProfilePage: Boolean
+) {
     var selectedItem by remember { mutableIntStateOf(0) }
     val items = listOf(
-        BottomAppBarElements(Destinations.Library.name, Icons.Filled.List),
-        BottomAppBarElements(Destinations.Favourites.name, Icons.Filled.Favorite),
-        BottomAppBarElements(Destinations.Explore.name, Icons.Filled.Search)
+        BottomAppBarElement(
+            Destinations.Library.name,
+            Icons.Filled.List,
+            goToLib
+        ),
+        BottomAppBarElement(
+            Destinations.Favourites.name,
+            Icons.Filled.Favorite,
+            goToFav
+        ),
+        BottomAppBarElement(
+            Destinations.Explore.name,
+            Icons.Filled.Search,
+            goToExplore
+        )
     )
-    if (onProfilePage) {
-        NavigationBar {
-            items.forEachIndexed { index, item ->
-                NavigationBarItem(
-                    icon = { Icon(item.icon, contentDescription = item.label) },
-                    label = { Text(item.label) },
-                    selected = false,
-                    onClick = {
-                        navController.navigate(item.label)
-                        selectedItem = index
-                    }
-                )
-            }
-        }
-    } else {
-        NavigationBar {
-            items.forEachIndexed { index, item ->
-                NavigationBarItem(
-                    icon = { Icon(item.icon, contentDescription = item.label) },
-                    label = { Text(item.label) },
-                    selected = selectedItem == index,
-                    onClick = {
-                        navController.navigate(item.label)
-                        selectedItem = index
-                    }
-                )
-            }
+    NavigationBar {
+        items.forEachIndexed { index, item ->
+            NavigationBarItem(
+                icon = { Icon(item.icon, contentDescription = item.label) },
+                label = { Text(item.label) },
+                selected = if (onProfilePage) false else selectedItem == index,
+                onClick = {
+                    item.goToPage()
+                    selectedItem = index
+                }
+            )
         }
     }
 }
