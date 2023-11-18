@@ -1,9 +1,9 @@
 package com.example.boardgamesapp.screens.favourites
 
-import com.example.boardgamesapp.fakeData.BoardGame
+import com.example.boardgamesapp.model.Game
 
 data class FavouritesGamesOverviewState(
-    val currentGamesList: List<BoardGame>,
+    val currentGamesList: List<Game>,
     val scrollAtActionIdx: Int = 0,
     val scrollToItemIndex: Int = 0
 )
