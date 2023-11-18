@@ -38,7 +38,8 @@ fun MyTopBar(
                     Icon(Icons.Filled.ArrowBack, contentDescription = "Go back")
                 }
             } else {
-                val image = painterResource(R.drawable.app_icon)
+                // TODO: own app icon
+                val image = painterResource(R.drawable.placeholder)
 //                Image(
 //                    painter = image,
 //                    contentDescription = "App icon",

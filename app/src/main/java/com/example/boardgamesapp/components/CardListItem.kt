@@ -90,7 +90,8 @@ fun CardListItem(
                         .data(thumbnail)
                         .crossfade(true)
                         .build(),
-                    placeholder = painterResource(R.drawable.placeholder),
+                    placeholder = painterResource(R.drawable.loading_img),
+                    error = painterResource(R.drawable.ic_broken_image),
                     contentDescription = "$title.jpg",
                     modifier = Modifier
                         .fillMaxHeight()
