@@ -3,6 +3,7 @@ package com.example.boardgamesapp
 import androidx.lifecycle.ViewModel
 import com.example.boardgamesapp.fakeData.BoardGamesSampler
 import com.example.boardgamesapp.screens.explore.ExploreGamesOverviewState
+import java.util.Locale
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -22,9 +23,8 @@ class ExploreGamesOverviewModel : ViewModel() {
         _uiState.update { currentState ->
             currentState.copy(
                 currentGamesList = currentState.originalGamesList.filter {
-                    it.title.contains(currentState.searchText) || it.shortDescription.contains(
-                        currentState.searchText
-                    )
+                    it.title.lowercase(Locale.getDefault())
+                        .contains(currentState.searchText.lowercase(Locale.getDefault()))
                 },
                 searchActive = false,
                 searchHistory = currentState.searchHistory + currentState.searchText
