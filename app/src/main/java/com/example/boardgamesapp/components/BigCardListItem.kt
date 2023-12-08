@@ -20,6 +20,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
@@ -42,24 +43,27 @@ fun BigCardListItem(
     val configuration = LocalConfiguration.current
     val screenWidth = configuration.screenWidthDp.dp
 
-    // marge van 16 aan elke kant -> -32 in totaal
     OutlinedCard(
         colors = CardDefaults.cardColors(
             containerColor = MaterialTheme.colorScheme.surface,
             contentColor = MaterialTheme.colorScheme.onSurface
         ),
         onClick = { toDetailPage() },
-        border = BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant),
+        border = BorderStroke(
+            dimensionResource(R.dimen.border_small),
+            MaterialTheme.colorScheme.outlineVariant
+        ),
         modifier = Modifier
-            .width(screenWidth - 32.dp)
-            .padding(0.dp)
+            .padding(
+                horizontal = dimensionResource(R.dimen.padding_medium),
+                vertical = dimensionResource(R.dimen.no_padding)
+            )
     ) {
         Row(
             modifier = Modifier.height(IntrinsicSize.Min)
         ) {
             Box(
                 modifier = Modifier
-                    .width(166.dp)
                     .fillMaxHeight(),
                 contentAlignment = Alignment.CenterStart
             ) {
@@ -73,14 +77,14 @@ fun BigCardListItem(
                     contentDescription = "$title.jpg",
                     modifier = Modifier
                         .fillMaxHeight()
-                        .width(166.dp),
+                        .width(dimensionResource(R.dimen.picture_box_width)),
                     alignment = Alignment.TopCenter,
                     contentScale = ContentScale.Crop
                 )
             }
             Column(
                 modifier = Modifier
-                    .padding(start = 8.dp, top = 6.dp, end = 4.dp, bottom = 6.dp)
+                    .padding(dimensionResource(R.dimen.padding_small))
                     .width(screenWidth)
             ) {
                 Text(text = title, style = MaterialTheme.typography.titleLarge)

@@ -23,6 +23,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
@@ -45,21 +46,30 @@ fun CardListItem(
     val configuration = LocalConfiguration.current
     val screenWidth = configuration.screenWidthDp.dp
 
-    // marge van 16 aan elke kant -> -32 in totaal
     OutlinedCard(
         onClick = { toDetailPage() },
-        border = BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant),
+        border = BorderStroke(
+            dimensionResource(id = R.dimen.border_small),
+            MaterialTheme.colorScheme.outlineVariant
+        ),
         modifier = Modifier
-            .width(screenWidth - 32.dp)
-            .padding(0.dp)
+            .padding(horizontal = dimensionResource(id = R.dimen.padding_small))
     ) {
         Row(
             modifier = Modifier.height(IntrinsicSize.Min)
         ) {
             Column(
                 modifier = Modifier
-                    .padding(start = 16.dp, top = 6.dp, end = 4.dp, bottom = 6.dp)
-                    .width(screenWidth - 32.dp - 16.dp - 4.dp - 100.dp)
+                    .padding(
+                        start = dimensionResource(id = R.dimen.padding_medium),
+                        top = dimensionResource(id = R.dimen.padding_small),
+                        end = dimensionResource(id = R.dimen.padding_small),
+                        bottom = dimensionResource(id = R.dimen.padding_small)
+                    )
+                    .width(
+                        screenWidth -
+                            dimensionResource(id = R.dimen.picture_box_width)
+                    )
             ) {
                 Text(text = title, style = MaterialTheme.typography.titleLarge)
                 if (minPlayTime == maxPlayTime) {
@@ -93,7 +103,7 @@ fun CardListItem(
                     contentDescription = "$title.jpg",
                     modifier = Modifier
                         .fillMaxHeight()
-                        .width(100.dp),
+                        .width(dimensionResource(id = R.dimen.picture_small_width)),
                     alignment = Alignment.TopCenter,
                     contentScale = ContentScale.Crop
                 )

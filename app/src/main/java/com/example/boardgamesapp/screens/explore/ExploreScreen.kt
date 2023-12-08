@@ -4,7 +4,6 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -23,10 +22,10 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.unit.dp
+import androidx.compose.ui.res.dimensionResource
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.boardgamesapp.ExploreGamesOverviewModel
+import com.example.boardgamesapp.R
 import com.example.boardgamesapp.components.BigCardListItem
 
 @ExperimentalMaterial3Api
@@ -37,11 +36,14 @@ fun ExploreScreen(
 ) {
     val gamesOverviewState by exploreGamesOverviewModel.uiState.collectAsState()
     val lazyListState = rememberLazyListState()
+
     Column(
-        verticalArrangement = Arrangement.spacedBy(16.dp)
+        verticalArrangement = Arrangement.spacedBy(
+            dimensionResource(id = R.dimen.spacer_medium)
+        )
     ) {
         SearchBar(
-            modifier = Modifier.fillMaxWidth(),
+            modifier = Modifier.align(Alignment.CenterHorizontally),
             query = gamesOverviewState.searchText,
             onQueryChange = {
                 exploreGamesOverviewModel.setNewSearchText(it)
@@ -78,10 +80,16 @@ fun ExploreScreen(
         ) {
             gamesOverviewState.searchHistory.forEach {
                 Row(
-                    modifier = Modifier.padding(12.dp)
+                    modifier = Modifier.padding(
+                        start = dimensionResource(id = R.dimen.padding_medium),
+                        end = dimensionResource(id = R.dimen.padding_medium),
+                        top = dimensionResource(id = R.dimen.padding_medium)
+                    )
                 ) {
                     Icon(
-                        modifier = Modifier.padding(end = 12.dp),
+                        modifier = Modifier.padding(
+                            end = dimensionResource(id = R.dimen.padding_medium)
+                        ),
                         imageVector = Icons.Default.History,
                         contentDescription = "History icon"
                     )
@@ -97,15 +105,17 @@ fun ExploreScreen(
         }
         LazyColumn(
             state = lazyListState,
-            modifier = Modifier.padding(horizontal = 16.dp),
-            horizontalAlignment = Alignment.Start,
-            verticalArrangement = Arrangement.spacedBy(10.dp)
+            verticalArrangement = Arrangement.spacedBy(
+                dimensionResource(id = R.dimen.spacer_small)
+            )
         ) {
             item {
                 Text(
                     text = "Trending",
                     style = MaterialTheme.typography.titleLarge,
-                    textAlign = TextAlign.Start
+                    modifier = Modifier.padding(
+                        horizontal = dimensionResource(id = R.dimen.padding_medium)
+                    )
                 )
             }
             items(gamesOverviewState.currentGamesList) {

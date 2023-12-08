@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="border_small">1dp</dimen>
+
+    <dimen name="no_padding">0dp</dimen>
+    <dimen name="padding_small">8dp</dimen>
+    <dimen name="padding_medium">16dp</dimen>
+    <dimen name="padding_large">24dp</dimen>
+
+    <dimen name="spacer_small">8dp</dimen>
+    <dimen name="spacer_medium">16dp</dimen>
+
+    <dimen name="cardCornerRadius">28dp</dimen>
+    <dimen name="picture_box_width">166dp</dimen>
+    <dimen name="picture_small_width">100dp</dimen>
+</resources>

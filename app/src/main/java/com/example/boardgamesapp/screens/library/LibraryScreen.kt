@@ -10,9 +10,10 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
+import androidx.compose.ui.res.dimensionResource
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.boardgamesapp.LibraryGamesOverviewModel
+import com.example.boardgamesapp.R
 import com.example.boardgamesapp.components.CardListItem
 
 @Composable
@@ -24,9 +25,9 @@ fun LibraryScreen(
     val lazyListState = rememberLazyListState()
     LazyColumn(
         state = lazyListState,
-        modifier = Modifier.padding(horizontal = 16.dp),
+        modifier = Modifier.padding(horizontal = dimensionResource(id = R.dimen.padding_small)),
         horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.spacedBy(10.dp)
+        verticalArrangement = Arrangement.spacedBy(dimensionResource(id = R.dimen.spacer_small))
     ) {
         items(gamesOverviewState.currentGamesList) {
             CardListItem(
