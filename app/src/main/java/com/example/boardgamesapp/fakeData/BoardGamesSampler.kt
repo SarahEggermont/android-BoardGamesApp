@@ -11,8 +11,8 @@ object BoardGamesSampler {
             minPlayers = 2,
             maxPlayers = 4,
             shortDescription = "Go on adventures in the mystic world of Norse mythology.",
-            thumbnail = "https://cf.geekdo-images.com/6LmOBOKXXS8I3nX7I4hz_g__thumb/img/0hdUKkeZA4E25_VUPUXpSvvJgls=/fit-in/200x150/filters:strip_icc()/pic6724739.jpg",
-            image = "https://cf.geekdo-images.com/6LmOBOKXXS8I3nX7I4hz_g__original/img/vs2i4NlxuNMUUZejmu5gEwWfLg0=/0x0/filters:format(jpeg)/pic6724739.jpg"
+            thumbnail = "https://cf.geekdo-images.com/6LmOBOKXXS8I3nX7I4hz_g__thumb/img/0hdUKkeZA4E25_VUPUXpSvvJgls=/fit-in/200x150/filters:strip_icc()/pic6724739.jpg", // ktlint-disable max-line-length
+            image = "https://cf.geekdo-images.com/6LmOBOKXXS8I3nX7I4hz_g__original/img/vs2i4NlxuNMUUZejmu5gEwWfLg0=/0x0/filters:format(jpeg)/pic6724739.jpg" // ktlint-disable max-line-length
         ),
         Game(
             title = "Imperial Settlers: Empires of the North",
@@ -63,7 +63,38 @@ object BoardGamesSampler {
             shortDescription = "Craft the best stained-glass windows by carefully placing colorful transparent dice.", // ktlint-disable max-line-length
             thumbnail = "https://cf.geekdo-images.com/PZt3EAAGV3dFIVuwMR0AEw__thumb/img/1m4aryOW1MOpq-8jGkF6gDTJmCY=/fit-in/200x150/filters:strip_icc()/pic3525224.jpg", // ktlint-disable max-line-length
             image = "https://cf.geekdo-images.com/PZt3EAAGV3dFIVuwMR0AEw__original/img/5ug9EeKlH_ucJEUXaFpTZbBJ1GY=/0x0/filters:format(jpeg)/pic3525224.jpg" // ktlint-disable max-line-length
+        ),
+        Game(
+            title = "Ark Nova",
+            minPlayTime = 90,
+            maxPlayTime = 150,
+            minPlayers = 1,
+            maxPlayers = 4,
+            shortDescription = "Plan and build a modern, scientifically managed zoo to support conservation projects.", // ktlint-disable max-line-length
+            thumbnail = "https://cf.geekdo-images.com/SoU8p28Sk1s8MSvoM4N8pQ__thumb/img/4KuHNTWSMPf8vTNDKSRMMI3oOv8=/fit-in/200x150/filters:strip_icc()/pic6293412.jpg", // ktlint-disable max-line-length
+            image = "https://cf.geekdo-images.com/SoU8p28Sk1s8MSvoM4N8pQ__original/img/g4S18szTdrXCdIwVKzMKrZrYAcM=/0x0/filters:format(jpeg)/pic6293412.jpg" // ktlint-disable max-line-length
+        ),
+        Game(
+            title = "Ticket to Ride: Europe - 15th Anniversary",
+            minPlayTime = 30,
+            maxPlayTime = 60,
+            minPlayers = 2,
+            maxPlayers = 5,
+            shortDescription = "Ride the rails across Europe to reach valuable cities with deluxe components.", // ktlint-disable max-line-length
+            thumbnail = "https://cf.geekdo-images.com/bilOnrR0vksMgjDK1zWPmQ__thumb/img/8lPTz5okk0uiW19b6seXaUXh7UE=/fit-in/200x150/filters:strip_icc()/pic5941381.png", // ktlint-disable max-line-length
+            image = "https://cf.geekdo-images.com/bilOnrR0vksMgjDK1zWPmQ__original/img/fPg2PgpQ4npHW6cW8-16GNDbuRg=/0x0/filters:format(png)/pic5941381.png" // ktlint-disable max-line-length
+        ),
+        Game(
+            title = "Maya",
+            minPlayTime = 30,
+            maxPlayTime = 45,
+            minPlayers = 2,
+            maxPlayers = 4,
+            shortDescription = "Plant crops and build cities to help the Mayan civilization thrive.", // ktlint-disable max-line-length
+            thumbnail = "https://cf.geekdo-images.com/nLtG6IiiN8ffXjoe8mGrPw__thumb/img/sxhx_oW6LIxDvl6ZinTqR5NishA=/fit-in/200x150/filters:strip_icc()/pic5030000.png", // ktlint-disable max-line-length
+            image = "https://cf.geekdo-images.com/nLtG6IiiN8ffXjoe8mGrPw__original/img/6LBUlqwUNGCSM74zMIffVJx549w=/0x0/filters:format(png)/pic5030000.png" // ktlint-disable max-line-length
         )
+
     )
 
     val getAll: () -> MutableList<Game> = {

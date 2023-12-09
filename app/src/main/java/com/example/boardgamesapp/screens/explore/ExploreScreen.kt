@@ -2,6 +2,7 @@ package com.example.boardgamesapp.screens.explore
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
@@ -28,13 +29,38 @@ import com.example.boardgamesapp.ExploreGamesOverviewModel
 import com.example.boardgamesapp.R
 import com.example.boardgamesapp.components.BigCardListItem
 
-@ExperimentalMaterial3Api
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ExploreScreen(
     toDetailPage: () -> Unit,
-    exploreGamesOverviewModel: ExploreGamesOverviewModel = viewModel()
+    exploreGamesOverviewModel: ExploreGamesOverviewModel = viewModel(
+        factory = ExploreGamesOverviewModel.Factory
+    )
 ) {
     val gamesOverviewState by exploreGamesOverviewModel.uiState.collectAsState()
+
+    val gameApiState = exploreGamesOverviewModel.gameApiState
+
+    Box(modifier = Modifier) {
+        when (gameApiState) {
+            is GamesApiState.Loading -> Text(text = "Loading...")
+            is GamesApiState.Error -> Text(text = "Error while loading the trending games.")
+            is GamesApiState.Success -> GamesListComponent(
+                gamesOverviewState = gamesOverviewState,
+                exploreGamesOverviewModel = exploreGamesOverviewModel,
+                toDetailPage = toDetailPage
+            )
+        }
+    }
+}
+
+@ExperimentalMaterial3Api
+@Composable
+fun GamesListComponent(
+    gamesOverviewState: ExploreGamesOverviewState,
+    exploreGamesOverviewModel: ExploreGamesOverviewModel,
+    toDetailPage: () -> Unit
+) {
     val lazyListState = rememberLazyListState()
 
     Column(
