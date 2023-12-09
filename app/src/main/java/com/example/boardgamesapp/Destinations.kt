@@ -4,6 +4,5 @@ enum class Destinations {
     Library,
     Favourites,
     Explore,
-    Profile,
     DetailGame
 }

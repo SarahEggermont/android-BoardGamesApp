@@ -26,8 +26,7 @@ data class BottomAppBarElement(
 fun MyBottomAppBar(
     goToFav: () -> Unit,
     goToLib: () -> Unit,
-    goToExplore: () -> Unit,
-    onProfilePage: Boolean
+    goToExplore: () -> Unit
 ) {
     var selectedItem by rememberSaveable { mutableIntStateOf(0) }
     val items = listOf(
@@ -52,7 +51,7 @@ fun MyBottomAppBar(
             NavigationBarItem(
                 icon = { Icon(item.icon, contentDescription = item.label) },
                 label = { Text(item.label) },
-                selected = if (onProfilePage) false else selectedItem == index,
+                selected = selectedItem == index,
                 onClick = {
                     item.goToPage()
                     selectedItem = index

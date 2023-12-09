@@ -64,11 +64,9 @@ fun BoardGamesApp() {
                     Destinations.Library.name -> R.string.library_title
                     Destinations.Favourites.name -> R.string.favourites_title
                     Destinations.Explore.name -> R.string.explore_title
-                    Destinations.Profile.name -> R.string.profile_title
                     Destinations.DetailGame.name -> R.string.detail_game_title
                     else -> R.string.board_games
-                },
-                toProfilePage = { navController.navigate(Destinations.Profile.name) }
+                }
             ) {
                 navController.popBackStack()
             }
@@ -77,8 +75,7 @@ fun BoardGamesApp() {
             MyBottomAppBar(
                 goToFav = { navController.navigate(Destinations.Favourites.name) },
                 goToLib = { navController.navigate(Destinations.Library.name) },
-                goToExplore = { navController.navigate(Destinations.Explore.name) },
-                onProfilePage = currentBackStack?.destination?.route == Destinations.Profile.name
+                goToExplore = { navController.navigate(Destinations.Explore.name) }
             )
         },
         floatingActionButton = {
@@ -119,9 +116,6 @@ fun BoardGamesApp() {
                 ExploreScreen(toDetailPage = {
                     navController.navigate(Destinations.DetailGame.name)
                 })
-            }
-            composable(Destinations.Profile.name) {
-                Text(text = Destinations.Profile.name)
             }
             composable(Destinations.DetailGame.name) {
                 Text(text = Destinations.DetailGame.name)

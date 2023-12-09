@@ -2,7 +2,6 @@ package com.example.boardgamesapp.components
 
 import androidx.annotation.StringRes
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -21,7 +20,6 @@ import com.example.boardgamesapp.R
 fun MyTopBar(
     canNavigateBack: Boolean,
     @StringRes title: Int,
-    toProfilePage: () -> Unit,
     goBack: () -> Unit
 ) {
     CenterAlignedTopAppBar(
@@ -46,14 +44,6 @@ fun MyTopBar(
 //                    contentDescription = "App icon",
 //                    modifier = Modifier.height(100.dp)
 //                )
-            }
-        },
-        actions = {
-            IconButton(onClick = { toProfilePage() }) {
-                Icon(
-                    Icons.Filled.AccountCircle,
-                    contentDescription = stringResource(id = R.string.profile_title)
-                )
             }
         }
     )
