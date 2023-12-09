@@ -25,7 +25,7 @@ fun MyTopBar(
     goBack: () -> Unit
 ) {
     CenterAlignedTopAppBar(
-        colors = TopAppBarDefaults.smallTopAppBarColors(
+        colors = TopAppBarDefaults.topAppBarColors(
             containerColor = MaterialTheme.colorScheme.surface,
             titleContentColor = MaterialTheme.colorScheme.onSurface
         ),
@@ -33,7 +33,10 @@ fun MyTopBar(
         navigationIcon = {
             if (canNavigateBack) {
                 IconButton(onClick = goBack) {
-                    Icon(Icons.Filled.ArrowBack, contentDescription = "Go back")
+                    Icon(
+                        Icons.Filled.ArrowBack,
+                        contentDescription = stringResource(id = R.string.back)
+                    )
                 }
             } else {
                 // TODO: own app icon
@@ -47,7 +50,10 @@ fun MyTopBar(
         },
         actions = {
             IconButton(onClick = { toProfilePage() }) {
-                Icon(Icons.Filled.AccountCircle, contentDescription = "Go to profile")
+                Icon(
+                    Icons.Filled.AccountCircle,
+                    contentDescription = stringResource(id = R.string.profile_title)
+                )
             }
         }
     )

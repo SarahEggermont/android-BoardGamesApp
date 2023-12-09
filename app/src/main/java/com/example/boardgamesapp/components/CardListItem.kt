@@ -25,6 +25,7 @@ import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
@@ -75,13 +76,17 @@ fun CardListItem(
                 if (minPlayTime == maxPlayTime) {
                     Text(
                         text = "$minPlayTime min " +
-                            "($minPlayers - $maxPlayers players)",
+                            "($minPlayers - $maxPlayers " + stringResource(
+                                id = R.string.players
+                            ) + ")",
                         style = MaterialTheme.typography.labelLarge
                     )
                 } else {
                     Text(
                         text = "$minPlayTime - $maxPlayTime min " +
-                            "($minPlayers - $maxPlayers players)",
+                            "($minPlayers - $maxPlayers " + stringResource(
+                                id = R.string.players
+                            ) + ")",
                         style = MaterialTheme.typography.labelLarge
                     )
                 }

@@ -23,6 +23,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.dimensionResource
+import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.boardgamesapp.ExploreGamesOverviewModel
 import com.example.boardgamesapp.R
@@ -58,14 +59,14 @@ fun ExploreScreen(
             leadingIcon = {
                 Icon(
                     imageVector = Icons.Default.Search,
-                    contentDescription = "Search icon"
+                    contentDescription = stringResource(id = R.string.search_icon)
                 )
             },
             trailingIcon = {
                 if (gamesOverviewState.searchActive) {
                     Icon(
                         imageVector = Icons.Default.Close,
-                        contentDescription = "Close icon",
+                        contentDescription = stringResource(id = R.string.close_icon),
                         modifier = Modifier.clickable {
                             if (gamesOverviewState.searchText.isNotEmpty()) {
                                 exploreGamesOverviewModel.clearSearchText()
@@ -76,7 +77,7 @@ fun ExploreScreen(
                     )
                 }
             },
-            placeholder = { Text("Search games") }
+            placeholder = { Text(stringResource(id = R.string.searchbar_text)) }
         ) {
             gamesOverviewState.searchHistory.forEach {
                 Row(
@@ -91,7 +92,7 @@ fun ExploreScreen(
                             end = dimensionResource(id = R.dimen.padding_medium)
                         ),
                         imageVector = Icons.Default.History,
-                        contentDescription = "History icon"
+                        contentDescription = stringResource(id = R.string.history_icon)
                     )
                     Text(
                         text = it,
@@ -111,7 +112,7 @@ fun ExploreScreen(
         ) {
             item {
                 Text(
-                    text = "Trending",
+                    text = stringResource(id = R.string.trending),
                     style = MaterialTheme.typography.titleLarge,
                     modifier = Modifier.padding(
                         horizontal = dimensionResource(id = R.dimen.padding_medium)
