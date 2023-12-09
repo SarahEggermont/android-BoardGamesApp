@@ -14,7 +14,8 @@ import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.graphics.vector.ImageVector
-import com.example.boardgamesapp.Destinations
+import androidx.compose.ui.res.stringResource
+import com.example.boardgamesapp.R
 
 data class BottomAppBarElement(
     val label: String,
@@ -31,17 +32,17 @@ fun MyBottomAppBar(
     var selectedItem by rememberSaveable { mutableIntStateOf(0) }
     val items = listOf(
         BottomAppBarElement(
-            Destinations.Library.name,
+            stringResource(id = R.string.library),
             Icons.Filled.List,
             goToLib
         ),
         BottomAppBarElement(
-            Destinations.Favourites.name,
+            stringResource(id = R.string.favorites),
             Icons.Filled.Favorite,
             goToFav
         ),
         BottomAppBarElement(
-            Destinations.Explore.name,
+            stringResource(id = R.string.explore),
             Icons.Filled.Search,
             goToExplore
         )

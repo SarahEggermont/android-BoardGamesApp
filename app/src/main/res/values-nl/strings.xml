@@ -1,22 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="library_title">Jouw verzameling</string>
-    <string name="library_title">J</string>
     <string name="favourites_title">Jouw favorieten</string>
     <string name="explore_title">Ontdek trending</string>
     <string name="profile_title">Jouw profiel</string>
     <string name="detail_game_title">Spel detail</string>
     <string name="players">spelers</string>
     <string name="back">Ga terug</string>
-    <string name="back">G</string>
     <string name="search_icon">Zoek icoon</string>
     <string name="close_icon">Sluit icoon</string>
     <string name="searchbar_text">Zoek spellen</string>
-    <string name="searchbar_text">Z</string>
     <string name="history_icon">Geschiedenis icoon</string>
-    <string name="history_icon">G</string>
     <string name="trending">Trending</string>
-    <string name="trending">T</string>
     <string name="edit_list">Wijzig lijst</string>
-    <string name="edit_list">W</string>
+    <string name="library">Bibliotheek</string>
+    <string name="favorites">Favorieten</string>
+    <string name="explore">Ontdek</string>
 </resources>

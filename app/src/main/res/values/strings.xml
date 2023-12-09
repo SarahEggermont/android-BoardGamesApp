@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name" translatable="false">BoardGamesApp</string>
+    <string name="app_name" translatable="false">Board Games</string>
     <string name="board_games" translatable="false">Board Games Collection</string>
     <!--    Titles-->
     <string name="library_title">Your collection</string>
@@ -16,4 +16,7 @@
     <string name="history_icon">History icon</string>
     <string name="trending">Trending</string>
     <string name="edit_list">Edit list</string>
+    <string name="library">library</string>
+    <string name="favorites">Favourites</string>
+    <string name="explore">Explore</string>
 </resources>
