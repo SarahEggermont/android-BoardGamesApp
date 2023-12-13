@@ -1,32 +1,43 @@
 package com.example.boardgamesapp.network
 
 import com.example.boardgamesapp.model.Game
+import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
+data class ParameterType(
+    val id: String,
+    val rank: String
+)
+
+@Serializable
+data class FieldType(
+    @SerialName("$")
+    val upper: FieldValue
+)
+
+@Serializable
+data class FieldValue(
+    val value: String
+)
+
+@Serializable
 class ApiGame(
-    val thumbnail: String,
-    val image: String,
-    val title: String,
-    val description: String,
-    val minPlayers: Int,
-    val maxPlayers: Int,
-    val minPlayTime: Int,
-    val maxPlayTime: Int
+    @SerialName("$")
+    val parameters: ParameterType,
+    val thumbnail: FieldType,
+    val name: FieldType,
+    val yearpublished: FieldType
 )
 
 // extension function for a GameApi-List to convert is to a Domain Game List
 fun List<ApiGame>.asDomainObjects(): List<Game> {
     val domainList = this.map {
         Game(
-            title = it.title,
-            shortDescription = it.description,
-            thumbnail = it.thumbnail,
-            image = it.image,
-            minPlayers = it.minPlayers,
-            maxPlayers = it.maxPlayers,
-            minPlayTime = it.minPlayTime,
-            maxPlayTime = it.maxPlayTime
+            id = it.parameters.id,
+            title = it.name.upper.value,
+            thumbnail = it.thumbnail.upper.value,
+            year = it.yearpublished.upper.value.toInt()
         )
     }
     return domainList

@@ -30,15 +30,11 @@ import com.example.boardgamesapp.R
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun BigCardListItem(
+    id: String,
     title: String,
-    minPlayTime: Int,
-    maxPlayTime: Int,
-    minPlayers: Int,
-    maxPlayers: Int,
-    shortDescription: String,
     thumbnail: String,
-    image: String,
-    toDetailPage: () -> Unit
+    year: Int,
+    toDetailPage: (id: String) -> Unit
 ) {
     val configuration = LocalConfiguration.current
     val screenWidth = configuration.screenWidthDp.dp
@@ -48,7 +44,7 @@ fun BigCardListItem(
             containerColor = MaterialTheme.colorScheme.surface,
             contentColor = MaterialTheme.colorScheme.onSurface
         ),
-        onClick = { toDetailPage() },
+        onClick = { toDetailPage(id) },
         border = BorderStroke(
             dimensionResource(R.dimen.border_small),
             MaterialTheme.colorScheme.outlineVariant
@@ -88,20 +84,7 @@ fun BigCardListItem(
                     .width(screenWidth)
             ) {
                 Text(text = title, style = MaterialTheme.typography.titleLarge)
-                if (minPlayTime == maxPlayTime) {
-                    Text(
-                        text = "$minPlayTime min " +
-                            "($minPlayers - $maxPlayers players)",
-                        style = MaterialTheme.typography.labelLarge
-                    )
-                } else {
-                    Text(
-                        text = "$minPlayTime - $maxPlayTime min " +
-                            "($minPlayers - $maxPlayers players)",
-                        style = MaterialTheme.typography.labelLarge
-                    )
-                }
-                Text(text = shortDescription, style = MaterialTheme.typography.bodyMedium)
+                Text(text = year.toString(), style = MaterialTheme.typography.titleMedium)
             }
         }
     }

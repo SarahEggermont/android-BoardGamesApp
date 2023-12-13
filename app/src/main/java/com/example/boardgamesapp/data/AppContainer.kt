@@ -13,10 +13,13 @@ interface AppContainer {
 // container that takes care of dependencies
 class DefaultAppContainer : AppContainer {
 
-    private val baseUrl = "https://boardgamegeek.com/xmlapi2/"
+    private val json = Json { ignoreUnknownKeys = true }
+
+    private val baseUrl =
+        "https://v1.nocodeapi.com/saraheggermont/xml_to_json/CpJuNNIhMvSeKvJf/" // ktlint-disable max-line-length
     private val retrofit = Retrofit.Builder()
         .addConverterFactory(
-            Json.asConverterFactory("application/json".toMediaType())
+            json.asConverterFactory("application/json".toMediaType())
         )
         .baseUrl(baseUrl)
         .build()

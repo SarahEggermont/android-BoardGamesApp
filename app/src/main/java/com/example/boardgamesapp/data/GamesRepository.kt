@@ -6,10 +6,15 @@ import com.example.boardgamesapp.network.asDomainObjects
 
 interface GamesRepository {
     suspend fun getTrendingGames(): List<Game>
+    suspend fun getSearchGame(searchTerm: String): List<Game>
 }
 
 class ApiGameRepository(private val gameApiService: GameApiService) : GamesRepository {
     override suspend fun getTrendingGames(): List<Game> {
-        return gameApiService.getTrendingGames().asDomainObjects()
+        return gameApiService.getTrendingGames().items.item.asDomainObjects()
+    }
+
+    override suspend fun getSearchGame(searchTerm: String): List<Game> {
+        return gameApiService.getSearchGame(searchTerm).items.item.asDomainObjects()
     }
 }

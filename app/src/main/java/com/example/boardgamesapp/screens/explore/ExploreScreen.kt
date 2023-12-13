@@ -32,7 +32,7 @@ import com.example.boardgamesapp.components.BigCardListItem
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ExploreScreen(
-    toDetailPage: () -> Unit,
+    toDetailPage: (id: String) -> Unit,
     exploreGamesOverviewModel: ExploreGamesOverviewModel = viewModel(
         factory = ExploreGamesOverviewModel.Factory
     )
@@ -59,7 +59,7 @@ fun ExploreScreen(
 fun GamesListComponent(
     gamesOverviewState: ExploreGamesOverviewState,
     exploreGamesOverviewModel: ExploreGamesOverviewModel,
-    toDetailPage: () -> Unit
+    toDetailPage: (id: String) -> Unit
 ) {
     val lazyListState = rememberLazyListState()
 
@@ -146,14 +146,10 @@ fun GamesListComponent(
             }
             items(gamesOverviewState.currentGamesList) {
                 BigCardListItem(
+                    id = it.id,
                     title = it.title,
-                    minPlayTime = it.minPlayTime,
-                    maxPlayTime = it.maxPlayTime,
-                    minPlayers = it.minPlayers,
-                    maxPlayers = it.maxPlayers,
-                    shortDescription = it.shortDescription,
                     thumbnail = it.thumbnail,
-                    image = it.image,
+                    year = it.year,
                     toDetailPage = toDetailPage
                 )
             }

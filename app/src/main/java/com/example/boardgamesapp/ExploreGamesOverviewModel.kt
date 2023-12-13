@@ -87,7 +87,7 @@ class ExploreGamesOverviewModel(private val gamesRepository: GamesRepository) : 
                 }
                 gameApiState = GamesApiState.Success(listResult)
             } catch (e: IOException) {
-                e.message?.let { Log.d("test", it) }
+                e.message?.let { Log.d("ExploreGamesOverviewModel", it) }
                 gameApiState = GamesApiState.Error
             }
         }

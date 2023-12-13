@@ -5,4 +5,5 @@
     <string name="explore_title">Explore more</string>
     <string name="profile_title">Your profile</string>
     <string name="board_games">Board Games Collection</string>
+    <string name="detail_game_title">Detail</string>
 </resources>

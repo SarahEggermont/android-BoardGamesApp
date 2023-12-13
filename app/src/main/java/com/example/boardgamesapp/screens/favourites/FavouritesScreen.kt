@@ -1,10 +1,12 @@
 package com.example.boardgamesapp.screens.favourites
 
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -18,10 +20,35 @@ import com.example.boardgamesapp.components.CardListItem
 
 @Composable
 fun FavouritesScreen(
-    toDetailPage: () -> Unit,
-    favouritesGamesOverviewModel: FavouritesGamesOverviewModel = viewModel()
+    toDetailPage: (id: String) -> Unit,
+    favouritesGamesOverviewModel: FavouritesGamesOverviewModel = viewModel(
+        factory = FavouritesGamesOverviewModel.Factory
+    )
 ) {
     val gamesOverviewState by favouritesGamesOverviewModel.uiState.collectAsState()
+
+    val gameApiState = favouritesGamesOverviewModel.gameApiState
+
+    Box(modifier = Modifier) {
+        when (gameApiState) {
+            is FavouritesApiState.Loading -> Text(text = "Loading...")
+            is FavouritesApiState.Error -> Text(text = "Error while loading your wishlist.")
+            is FavouritesApiState.Success -> GamesListComponent(
+                gamesOverviewState = gamesOverviewState,
+                wishlistGamesOverviewModel = favouritesGamesOverviewModel,
+                toDetailPage = toDetailPage
+            )
+        }
+    }
+}
+
+@Composable
+fun GamesListComponent(
+    gamesOverviewState: FavouritesGamesOverviewState,
+    wishlistGamesOverviewModel: FavouritesGamesOverviewModel,
+    toDetailPage: (id: String) -> Unit
+
+) {
     val lazyListState = rememberLazyListState()
     LazyColumn(
         state = lazyListState,
@@ -31,14 +58,10 @@ fun FavouritesScreen(
     ) {
         items(gamesOverviewState.currentGamesList) {
             CardListItem(
+                id = it.id,
                 title = it.title,
-                minPlayTime = it.minPlayTime,
-                maxPlayTime = it.maxPlayTime,
-                minPlayers = it.minPlayers,
-                maxPlayers = it.maxPlayers,
-                shortDescription = it.shortDescription,
+                year = it.year,
                 thumbnail = it.thumbnail,
-                image = it.image,
                 toDetailPage = toDetailPage
             )
         }
