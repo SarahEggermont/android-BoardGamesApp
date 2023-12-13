@@ -11,3 +11,9 @@ data class ExploreGamesOverviewState(
     val searchActive: Boolean = false,
     val searchHistory: List<String> = listOf()
 )
+
+sealed interface GamesApiState {
+    data class Success(val tasks: List<Game>) : GamesApiState
+    object Error : GamesApiState
+    object Loading : GamesApiState
+}

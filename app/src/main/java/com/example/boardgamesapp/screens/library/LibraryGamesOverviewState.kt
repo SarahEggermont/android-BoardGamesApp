@@ -7,3 +7,9 @@ data class LibraryGamesOverviewState(
     val scrollAtActionIdx: Int = 0,
     val scrollToItemIndex: Int = 0
 )
+
+sealed interface LibraryApiState {
+    data class Success(val tasks: List<Game>) : LibraryApiState
+    object Error : LibraryApiState
+    object Loading : LibraryApiState
+}

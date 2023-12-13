@@ -14,10 +14,7 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedCard
 import androidx.compose.material3.Text
-import androidx.compose.runtime.* // ktlint-disable no-wildcard-imports
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
@@ -34,21 +31,17 @@ import com.example.boardgamesapp.R
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CardListItem(
+    id: String,
     title: String,
-    minPlayTime: Int,
-    maxPlayTime: Int,
-    minPlayers: Int,
-    maxPlayers: Int,
-    shortDescription: String,
     thumbnail: String,
-    image: String,
-    toDetailPage: () -> Unit
+    year: Int,
+    toDetailPage: (id: String) -> Unit
 ) {
     val configuration = LocalConfiguration.current
     val screenWidth = configuration.screenWidthDp.dp
 
     OutlinedCard(
-        onClick = { toDetailPage() },
+        onClick = { toDetailPage(id) },
         border = BorderStroke(
             dimensionResource(id = R.dimen.border_small),
             MaterialTheme.colorScheme.outlineVariant
@@ -73,24 +66,7 @@ fun CardListItem(
                     )
             ) {
                 Text(text = title, style = MaterialTheme.typography.titleLarge)
-                if (minPlayTime == maxPlayTime) {
-                    Text(
-                        text = "$minPlayTime min " +
-                            "($minPlayers - $maxPlayers " + stringResource(
-                                id = R.string.players
-                            ) + ")",
-                        style = MaterialTheme.typography.labelLarge
-                    )
-                } else {
-                    Text(
-                        text = "$minPlayTime - $maxPlayTime min " +
-                            "($minPlayers - $maxPlayers " + stringResource(
-                                id = R.string.players
-                            ) + ")",
-                        style = MaterialTheme.typography.labelLarge
-                    )
-                }
-                Text(text = shortDescription, style = MaterialTheme.typography.bodyMedium)
+                Text(text = year.toString(), style = MaterialTheme.typography.titleMedium)
             }
             Box(
                 modifier = Modifier

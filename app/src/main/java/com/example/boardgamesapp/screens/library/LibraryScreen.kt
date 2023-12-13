@@ -1,10 +1,12 @@
 package com.example.boardgamesapp.screens.library
 
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -18,10 +20,34 @@ import com.example.boardgamesapp.components.CardListItem
 
 @Composable
 fun LibraryScreen(
-    toDetailPage: () -> Unit,
-    libraryGamesOverviewModel: LibraryGamesOverviewModel = viewModel()
+    toDetailPage: (id: String) -> Unit,
+    libraryGamesOverviewModel: LibraryGamesOverviewModel = viewModel(
+        factory = LibraryGamesOverviewModel.Factory
+    )
 ) {
     val gamesOverviewState by libraryGamesOverviewModel.uiState.collectAsState()
+
+    val gameApiState = libraryGamesOverviewModel.gameApiState
+
+    Box(modifier = Modifier) {
+        when (gameApiState) {
+            is LibraryApiState.Loading -> Text(text = "Loading...")
+            is LibraryApiState.Error -> Text(text = "Error while loading your games.")
+            is LibraryApiState.Success -> GamesListComponent(
+                gamesOverviewState = gamesOverviewState,
+                libraryGamesOverviewModel = libraryGamesOverviewModel,
+                toDetailPage = toDetailPage
+            )
+        }
+    }
+}
+
+@Composable
+fun GamesListComponent(
+    gamesOverviewState: LibraryGamesOverviewState,
+    libraryGamesOverviewModel: LibraryGamesOverviewModel,
+    toDetailPage: (id: String) -> Unit
+) {
     val lazyListState = rememberLazyListState()
     LazyColumn(
         state = lazyListState,
@@ -31,14 +57,10 @@ fun LibraryScreen(
     ) {
         items(gamesOverviewState.currentGamesList) {
             CardListItem(
+                id = it.id,
                 title = it.title,
-                minPlayTime = it.minPlayTime,
-                maxPlayTime = it.maxPlayTime,
-                minPlayers = it.minPlayers,
-                maxPlayers = it.maxPlayers,
-                shortDescription = it.shortDescription,
                 thumbnail = it.thumbnail,
-                image = it.image,
+                year = it.year,
                 toDetailPage = toDetailPage
             )
         }
