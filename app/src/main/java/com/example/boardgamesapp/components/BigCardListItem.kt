@@ -3,10 +3,7 @@ package com.example.boardgamesapp.components
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxHeight
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.CardDefaults
@@ -22,7 +19,6 @@ import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
@@ -56,12 +52,8 @@ fun BigCardListItem(
                 vertical = dimensionResource(R.dimen.no_padding)
             )
     ) {
-        Row(
-            modifier = Modifier.height(IntrinsicSize.Min)
-        ) {
+        Row {
             Box(
-                modifier = Modifier
-                    .fillMaxHeight(),
                 contentAlignment = Alignment.CenterStart
             ) {
                 AsyncImage(
@@ -73,7 +65,6 @@ fun BigCardListItem(
                     error = painterResource(R.drawable.ic_broken_image),
                     contentDescription = "$title.jpg",
                     modifier = Modifier
-                        .fillMaxHeight()
                         .width(dimensionResource(R.dimen.picture_box_width)),
                     alignment = Alignment.TopCenter,
                     contentScale = ContentScale.Crop
@@ -85,7 +76,9 @@ fun BigCardListItem(
                     .width(screenWidth)
             ) {
                 Text(text = title, style = MaterialTheme.typography.titleLarge)
-                Text(text = year.toString(), style = MaterialTheme.typography.titleMedium)
+                if (year != 0) {
+                    Text(text = year.toString(), style = MaterialTheme.typography.titleMedium)
+                }
             }
         }
     }

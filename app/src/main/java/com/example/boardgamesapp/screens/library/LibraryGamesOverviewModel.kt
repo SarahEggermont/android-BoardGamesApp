@@ -1,4 +1,4 @@
-package com.example.boardgamesapp
+package com.example.boardgamesapp.screens.library
 
 import android.util.Log
 import androidx.compose.runtime.getValue
@@ -9,10 +9,9 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
+import com.example.boardgamesapp.GamesApplication
 import com.example.boardgamesapp.data.GamesRepository
 import com.example.boardgamesapp.fakeData.BoardGamesSampler
-import com.example.boardgamesapp.screens.library.LibraryApiState
-import com.example.boardgamesapp.screens.library.LibraryGamesOverviewState
 import java.io.IOException
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow

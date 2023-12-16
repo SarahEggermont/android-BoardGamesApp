@@ -3,11 +3,8 @@ package com.example.boardgamesapp.components
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -22,7 +19,6 @@ import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
@@ -49,9 +45,7 @@ fun CardListItem(
         modifier = Modifier
             .padding(horizontal = dimensionResource(id = R.dimen.padding_small))
     ) {
-        Row(
-            modifier = Modifier.height(IntrinsicSize.Min)
-        ) {
+        Row {
             Column(
                 modifier = Modifier
                     .padding(
@@ -66,13 +60,13 @@ fun CardListItem(
                     )
             ) {
                 Text(text = title, style = MaterialTheme.typography.titleLarge)
-                Text(text = year.toString(), style = MaterialTheme.typography.titleMedium)
+                if (year != 0) {
+                    Text(text = year.toString(), style = MaterialTheme.typography.titleMedium)
+                }
             }
             Box(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .fillMaxHeight(),
-                contentAlignment = Alignment.CenterEnd
+                contentAlignment = Alignment.CenterEnd,
+                modifier = Modifier.fillMaxHeight()
             ) {
                 AsyncImage(
                     model = ImageRequest.Builder(LocalContext.current)
@@ -83,8 +77,8 @@ fun CardListItem(
                     error = painterResource(R.drawable.ic_broken_image),
                     contentDescription = "$title.jpg",
                     modifier = Modifier
-                        .fillMaxHeight()
-                        .width(dimensionResource(id = R.dimen.picture_small_width)),
+                        .width(dimensionResource(id = R.dimen.picture_small_width))
+                        .fillMaxHeight(),
                     alignment = Alignment.TopCenter,
                     contentScale = ContentScale.Crop
                 )
