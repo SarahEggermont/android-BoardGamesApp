@@ -4,6 +4,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
@@ -26,11 +27,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.example.boardgamesapp.ExploreGamesOverviewModel
 import com.example.boardgamesapp.R
 import com.example.boardgamesapp.components.BigCardListItem
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ExploreScreen(
     toDetailPage: (id: String) -> Unit,
@@ -46,24 +45,33 @@ fun ExploreScreen(
         when (gameApiState) {
             is GamesApiState.Loading -> Text(text = "Loading...")
             is GamesApiState.Error -> Text(text = "Error while loading the trending games.")
-            is GamesApiState.Success -> GamesListComponent(
-                gamesOverviewState = gamesOverviewState,
-                exploreGamesOverviewModel = exploreGamesOverviewModel,
-                toDetailPage = toDetailPage
-            )
+            is GamesApiState.NotFound ->
+                SearchBarWithElements(
+                    gamesOverviewState = gamesOverviewState,
+                    exploreGamesOverviewModel = exploreGamesOverviewModel,
+                    toDetailPage = toDetailPage,
+                    notFound = true
+                )
+
+            is GamesApiState.Success ->
+                SearchBarWithElements(
+                    gamesOverviewState = gamesOverviewState,
+                    exploreGamesOverviewModel = exploreGamesOverviewModel,
+                    toDetailPage = toDetailPage,
+                    notFound = false
+                )
         }
     }
 }
 
-@ExperimentalMaterial3Api
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun GamesListComponent(
+fun SearchBarWithElements(
     gamesOverviewState: ExploreGamesOverviewState,
     exploreGamesOverviewModel: ExploreGamesOverviewModel,
-    toDetailPage: (id: String) -> Unit
+    toDetailPage: (id: String) -> Unit,
+    notFound: Boolean
 ) {
-    val lazyListState = rememberLazyListState()
-
     Column(
         verticalArrangement = Arrangement.spacedBy(
             dimensionResource(id = R.dimen.spacer_medium)
@@ -130,30 +138,55 @@ fun GamesListComponent(
                 }
             }
         }
-        LazyColumn(
-            state = lazyListState,
-            verticalArrangement = Arrangement.spacedBy(
-                dimensionResource(id = R.dimen.spacer_small)
+        if (notFound) {
+            Text(
+                text = stringResource(id = R.string.no_games_found)
             )
-        ) {
-            item {
-                Text(
-                    text = stringResource(id = R.string.trending),
-                    style = MaterialTheme.typography.titleLarge,
-                    modifier = Modifier.padding(
-                        horizontal = dimensionResource(id = R.dimen.padding_medium)
-                    )
-                )
-            }
-            items(gamesOverviewState.currentGamesList) {
-                BigCardListItem(
-                    id = it.id,
-                    title = it.title,
-                    thumbnail = it.thumbnail,
-                    year = it.year,
-                    toDetailPage = toDetailPage
-                )
-            }
+        } else {
+            GamesListComponent(
+                gamesOverviewState = gamesOverviewState,
+                toDetailPage = toDetailPage
+            )
+        }
+    }
+}
+
+@ExperimentalMaterial3Api
+@Composable
+fun GamesListComponent(
+    gamesOverviewState: ExploreGamesOverviewState,
+    toDetailPage: (id: String) -> Unit
+) {
+    val lazyListState = rememberLazyListState()
+
+    if (gamesOverviewState.currentGamesList == gamesOverviewState.originalGamesList) {
+        Text(
+            text = stringResource(id = R.string.trending),
+            style = MaterialTheme.typography.titleLarge,
+            modifier = Modifier.padding(
+                horizontal = dimensionResource(id = R.dimen.padding_medium)
+            )
+        )
+    }
+
+    LazyColumn(
+        state = lazyListState,
+        verticalArrangement = Arrangement.spacedBy(
+            dimensionResource(id = R.dimen.spacer_small)
+        ),
+        contentPadding = PaddingValues(
+            bottom = dimensionResource(id = R.dimen.padding_small)
+        ),
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        items(gamesOverviewState.currentGamesList) {
+            BigCardListItem(
+                id = it.id,
+                title = if (it.title == null) "" else it.title!!,
+                thumbnail = if (it.thumbnail == null) "" else it.thumbnail!!,
+                year = if (it.year == null) 0 else it.year!!,
+                toDetailPage = toDetailPage
+            )
         }
     }
 }

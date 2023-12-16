@@ -1,10 +1,11 @@
 package com.example.boardgamesapp.data
 
 import com.example.boardgamesapp.network.GameApiService
-import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
-import kotlinx.serialization.json.Json
-import okhttp3.MediaType.Companion.toMediaType
+import com.fasterxml.jackson.databind.DeserializationFeature
+import com.fasterxml.jackson.databind.ObjectMapper
+import com.fasterxml.jackson.module.kotlin.KotlinModule
 import retrofit2.Retrofit
+import retrofit2.converter.jackson.JacksonConverterFactory
 
 interface AppContainer {
     val gamesRepository: GamesRepository
@@ -13,13 +14,17 @@ interface AppContainer {
 // container that takes care of dependencies
 class DefaultAppContainer : AppContainer {
 
-    private val json = Json { ignoreUnknownKeys = true }
+    private val mapper =
+        ObjectMapper().registerModule(KotlinModule())
+            .configure(DeserializationFeature.FAIL_ON_IGNORED_PROPERTIES, false)
+            .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
+            .configure(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY, true)
 
     private val baseUrl =
-        "https://v1.nocodeapi.com/saraheggermont/xml_to_json/CpJuNNIhMvSeKvJf/" // ktlint-disable max-line-length
+        "https://v1.nocodeapi.com/bgg_test/xml_to_json/IEdkUgRqqlSoxyXC/" // ktlint-disable max-line-length
     private val retrofit = Retrofit.Builder()
         .addConverterFactory(
-            json.asConverterFactory("application/json".toMediaType())
+            JacksonConverterFactory.create(mapper)
         )
         .baseUrl(baseUrl)
         .build()

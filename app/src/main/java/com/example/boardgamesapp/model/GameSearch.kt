@@ -1,8 +1,7 @@
 package com.example.boardgamesapp.model
 
-data class Game(
+class GameSearch(
     var id: String,
     var title: String?,
-    var thumbnail: String?,
     var year: Int?
 )

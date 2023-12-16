@@ -1,6 +1,6 @@
-package com.example.boardgamesapp.network
+package com.example.boardgamesapp.network.search
 
-import kotlinx.serialization.SerialName
+import com.fasterxml.jackson.annotation.JsonProperty
 import kotlinx.serialization.Serializable
 
 @Serializable
@@ -11,7 +11,7 @@ data class Parameters(
 
 @Serializable
 class ApiSearchList(
-    @SerialName("$")
+    @JsonProperty("$")
     val parameters: Parameters,
-    val item: List<ApiGame>
+    val item: List<ApiSearchGame>? = emptyList()
 )

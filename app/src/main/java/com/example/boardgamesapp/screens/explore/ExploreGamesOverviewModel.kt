@@ -1,5 +1,6 @@
-package com.example.boardgamesapp
+package com.example.boardgamesapp.screens.explore
 
+import android.content.res.Resources.NotFoundException
 import android.util.Log
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -9,12 +10,10 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
+import com.example.boardgamesapp.GamesApplication
 import com.example.boardgamesapp.data.GamesRepository
 import com.example.boardgamesapp.fakeData.BoardGamesSampler
-import com.example.boardgamesapp.screens.explore.ExploreGamesOverviewState
-import com.example.boardgamesapp.screens.explore.GamesApiState
 import java.io.IOException
-import java.util.Locale
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -39,15 +38,41 @@ class ExploreGamesOverviewModel(private val gamesRepository: GamesRepository) : 
     }
 
     fun searchForGames() {
-        _uiState.update { currentState ->
-            currentState.copy(
-                currentGamesList = currentState.originalGamesList.filter {
-                    it.title.lowercase(Locale.getDefault())
-                        .contains(currentState.searchText.lowercase(Locale.getDefault()))
-                },
-                searchActive = false,
-                searchHistory = currentState.searchHistory + currentState.searchText
-            )
+        viewModelScope.launch {
+            try {
+                if (_uiState.value.searchText == "") {
+                    val listResult = gamesRepository.getTrendingGames()
+                    _uiState.update {
+                        it.copy(
+                            currentGamesList = listResult,
+                            searchActive = false
+                        )
+                    }
+                    gameApiState = GamesApiState.Success(listResult)
+                } else {
+                    val listResult =
+                        gamesRepository.getSearchGame(searchTerm = _uiState.value.searchText)
+                    _uiState.update {
+                        it.copy(
+                            currentGamesList = listResult,
+                            searchActive = false,
+                            searchHistory = it.searchHistory + it.searchText
+                        )
+                    }
+                }
+            } catch (e: NotFoundException) {
+                _uiState.update {
+                    it.copy(
+                        currentGamesList = emptyList(),
+                        searchActive = false,
+                        searchHistory = it.searchHistory + it.searchText
+                    )
+                }
+                gameApiState = GamesApiState.NotFound
+            } catch (e: Exception) {
+                e.message?.let { Log.d("ExploreGamesOverviewModel", it) }
+                gameApiState = GamesApiState.Error
+            }
         }
     }
 

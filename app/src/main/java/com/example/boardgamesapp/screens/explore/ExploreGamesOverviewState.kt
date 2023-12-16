@@ -14,6 +14,7 @@ data class ExploreGamesOverviewState(
 
 sealed interface GamesApiState {
     data class Success(val tasks: List<Game>) : GamesApiState
+    object NotFound : GamesApiState
     object Error : GamesApiState
     object Loading : GamesApiState
 }

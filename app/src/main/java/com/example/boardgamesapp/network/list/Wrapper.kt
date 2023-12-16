@@ -1,4 +1,4 @@
-package com.example.boardgamesapp.network
+package com.example.boardgamesapp.network.list
 
 import kotlinx.serialization.Serializable
 

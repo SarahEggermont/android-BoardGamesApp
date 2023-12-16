@@ -1,6 +1,6 @@
-package com.example.boardgamesapp.network
+package com.example.boardgamesapp.network.list
 
-import kotlinx.serialization.SerialName
+import com.fasterxml.jackson.annotation.JsonProperty
 import kotlinx.serialization.Serializable
 
 @Serializable
@@ -10,7 +10,7 @@ data class TermsOfUse(
 
 @Serializable
 class ApiGamesList(
-    @SerialName("$")
-    val parameters: TermsOfUse,
+    @JsonProperty("$")
+    val parameters: TermsOfUse? = null,
     val item: List<ApiGame>
 )
