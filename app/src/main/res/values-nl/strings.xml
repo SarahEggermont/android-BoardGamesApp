@@ -4,7 +4,7 @@
     <string name="favourites_title">Jouw favorieten</string>
     <string name="explore_title">Ontdek trending</string>
     <string name="profile_title">Jouw profiel</string>
-    <string name="detail_game_title">Spel detail</string>
+    <string name="detail_game_title">Details</string>
     <string name="players">spelers</string>
     <string name="back">Ga terug</string>
     <string name="search_icon">Zoek icoon</string>
@@ -16,4 +16,5 @@
     <string name="library">Bibliotheek</string>
     <string name="favorites">Favorieten</string>
     <string name="explore">Ontdek</string>
+    <string name="no_games_found">Geen spellen gevonden</string>
 </resources>

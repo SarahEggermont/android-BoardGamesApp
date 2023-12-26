@@ -12,7 +12,6 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
@@ -22,8 +21,13 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import com.example.boardgamesapp.Destinations.DETAIL
+import com.example.boardgamesapp.Destinations.EXPLORE
+import com.example.boardgamesapp.Destinations.FAVOURITES
+import com.example.boardgamesapp.Destinations.LIBRARY
 import com.example.boardgamesapp.components.MyBottomAppBar
 import com.example.boardgamesapp.components.MyTopBar
+import com.example.boardgamesapp.screens.detail.DetailScreen
 import com.example.boardgamesapp.screens.explore.ExploreScreen
 import com.example.boardgamesapp.screens.favourites.FavouritesScreen
 import com.example.boardgamesapp.screens.library.LibraryScreen
@@ -55,15 +59,17 @@ fun BoardGamesApp() {
         containerColor = MaterialTheme.colorScheme.surface,
         topBar = {
             val canNavigateBack =
-                currentBackStack?.destination?.route == Destinations.DetailGame.name
+                currentBackStack?.destination?.route == DETAIL
             MyTopBar(
                 canNavigateBack = canNavigateBack,
                 when (currentBackStack?.destination?.route) {
-                    Destinations.Library.name -> R.string.library_title
-                    Destinations.Favourites.name -> R.string.favourites_title
-                    Destinations.Explore.name -> R.string.explore_title
-                    Destinations.DetailGame.name -> R.string.detail_game_title
-                    else -> R.string.board_games
+                    LIBRARY -> stringResource(id = R.string.library_title)
+                    FAVOURITES -> stringResource(id = R.string.favourites_title)
+                    EXPLORE -> stringResource(id = R.string.explore_title)
+                    DETAIL -> currentBackStack?.arguments?.getString("name")
+                        ?: stringResource(id = R.string.detail_game_title)
+
+                    else -> stringResource(id = R.string.board_games)
                 }
             ) {
                 navController.popBackStack()
@@ -71,20 +77,20 @@ fun BoardGamesApp() {
         },
         bottomBar = {
             MyBottomAppBar(
-                goToFav = { navController.navigate(Destinations.Favourites.name) },
-                goToLib = { navController.navigate(Destinations.Library.name) },
-                goToExplore = { navController.navigate(Destinations.Explore.name) }
+                goToFav = { navController.navigate(FAVOURITES) },
+                goToLib = { navController.navigate(LIBRARY) },
+                goToExplore = { navController.navigate(EXPLORE) }
             )
         },
         floatingActionButton = {
             var fabShown = false
             val fabImageIcon = Icons.Default.Edit
             when (currentBackStack?.destination?.route) {
-                Destinations.Library.name -> {
+                LIBRARY -> {
                     fabShown = true
                 }
 
-                Destinations.Favourites.name -> {
+                FAVOURITES -> {
                     fabShown = true
                 }
             }
@@ -97,26 +103,26 @@ fun BoardGamesApp() {
     ) { innerPadding ->
         NavHost(
             navController = navController,
-            startDestination = Destinations.Library.name,
+            startDestination = LIBRARY,
             modifier = Modifier.padding(innerPadding)
         ) {
-            composable(Destinations.Library.name) {
-                LibraryScreen(toDetailPage = {
-                    navController.navigate(Destinations.DetailGame.name)
+            composable(LIBRARY) {
+                LibraryScreen(toDetailPage = { input ->
+                    navController.navigate("Detail/$input")
                 })
             }
-            composable(Destinations.Favourites.name) {
-                FavouritesScreen(toDetailPage = {
-                    navController.navigate(Destinations.DetailGame.name)
+            composable(FAVOURITES) {
+                FavouritesScreen(toDetailPage = { input ->
+                    navController.navigate("Detail/$input")
                 })
             }
-            composable(Destinations.Explore.name) {
-                ExploreScreen(toDetailPage = {
-                    navController.navigate(Destinations.DetailGame.name)
+            composable(EXPLORE) {
+                ExploreScreen(toDetailPage = { input ->
+                    navController.navigate("Detail/$input")
                 })
             }
-            composable(Destinations.DetailGame.name) {
-                Text(text = Destinations.DetailGame.name)
+            composable(DETAIL) {
+                DetailScreen()
             }
         }
     }

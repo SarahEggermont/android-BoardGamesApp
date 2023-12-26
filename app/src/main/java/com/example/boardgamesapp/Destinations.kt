@@ -1,8 +1,8 @@
 package com.example.boardgamesapp
 
-enum class Destinations {
-    Library,
-    Favourites,
-    Explore,
-    DetailGame
+object Destinations {
+    const val LIBRARY = "Library"
+    const val FAVOURITES = "Favourites"
+    const val EXPLORE = "Explore"
+    const val DETAIL = "Detail/{gameId}"
 }

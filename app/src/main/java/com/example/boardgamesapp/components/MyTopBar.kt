@@ -1,6 +1,5 @@
 package com.example.boardgamesapp.components
 
-import androidx.annotation.StringRes
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.CenterAlignedTopAppBar
@@ -19,7 +18,7 @@ import com.example.boardgamesapp.R
 @Composable
 fun MyTopBar(
     canNavigateBack: Boolean,
-    @StringRes title: Int,
+    title: String,
     goBack: () -> Unit
 ) {
     CenterAlignedTopAppBar(
@@ -27,7 +26,7 @@ fun MyTopBar(
             containerColor = MaterialTheme.colorScheme.surface,
             titleContentColor = MaterialTheme.colorScheme.onSurface
         ),
-        title = { Text(stringResource(title)) },
+        title = { Text(title) },
         navigationIcon = {
             if (canNavigateBack) {
                 IconButton(onClick = goBack) {
