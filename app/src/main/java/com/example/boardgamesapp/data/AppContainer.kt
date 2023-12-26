@@ -21,7 +21,7 @@ class DefaultAppContainer : AppContainer {
             .configure(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY, true)
 
     private val baseUrl =
-        "https://v1.nocodeapi.com/bgg_test/xml_to_json/IEdkUgRqqlSoxyXC/" // ktlint-disable max-line-length
+        "https://v1.nocodeapi.com/boardgame_api/xml_to_json/fJUMVDTnHPsAYTLx/"
     private val retrofit = Retrofit.Builder()
         .addConverterFactory(
             JacksonConverterFactory.create(mapper)

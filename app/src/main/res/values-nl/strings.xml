@@ -17,4 +17,5 @@
     <string name="favorites">Favorieten</string>
     <string name="explore">Ontdek</string>
     <string name="no_games_found">Geen spellen gevonden</string>
+    <string name="description">Beschrijving</string>
 </resources>

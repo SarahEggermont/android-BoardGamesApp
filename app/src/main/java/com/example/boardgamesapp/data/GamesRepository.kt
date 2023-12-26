@@ -23,7 +23,7 @@ class ApiGameRepository(private val gameApiService: GameApiService) : GamesRepos
     }
 
     override suspend fun getSearchGame(searchTerm: String): List<Game> {
-        var listApi = gameApiService.getSearchGame(
+        val listApi = gameApiService.getSearchGame(
             "?url=https://boardgamegeek.com/xmlapi2/search?query=$searchTerm"
         )
         if (listApi.items.item?.isEmpty() == true) {

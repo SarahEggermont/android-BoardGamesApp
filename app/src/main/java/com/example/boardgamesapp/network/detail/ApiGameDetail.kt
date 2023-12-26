@@ -43,25 +43,31 @@ data class ApiGameDetail(
     val name: List<NameTypeWrapper>,
     val description: String = "",
     val yearpublished: FieldType? = null,
-    val minPlayers: FieldType? = null,
-    val maxPlayers: FieldType? = null,
-    val minPlayTime: FieldType? = null,
-    val maxPlayTime: FieldType? = null,
+    val minplayers: FieldType? = null,
+    val maxplayers: FieldType? = null,
+    val minplaytime: FieldType? = null,
+    val maxplaytime: FieldType? = null,
     val minage: FieldType? = null
 )
 
 // extension function for a GameApi-List to convert is to a Domain Game List
 fun ApiGameDetail.asDomainObjects(): GameDetail {
+    var desc = description
+        .replace("&#10;", "\n")
+        .replace("&mdash;description from the publisher", "")
+    while (desc.contains("\n\n\n")) {
+        desc = desc.replace("\n\n\n", "\n\n")
+    }
     return GameDetail(
         title = name[0].wrapper.value,
-        shortDescription = description,
+        shortDescription = desc,
         thumbnail = thumbnail,
         image = image,
-        minPlayers = minPlayers?.value?.value?.toInt(),
-        maxPlayers = maxPlayers?.value?.value?.toInt(),
-        minPlayTime = minPlayTime?.value?.value?.toInt(),
-        maxPlayTime = minPlayTime?.value?.value?.toInt(),
-        minAge = minage?.value?.value?.toInt(),
-        year = yearpublished?.value?.value?.toInt()
+        minPlayers = minplayers?.value?.value,
+        maxPlayers = maxplayers?.value?.value,
+        minPlayTime = minplaytime?.value?.value,
+        maxPlayTime = minplaytime?.value?.value,
+        minAge = minage?.value?.value,
+        year = yearpublished?.value?.value
     )
 }

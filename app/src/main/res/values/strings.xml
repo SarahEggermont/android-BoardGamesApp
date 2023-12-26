@@ -20,4 +20,13 @@
     <string name="favorites">Favourites</string>
     <string name="explore">Explore</string>
     <string name="no_games_found">No games found</string>
+    <string name="description">Description</string>
+    <string name="wishlist">Wishlist</string>
+    <string name="add_to_wishlist">Add to wishlist</string>
+    <string name="add_to_library">Add to library</string>
+    <string name="remove_from_library">Remove from library</string>
+    <string name="remove_from_favourites">Remove from wishlist</string>
+    <string name="number_of_players">Number of players</string>
+    <string name="playing_time">Playing time</string>
+    <string name="minimum_age">Minimum age</string>
 </resources>
