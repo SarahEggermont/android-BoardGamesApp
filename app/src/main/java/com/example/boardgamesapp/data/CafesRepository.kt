@@ -11,6 +11,7 @@ import com.example.boardgamesapp.network.asDomainObject
 import com.example.boardgamesapp.network.asDomainObjects
 import com.example.boardgamesapp.network.getCafeAsFlow
 import com.example.boardgamesapp.network.getCafesAsFlow
+import com.example.boardgamesapp.network.getCafesSearchAsFlow
 import java.net.SocketTimeoutException
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
@@ -18,12 +19,14 @@ import kotlinx.coroutines.flow.onEach
 
 interface CafesRepository {
     fun getCafes(): Flow<List<Cafe>>
+    fun getCafes(search: String): Flow<List<Cafe>>
     fun getCafe(name: String): Flow<Cafe>
 
     suspend fun insertTask(cafe: Cafe)
     suspend fun deleteTask(cafe: Cafe)
     suspend fun updateTask(cafe: Cafe)
     suspend fun refresh()
+    suspend fun refreshSearch(search: String)
     suspend fun refreshOne(name: String)
 }
 
@@ -35,6 +38,16 @@ class ApiCafesRepository(private val cafeDao: CafeDao, private val cafeApiServic
         }.onEach {
             if (it.isEmpty()) {
                 refresh()
+            }
+        }
+    }
+
+    override fun getCafes(search: String): Flow<List<Cafe>> {
+        return cafeDao.getAllItems("%$search%").map {
+            it.asDomainCafes()
+        }.onEach {
+            if (it.isEmpty()) {
+                refreshSearch(search)
             }
         }
     }
@@ -63,6 +76,18 @@ class ApiCafesRepository(private val cafeDao: CafeDao, private val cafeApiServic
     override suspend fun refresh() {
         try {
             cafeApiService.getCafesAsFlow().asDomainObjects().collect { value ->
+                for (cafe in value) {
+                    cafeDao.insert(cafe.asDbCafe())
+                }
+            }
+        } catch (e: SocketTimeoutException) {
+            Log.e("ApiCafesRepository", "refresh: ${e.message}")
+        }
+    }
+
+    override suspend fun refreshSearch(search: String) {
+        try {
+            cafeApiService.getCafesSearchAsFlow(search).asDomainObjects().collect { value ->
                 for (cafe in value) {
                     cafeDao.insert(cafe.asDbCafe())
                 }
