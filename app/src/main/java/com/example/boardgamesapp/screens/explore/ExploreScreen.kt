@@ -42,18 +42,25 @@ fun ExploreScreen(
     val cafeApiState = exploreCafesViewModel.cafesApiState
 
     Box(modifier = Modifier) {
-        var notFound = false
         when (cafeApiState) {
             is CafesApiState.Loading -> Text(text = stringResource(id = R.string.loading))
             is CafesApiState.Error -> Text(text = stringResource(id = R.string.error))
-            is CafesApiState.NotFound -> notFound = true
+            is CafesApiState.NotFound ->
+                SearchBarWithElements(
+                    cafesState = cafesState,
+                    cafesListState = cafesListState,
+                    exploreCafesViewModel = exploreCafesViewModel,
+                    toDetailPage = toDetailPage,
+                    notFound = true
+                )
+
             is CafesApiState.Success ->
                 SearchBarWithElements(
                     cafesState = cafesState,
                     cafesListState = cafesListState,
                     exploreCafesViewModel = exploreCafesViewModel,
                     toDetailPage = toDetailPage,
-                    notFound = notFound
+                    notFound = false
                 )
         }
     }

@@ -52,7 +52,7 @@ class DetailOverviewModel(
                     started = SharingStarted.WhileSubscribed(5_000L),
                     initialValue = DetailItemState(Cafe())
                 )
-            if (uiItemState.value.cafe.nameNl == null) {
+            if (uiItemState.value.cafe.nameNl == "") {
                 detailApiState = DetailApiState.NotFound
                 return
             }

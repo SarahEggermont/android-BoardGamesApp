@@ -38,8 +38,6 @@ fun FavouritesScreen(
             )
 
             is FavouritesApiState.Success -> CafesListComponent(
-                cafesState = cafeState,
-                favouritesViewModel = favouriteCafesViewModel,
                 cafesListState = cafesListState,
                 toDetailPage = toDetailPage
             )
@@ -49,9 +47,7 @@ fun FavouritesScreen(
 
 @Composable
 fun CafesListComponent(
-    cafesState: FavouritesCafeState,
     cafesListState: FavouritesCafeListState,
-    favouritesViewModel: FavouritesCafesViewModel,
     toDetailPage: (name: String) -> Unit
 
 ) {
