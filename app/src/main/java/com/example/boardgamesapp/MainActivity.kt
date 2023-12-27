@@ -28,7 +28,7 @@ import com.example.boardgamesapp.components.MyTopBar
 import com.example.boardgamesapp.screens.detail.DetailScreen
 import com.example.boardgamesapp.screens.explore.ExploreScreen
 import com.example.boardgamesapp.screens.favourites.FavouritesScreen
-import com.example.boardgamesapp.ui.theme.CafeAppTheme
+import com.example.compose.CafeAppTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

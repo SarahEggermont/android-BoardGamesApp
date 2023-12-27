@@ -1,15 +1,24 @@
 package com.example.boardgamesapp.screens.detail
 
+import android.content.Context
+import android.net.Uri
+import android.util.Log
 import androidx.annotation.StringRes
+import androidx.browser.customtabs.CustomTabsIntent
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.Check
+import androidx.compose.material.icons.filled.TravelExplore
 import androidx.compose.material3.Button
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
@@ -67,27 +76,19 @@ fun DetailScreenList(
     detailOverviewModel: DetailOverviewModel
 ) {
     val lazyListState = rememberLazyListState()
+    val context = LocalContext.current
     LazyColumn(
         state = lazyListState,
         verticalArrangement = Arrangement.spacedBy(
             dimensionResource(id = R.dimen.spacer_small)
-        )
+        ),
+        contentPadding = PaddingValues(dimensionResource(id = R.dimen.spacer_medium))
     ) {
         item {
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.Center
-            ) {
-                Text(
-                    style = MaterialTheme.typography.titleLarge,
-                    text = detailItemState.cafe.nameNl
-                )
-            }
-        }
-        item {
-            Box(
-                contentAlignment = Alignment.Center
+                horizontalArrangement = Arrangement.SpaceBetween
             ) {
                 SubcomposeAsyncImage(
                     model = ImageRequest.Builder(LocalContext.current)
@@ -110,37 +111,45 @@ fun DetailScreenList(
                     alignment = Alignment.CenterStart,
                     contentScale = ContentScale.Crop
                 )
-            }
-        }
-        item {
-            Row(
-                modifier = Modifier
-                    .padding(
-                        start = dimensionResource(id = R.dimen.spacer_small),
-                        end = dimensionResource(id = R.dimen.spacer_small)
-                    )
-                    .fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceBetween
-            ) {
-                Button(
-                    onClick = { /*TODO*/ }
-                ) {
-//                    if (detailOverviewState.inFavourites) {
-//                        Icon(
-//                            Icons.Default.Check,
-//                            contentDescription = stringResource(
-//                                id = R.string.remove_from_favourites
-//                            )
-//                        )
-//                    } else {
-//                        Icon(
-//                            Icons.Default.Add,
-//                            contentDescription = stringResource(
-//                                id = R.string.add_to_wishlist
-//                            )
-//                        )
-//                    }
-//                    Text(text = stringResource(id = R.string.wishlist))
+                Column {
+                    Button(
+                        onClick = { /*TODO*/ },
+                        contentPadding = PaddingValues(
+                            start = dimensionResource(id = R.dimen.spacer_small),
+                            end = dimensionResource(id = R.dimen.spacer_small)
+                        )
+                    ) {
+                        if (detailState.inFavourites) {
+                            Icon(
+                                Icons.Default.Check,
+                                contentDescription = stringResource(
+                                    id = R.string.remove_from_favs
+                                )
+                            )
+                            Text(text = stringResource(id = R.string.remove_from_favs))
+                        } else {
+                            Icon(
+                                Icons.Default.Add,
+                                contentDescription = stringResource(
+                                    id = R.string.add_to_favs
+                                )
+                            )
+                            Text(text = stringResource(id = R.string.add_to_favs))
+                        }
+                    }
+                    Button(
+                        onClick = {
+                            openGoogleScreen(detailItemState.cafe.url, context)
+                        }
+                    ) {
+                        Icon(
+                            Icons.Default.TravelExplore,
+                            contentDescription = stringResource(
+                                id = R.string.website
+                            )
+                        )
+                        Text(text = stringResource(id = R.string.website))
+                    }
                 }
             }
         }
@@ -156,13 +165,52 @@ fun DetailScreenList(
                     dimensionResource(id = R.dimen.spacer_small)
                 )
             ) {
+                Text(
+                    style = MaterialTheme.typography.bodySmall,
+                    text = stringResource(id = R.string.modified) +
+                        ": " +
+                        detailItemState.cafe.modified.split(
+                            'T'
+                        )[0]
+                )
+                Text(
+                    text = "${detailItemState.cafe.address}, ${detailItemState.cafe.postal} ${detailItemState.cafe.local}",
+                    style = MaterialTheme.typography.labelSmall
+                )
                 TitleAndText(
-                    title = R.string.description,
+                    title = R.string.description_nl,
                     text = detailItemState.cafe.descriptionNl
+                )
+                TitleAndText(
+                    title = R.string.description_en,
+                    text = detailItemState.cafe.descriptionEn
+                )
+                TitleAndText(
+                    title = R.string.description_de,
+                    text = detailItemState.cafe.descriptionDe
+                )
+                TitleAndText(
+                    title = R.string.description_fr,
+                    text = detailItemState.cafe.descriptionFr
+                )
+                TitleAndText(
+                    title = R.string.description_es,
+                    text = detailItemState.cafe.descriptionEs
                 )
             }
         }
     }
+}
+
+fun openGoogleScreen(url: String, context: Context) {
+    val customTabs = CustomTabsIntent.Builder()
+        .setShowTitle(true)
+        .build()
+    Log.d("DetailScreen", "openGoogleScreen: $url")
+    customTabs.launchUrl(
+        context,
+        Uri.parse(url)
+    )
 }
 
 @Composable

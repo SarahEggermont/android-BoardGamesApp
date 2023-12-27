@@ -14,9 +14,18 @@
     <string name="favorites">Favorieten</string>
     <string name="explore">Ontdek</string>
     <string name="no_cafe_found">Geen café gevonden, probeer het later opnieuw.</string>
-    <string name="description">Beschrijving</string>
+    <string name="description_nl">Beschrijving (NL)</string>
     <string name="cafes_title">Cafés</string>
     <string name="loading">Aan het laden…</string>
     <string name="error">Er liep iets mis, probeer het later opnieuw.</string>
     <string name="no_cafes_found">Geen cafés gevonden, probeer het later opnieuw.</string>
+    <string name="favourites">Favorieten</string>
+    <string name="add_to_favs">Toevoegen aan favorieten</string>
+    <string name="remove_from_favs">Verwijderen uit favorieten</string>
+    <string name="description_en">Decription (EN)</string>
+    <string name="description_de">Beschreibung (DE)</string>
+    <string name="description_fr">Description (FR)</string>
+    <string name="description_es">Descripción (ES)</string>
+    <string name="website">Website</string>
+    <string name="modified">Laatst gewijzigd op</string>
 </resources>
