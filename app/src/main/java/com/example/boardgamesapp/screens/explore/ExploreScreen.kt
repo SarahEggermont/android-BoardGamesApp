@@ -176,7 +176,6 @@ fun GamesListComponent(
     ) {
         items(cafesListState.cafesList) {
             BigCardListItem(
-                id = it.id,
                 title = it.nameNl,
                 description = it.descriptionNl,
                 category = it.catnameNl,

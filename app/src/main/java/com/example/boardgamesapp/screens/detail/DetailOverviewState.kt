@@ -3,8 +3,7 @@ package com.example.boardgamesapp.screens.detail
 import com.example.boardgamesapp.model.Cafe
 
 data class DetailState(
-    val inFavourites: Boolean = false,
-    val inLibrary: Boolean = false
+    val inFavourites: Boolean = false
 )
 
 data class DetailItemState(
