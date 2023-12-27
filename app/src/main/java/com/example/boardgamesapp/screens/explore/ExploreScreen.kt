@@ -42,25 +42,18 @@ fun ExploreScreen(
     val cafeApiState = exploreCafesViewModel.cafesApiState
 
     Box(modifier = Modifier) {
+        var notFound = false
         when (cafeApiState) {
-            is CafesApiState.Loading -> Text(text = "Aan het laden...")
-            is CafesApiState.Error -> Text(text = "Fout tijdens het laden van de Gentse cafés.")
-            is CafesApiState.NotFound ->
-                SearchBarWithElements(
-                    cafesState = cafesState,
-                    cafesListState = cafesListState,
-                    exploreCafesViewModel = exploreCafesViewModel,
-                    toDetailPage = toDetailPage,
-                    notFound = true
-                )
-
+            is CafesApiState.Loading -> Text(text = stringResource(id = R.string.loading))
+            is CafesApiState.Error -> Text(text = stringResource(id = R.string.error))
+            is CafesApiState.NotFound -> notFound = true
             is CafesApiState.Success ->
                 SearchBarWithElements(
                     cafesState = cafesState,
                     cafesListState = cafesListState,
                     exploreCafesViewModel = exploreCafesViewModel,
                     toDetailPage = toDetailPage,
-                    notFound = false
+                    notFound = notFound
                 )
         }
     }
@@ -87,7 +80,7 @@ fun SearchBarWithElements(
                 exploreCafesViewModel.setNewSearchText(it)
             },
             onSearch = {
-//               TODO: exploreCafesViewModel.searchForGames()
+                exploreCafesViewModel.searchForCafes()
             },
             active = cafesState.searchActive,
             onActiveChange = {
@@ -109,6 +102,7 @@ fun SearchBarWithElements(
                                 exploreCafesViewModel.clearSearchText()
                             } else {
                                 exploreCafesViewModel.setActiveSearch(false)
+                                exploreCafesViewModel.searchForCafes()
                             }
                         }
                     )
@@ -135,30 +129,25 @@ fun SearchBarWithElements(
                         text = it,
                         modifier = Modifier.clickable {
                             exploreCafesViewModel.setNewSearchText(it)
-//                            TODO: exploreCafesViewModel.searchForGames()
+                            exploreCafesViewModel.searchForCafes()
                         }
                     )
                 }
             }
         }
         if (notFound) {
-            Text(
-                text = stringResource(id = R.string.no_cafes_found)
-            )
-        } else {
-            GamesListComponent(
-                cafesState = cafesState,
-                cafesListState = cafesListState,
-                toDetailPage = toDetailPage
-            )
+            Text(text = stringResource(id = R.string.not_found))
         }
+        GamesListComponent(
+            cafesListState = cafesListState,
+            toDetailPage = toDetailPage
+        )
     }
 }
 
 @ExperimentalMaterial3Api
 @Composable
 fun GamesListComponent(
-    cafesState: ExploreCafesState,
     cafesListState: ExploreCafesListState,
     toDetailPage: (name: String) -> Unit
 ) {

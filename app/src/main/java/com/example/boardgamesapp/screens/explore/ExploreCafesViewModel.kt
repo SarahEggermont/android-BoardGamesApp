@@ -36,44 +36,33 @@ class ExploreCafesViewModel(private val cafesRepository: CafesRepository) : View
         getApiCafes()
     }
 
-//    fun searchForGames() {
-//        viewModelScope.launch {
-//            try {
-//                if (_uiState.value.searchText == "") {
-//                    val listResult = gamesRepository.getTrendingGames()
-//                    _uiState.update {
-//                        it.copy(
-//                            currentGamesList = listResult,
-//                            searchActive = false
-//                        )
-//                    }
-//                    gameApiState = GamesApiState.Success(listResult)
-//                } else {
-//                    val listResult =
-//                        gamesRepository.getSearchGame(searchTerm = _uiState.value.searchText)
-//                    _uiState.update {
-//                        it.copy(
-//                            currentGamesList = listResult,
-//                            searchActive = false,
-//                            searchHistory = it.searchHistory + it.searchText
-//                        )
-//                    }
-//                }
-//            } catch (e: NotFoundException) {
-//                _uiState.update {
-//                    it.copy(
-//                        currentGamesList = emptyList(),
-//                        searchActive = false,
-//                        searchHistory = it.searchHistory + it.searchText
-//                    )
-//                }
-//                gameApiState = GamesApiState.NotFound
-//            } catch (e: Exception) {
-//                e.message?.let { Log.d("ExploreGamesOverviewModel", it) }
-//                gameApiState = GamesApiState.Error
-//            }
-//        }
-//    }
+    fun searchForCafes() {
+        if (_uiState.value.searchText.isEmpty()) {
+            getApiCafes()
+        } else {
+            try {
+                viewModelScope.launch { cafesRepository.refreshSearch(_uiState.value.searchText) }
+
+                uiListState = cafesRepository.getCafes(_uiState.value.searchText)
+                    .map { ExploreCafesListState(it) }
+                    .stateIn(
+                        scope = viewModelScope,
+                        started = SharingStarted.WhileSubscribed(5_000L),
+                        initialValue = ExploreCafesListState()
+                    )
+                _uiState.update {
+                    it.copy(
+                        searchActive = false,
+                        searchHistory = it.searchHistory + it.searchText
+                    )
+                }
+                cafesApiState = CafesApiState.Success
+            } catch (e: IOException) {
+                Log.e("ExploreCafesViewModel", "getApiCafes: ${e.message}")
+                cafesApiState = CafesApiState.Error
+            }
+        }
+    }
 
     fun setNewSearchText(text: String) {
         _uiState.update {
@@ -109,6 +98,9 @@ class ExploreCafesViewModel(private val cafesRepository: CafesRepository) : View
                     started = SharingStarted.WhileSubscribed(5_000L),
                     initialValue = ExploreCafesListState()
                 )
+            if (uiListState.value.cafesList.isEmpty()) {
+                cafesApiState = CafesApiState.NotFound
+            }
             cafesApiState = CafesApiState.Success
         } catch (e: IOException) {
             Log.e("ExploreCafesViewModel", "getApiCafes: ${e.message}")

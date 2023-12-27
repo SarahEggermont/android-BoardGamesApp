@@ -25,4 +25,7 @@ interface CafeDao {
 
     @Query("SELECT * from cafes ORDER BY name_nl ASC")
     fun getAllItems(): Flow<List<DbCafe>>
+
+    @Query("SELECT * from cafes WHERE name_nl LIKE :search ORDER BY name_nl ASC")
+    fun getAllItems(search: String): Flow<List<DbCafe>>
 }

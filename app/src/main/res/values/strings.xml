@@ -28,4 +28,5 @@
     <string name="description_es">Descripción (ES)</string>
     <string name="website">Website</string>
     <string name="modified">Laatst gewijzigd op</string>
+    <string name="not_found">Er werd geen café gevonden dat aan de zoekcriteria volstaat.</string>
 </resources>

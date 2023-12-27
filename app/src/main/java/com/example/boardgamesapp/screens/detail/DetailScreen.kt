@@ -175,7 +175,7 @@ fun DetailScreenList(
                 )
                 Text(
                     text = "${detailItemState.cafe.address}, ${detailItemState.cafe.postal} ${detailItemState.cafe.local}",
-                    style = MaterialTheme.typography.labelSmall
+                    style = MaterialTheme.typography.labelLarge
                 )
                 TitleAndText(
                     title = R.string.description_nl,
