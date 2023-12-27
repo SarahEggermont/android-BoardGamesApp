@@ -8,13 +8,25 @@ import kotlinx.serialization.json.Json
 import okhttp3.MediaType.Companion.toMediaType
 import retrofit2.Retrofit
 
+/**
+ * The app container.
+ * This is used to provide the repositories.
+ * @property cafesRepository the cafes repository.
+ */
 interface AppContainer {
     val cafesRepository: CafesRepository
 }
 
-// container that takes care of dependencies
+/**
+ * The default app container, takes care of dependencies.
+ * @see AppContainer
+ */
 class DefaultAppContainer(private val context: Context) : AppContainer {
 
+    /**
+     * Json settings, to ignore keys in the dataset we don't need.
+     * @return a json converter factory.
+     */
     private val json = Json {
         ignoreUnknownKeys = true
     }
@@ -31,6 +43,10 @@ class DefaultAppContainer(private val context: Context) : AppContainer {
         retrofit.create(CafeApiService::class.java)
     }
 
+    /**
+     * Get the cafes repository.
+     * @return the cafes repository.
+     */
     override val cafesRepository: CafesRepository by lazy {
         ApiCafesRepository(CafeDb.getDatabase(context = context).cafeDao(), retrofitService)
     }

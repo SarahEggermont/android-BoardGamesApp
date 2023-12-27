@@ -30,7 +30,15 @@ import com.example.boardgamesapp.screens.explore.ExploreScreen
 import com.example.boardgamesapp.screens.favourites.FavouritesScreen
 import com.example.compose.CafeAppTheme
 
+/**
+ * The main activity of the app.
+ */
 class MainActivity : ComponentActivity() {
+
+    /**
+     * The onCreate method of the activity.
+     * @param savedInstanceState the saved instance state.
+     */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -47,6 +55,9 @@ class MainActivity : ComponentActivity() {
     }
 }
 
+/**
+ * The main app with the navigation.
+ */
 @Composable
 fun CafesApp() {
     val navController = rememberNavController()

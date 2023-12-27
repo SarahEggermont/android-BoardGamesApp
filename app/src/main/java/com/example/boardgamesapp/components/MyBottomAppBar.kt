@@ -16,12 +16,26 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import com.example.boardgamesapp.R
 
+/**
+ * Bottom app bar element
+ *
+ * @property label the label of the element
+ * @property icon the icon of the element
+ * @property goToPage the function to navigate to the page of the element
+ * @constructor Create empty Bottom app bar element
+ */
 data class BottomAppBarElement(
     val label: String,
     val icon: ImageVector,
     val goToPage: () -> Unit
 )
 
+/**
+ * A bottom navigation bar that navigates between the different screens.
+ *
+ * @param goToFav the function to navigate to the favorites page.
+ * @param goToExplore the function to navigate to the explore page.
+ */
 @Composable
 fun MyBottomAppBar(
     goToFav: () -> Unit,

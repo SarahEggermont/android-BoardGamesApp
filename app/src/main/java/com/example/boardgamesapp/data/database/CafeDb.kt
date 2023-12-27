@@ -5,10 +5,21 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 
+/**
+ * Database for the app.
+ * Contains the [CafeDao].
+ */
 @Database(entities = [DbCafe::class], version = 3, exportSchema = false)
 abstract class CafeDb : RoomDatabase() {
+    /**
+     * Gets the [CafeDao].
+     * @return [CafeDao].
+     */
     abstract fun cafeDao(): CafeDao
 
+    /**
+     * Companion object for the database to make sure there is only 1 instance of it.
+     */
     companion object {
         @Volatile
         private var Instance: CafeDb? = null

@@ -20,12 +20,17 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 
-class FavouritesCafesViewModel(private val cafesRepository: CafesRepository) : ViewModel() {
+/**
+ * The view model for the favourites screen.
+ * @param cafesRepository the cafes repository.
+ */
+class FavouriteCafesViewModel(private val cafesRepository: CafesRepository) : ViewModel() {
     private val _uiState =
         MutableStateFlow(FavouritesCafeState())
     val uiState: StateFlow<FavouritesCafeState> = _uiState.asStateFlow()
     lateinit var uiListState: StateFlow<FavouritesCafeListState>
 
+    // initial value is Loading
     var cafesApiState: FavouritesApiState by mutableStateOf(FavouritesApiState.Loading)
         private set
 
@@ -33,6 +38,9 @@ class FavouritesCafesViewModel(private val cafesRepository: CafesRepository) : V
         getApiCafes()
     }
 
+    /**
+     * Refreshes the cafes.
+     */
     private fun getApiCafes() {
         try {
             viewModelScope.launch { cafesRepository.refresh() }
@@ -50,7 +58,10 @@ class FavouritesCafesViewModel(private val cafesRepository: CafesRepository) : V
         }
     }
 
-    // object to tell the android framework how to handle the parameter of the viewmodel
+    /**
+     * Factory for the [FavouriteCafesViewModel].
+     * Object to tell the android framework how to handle the parameter of the view-model
+     */
     companion object {
         val Factory: ViewModelProvider.Factory = viewModelFactory {
             initializer {
@@ -60,7 +71,7 @@ class FavouritesCafesViewModel(private val cafesRepository: CafesRepository) : V
                             as CafeApplication
                         )
                 val cafesRepository = application.container.cafesRepository
-                FavouritesCafesViewModel(
+                FavouriteCafesViewModel(
                     cafesRepository = cafesRepository
                 )
             }

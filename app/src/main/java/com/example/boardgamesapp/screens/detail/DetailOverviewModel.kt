@@ -23,6 +23,12 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 
+/**
+ * The view model for the detail screen.
+ * @param savedStateHandle the saved state handle.
+ * @param cafesRepository the cafes repository.
+ * @constructor loads the cafe details.
+ */
 class DetailOverviewModel(
     savedStateHandle: SavedStateHandle,
     private val cafesRepository: CafesRepository
@@ -34,6 +40,7 @@ class DetailOverviewModel(
     val uiState: StateFlow<DetailState> = _uiState.asStateFlow()
     lateinit var uiItemState: StateFlow<DetailItemState>
 
+    // initial value is Loading
     var detailApiState: DetailApiState by mutableStateOf(DetailApiState.Loading)
         private set
 
@@ -43,6 +50,10 @@ class DetailOverviewModel(
         getApiCafe(cafeName)
     }
 
+    /**
+     * Loads the cafe details.
+     * @param cafeName the name of the cafe to load.
+     */
     private fun getApiCafe(cafeName: String) {
         try {
             viewModelScope.launch { cafesRepository.refreshOne(cafeName) }
@@ -63,6 +74,9 @@ class DetailOverviewModel(
         }
     }
 
+    /**
+     * Factory for the [DetailOverviewModel].
+     */
     companion object {
         val Factory: ViewModelProvider.Factory = viewModelFactory {
             initializer {

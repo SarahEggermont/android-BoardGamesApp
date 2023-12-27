@@ -29,6 +29,11 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.boardgamesapp.R
 import com.example.boardgamesapp.components.BigCardListItem
 
+/**
+ * The explore screen.
+ * @param toDetailPage the navigation to the detail page of the cafe.
+ * @param exploreCafesViewModel the view model for the explore screen.
+ */
 @Composable
 fun ExploreScreen(
     toDetailPage: (name: String) -> Unit,
@@ -66,6 +71,14 @@ fun ExploreScreen(
     }
 }
 
+/**
+ * A column with a searchbar and card-elements.
+ * @param cafesState the state of the explore screen.
+ * @param cafesListState the state of the explore list.
+ * @param exploreCafesViewModel the view model for the explore screen.
+ * @param toDetailPage the navigation to the detail page of the cafe.
+ * @param notFound whether the cafe is not found.
+ */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SearchBarWithElements(
@@ -145,16 +158,21 @@ fun SearchBarWithElements(
         if (notFound) {
             Text(text = stringResource(id = R.string.not_found))
         }
-        GamesListComponent(
+        CafesListComponent(
             cafesListState = cafesListState,
             toDetailPage = toDetailPage
         )
     }
 }
 
+/**
+ * A list of card-elements.
+ * @param cafesListState the state of the explore list.
+ * @param toDetailPage the navigation to the detail page of the cafe.
+ */
 @ExperimentalMaterial3Api
 @Composable
-fun GamesListComponent(
+fun CafesListComponent(
     cafesListState: ExploreCafesListState,
     toDetailPage: (name: String) -> Unit
 ) {

@@ -21,6 +21,11 @@ import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
+/**
+ * The view model for the explore cafes screen.
+ * @param cafesRepository the cafes repository.
+ * @constructor loads the cafes.
+ */
 class ExploreCafesViewModel(private val cafesRepository: CafesRepository) : ViewModel() {
     private val _uiState =
         MutableStateFlow(
@@ -29,6 +34,7 @@ class ExploreCafesViewModel(private val cafesRepository: CafesRepository) : View
     val uiState: StateFlow<ExploreCafesState> = _uiState.asStateFlow()
     lateinit var uiListState: StateFlow<ExploreCafesListState>
 
+    // initial value is Loading
     var cafesApiState: CafesApiState by mutableStateOf(CafesApiState.Loading)
         private set
 
@@ -36,6 +42,10 @@ class ExploreCafesViewModel(private val cafesRepository: CafesRepository) : View
         getApiCafes()
     }
 
+    /**
+     * Searches for cafes depending on the searchText in the _uiState.
+     * @see _uiState
+     */
     fun searchForCafes() {
         if (_uiState.value.searchText.isEmpty()) {
             getApiCafes()
@@ -64,6 +74,11 @@ class ExploreCafesViewModel(private val cafesRepository: CafesRepository) : View
         }
     }
 
+    /**
+     * Set new search text
+     *
+     * @param text
+     */
     fun setNewSearchText(text: String) {
         _uiState.update {
             it.copy(
@@ -72,6 +87,9 @@ class ExploreCafesViewModel(private val cafesRepository: CafesRepository) : View
         }
     }
 
+    /**
+     * Clear search text
+     */
     fun clearSearchText() {
         _uiState.update {
             it.copy(
@@ -80,6 +98,11 @@ class ExploreCafesViewModel(private val cafesRepository: CafesRepository) : View
         }
     }
 
+    /**
+     * Set active search
+     *
+     * @param active
+     */
     fun setActiveSearch(active: Boolean) {
         _uiState.update {
             it.copy(
@@ -88,6 +111,9 @@ class ExploreCafesViewModel(private val cafesRepository: CafesRepository) : View
         }
     }
 
+    /**
+     * Loads the cafes.
+     */
     private fun getApiCafes() {
         try {
             viewModelScope.launch { cafesRepository.refresh() }
@@ -108,7 +134,10 @@ class ExploreCafesViewModel(private val cafesRepository: CafesRepository) : View
         }
     }
 
-    // object to tell the android framework how to handle the parameter of the viewmodel
+    /**
+     * Factory for the [ExploreCafesViewModel].
+     * Object to tell the android framework how to handle the parameter of the view-model
+     */
     companion object {
         val Factory: ViewModelProvider.Factory = viewModelFactory {
             initializer {

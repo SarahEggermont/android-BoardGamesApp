@@ -4,6 +4,34 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.example.boardgamesapp.model.Cafe
 
+/**
+ * Entity for the cafes.
+ * @property objectid: Id of the cafe.
+ * @property poi: Url to the "Point Of Interest"-page of the cafe.
+ * @property name_nl: Name of the cafe in Dutch.
+ * @property name_en: Name of the cafe in English.
+ * @property name_fr: Name of the cafe in French.
+ * @property name_de: Name of the cafe in German.
+ * @property name_es: Name of the cafe in Spanish.
+ * @property description_nl: Description of the cafe in Dutch.
+ * @property description_en: Description of the cafe in English.
+ * @property description_fr: Description of the cafe in French.
+ * @property description_de: Description of the cafe in German.
+ * @property description_es: Description of the cafe in Spanish.
+ * @property url: Url of the cafe.
+ * @property modified: Date of last adjustment of the cafe's information.
+ * @property catname_nl: Category name of the cafe in Dutch.
+ * @property address: Address of the cafe.
+ * @property postal: Postal code of the cafe.
+ * @property local: City of the cafe.
+ * @property icon: Icon of the cafe.
+ * @property type: Type of the cafe (see_do or eat_drink).
+ * @property symbol: Symbol-type of the icon of the cafe.
+ * @property identifier: Identifier of the cafe.
+ * @property geo_point_x: Geo point x of the cafe.
+ * @property geo_point_y: Geo point y of the cafe.
+ * @constructor Creates a [DbCafe].
+ */
 @Entity(tableName = "cafes")
 data class DbCafe(
     @PrimaryKey
@@ -33,6 +61,10 @@ data class DbCafe(
     val geo_point_y: Double = 0.0
 )
 
+/**
+ * Converts a [DbCafe] to a [Cafe].
+ * @return The converted [Cafe].
+ */
 fun DbCafe.asDomainCafe(): Cafe {
     return Cafe(
         this.objectid,
@@ -61,6 +93,10 @@ fun DbCafe.asDomainCafe(): Cafe {
     )
 }
 
+/**
+ * Converts a [Cafe] to a [DbCafe].
+ * @return The converted [DbCafe].
+ */
 fun Cafe.asDbCafe(): DbCafe {
     return DbCafe(
         objectid = this.id,
@@ -90,6 +126,10 @@ fun Cafe.asDbCafe(): DbCafe {
     )
 }
 
+/**
+ * Converts a list of [DbCafe] to a list of [Cafe].
+ * @return The converted list of [Cafe].
+ */
 fun List<DbCafe>.asDomainCafes(): List<Cafe> {
     val cafeList = this.map {
         Cafe(

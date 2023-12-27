@@ -26,6 +26,15 @@ import coil.decode.SvgDecoder
 import coil.request.ImageRequest
 import com.example.boardgamesapp.R
 
+/**
+ * A card representation of a bar.
+ *
+ * @param title the name of the bar.
+ * @param description the description of the bar in Dutch.
+ * @param category the category of the bar in Dutch.
+ * @param thumbnail the url of the icon of the category of the bar.
+ * @param toDetailPage the function to navigate to the detail page of the bar.
+ */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun BigCardListItem(

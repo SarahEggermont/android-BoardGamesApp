@@ -13,6 +13,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.stringResource
 import com.example.boardgamesapp.R
 
+/**
+ * A top bar that displays the title and a back button.
+ *
+ * @param canNavigateBack whether the top bar can navigate back.
+ * @param title the title of the top bar.
+ * @param goBack the function to navigate back.
+ */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MyTopBar(

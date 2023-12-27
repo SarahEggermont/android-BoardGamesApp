@@ -18,6 +18,9 @@ import androidx.compose.ui.platform.LocalView
 import androidx.core.view.WindowCompat
 import com.example.boardgamesapp.ui.theme.typography
 
+/**
+ * The light color scheme.
+ */
 private val lightScheme = lightColorScheme(
     primary = primaryLight,
     onPrimary = onPrimaryLight,
@@ -49,6 +52,9 @@ private val lightScheme = lightColorScheme(
     inversePrimary = inversePrimaryLight
 )
 
+/**
+ * The dark color scheme.
+ */
 private val darkScheme = darkColorScheme(
     primary = primaryDark,
     onPrimary = onPrimaryDark,
@@ -80,6 +86,9 @@ private val darkScheme = darkColorScheme(
     inversePrimary = inversePrimaryDark
 )
 
+/**
+ * The medium contrast light color scheme.
+ */
 private val mediumContrastLightColorScheme = lightColorScheme(
     primary = primaryLightMediumContrast,
     onPrimary = onPrimaryLightMediumContrast,
@@ -111,6 +120,9 @@ private val mediumContrastLightColorScheme = lightColorScheme(
     inversePrimary = inversePrimaryLightMediumContrast
 )
 
+/**
+ * The high contrast light color scheme.
+ */
 private val highContrastLightColorScheme = lightColorScheme(
     primary = primaryLightHighContrast,
     onPrimary = onPrimaryLightHighContrast,
@@ -142,6 +154,9 @@ private val highContrastLightColorScheme = lightColorScheme(
     inversePrimary = inversePrimaryLightHighContrast
 )
 
+/**
+ * The medium contrast dark color scheme.
+ */
 private val mediumContrastDarkColorScheme = darkColorScheme(
     primary = primaryDarkMediumContrast,
     onPrimary = onPrimaryDarkMediumContrast,
@@ -173,6 +188,9 @@ private val mediumContrastDarkColorScheme = darkColorScheme(
     inversePrimary = inversePrimaryDarkMediumContrast
 )
 
+/**
+ * The high contrast dark color scheme.
+ */
 private val highContrastDarkColorScheme = darkColorScheme(
     primary = primaryDarkHighContrast,
     onPrimary = onPrimaryDarkHighContrast,
@@ -204,6 +222,9 @@ private val highContrastDarkColorScheme = darkColorScheme(
     inversePrimary = inversePrimaryDarkHighContrast
 )
 
+/**
+ * The light color scheme.
+ */
 @Immutable
 data class ColorFamily(
     val color: Color,
@@ -212,13 +233,14 @@ data class ColorFamily(
     val onColorContainer: Color
 )
 
-val unspecified_scheme = ColorFamily(
-    Color.Unspecified,
-    Color.Unspecified,
-    Color.Unspecified,
-    Color.Unspecified
-)
-
+/**
+ * Cafe app theme
+ *
+ * @param darkTheme whether the theme is dark.
+ * @param dynamicColor whether the theme should use dynamic colors.
+ * @param content the content of the theme.
+ * @receiver
+ */
 @Composable
 fun CafeAppTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),

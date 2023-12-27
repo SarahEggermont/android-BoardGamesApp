@@ -14,15 +14,21 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.dimensionResource
+import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.boardgamesapp.R
 import com.example.boardgamesapp.components.BigCardListItem
 
+/**
+ * The favourites screen.
+ * @param toDetailPage the function to navigate to the detail page of the cafe.
+ * @param favouriteCafesViewModel the view model for the favourites screen.
+ */
 @Composable
 fun FavouritesScreen(
     toDetailPage: (name: String) -> Unit,
-    favouriteCafesViewModel: FavouritesCafesViewModel = viewModel(
-        factory = FavouritesCafesViewModel.Factory
+    favouriteCafesViewModel: FavouriteCafesViewModel = viewModel(
+        factory = FavouriteCafesViewModel.Factory
     )
 ) {
     val cafeState by favouriteCafesViewModel.uiState.collectAsState()
@@ -32,9 +38,9 @@ fun FavouritesScreen(
 
     Box(modifier = Modifier) {
         when (cafeApiState) {
-            is FavouritesApiState.Loading -> Text(text = "Aan het laden...")
+            is FavouritesApiState.Loading -> Text(text = stringResource(id = R.string.loading))
             is FavouritesApiState.Error -> Text(
-                text = "Fout tijdens het laden van de Gentse cafés."
+                text = stringResource(id = R.string.error)
             )
 
             is FavouritesApiState.Success -> CafesListComponent(
@@ -45,6 +51,11 @@ fun FavouritesScreen(
     }
 }
 
+/**
+ * The list of cafes.
+ * @param cafesListState the state of the list of cafes.
+ * @param toDetailPage the function to navigate to the detail page of the cafe.
+ */
 @Composable
 fun CafesListComponent(
     cafesListState: FavouritesCafeListState,

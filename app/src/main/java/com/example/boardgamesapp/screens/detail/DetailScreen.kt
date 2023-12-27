@@ -40,6 +40,10 @@ import coil.decode.SvgDecoder
 import coil.request.ImageRequest
 import com.example.boardgamesapp.R
 
+/**
+ * The detail screen.
+ * @param detailOverviewModel the view model for the detail screen.
+ */
 @Composable
 fun DetailScreen(
     detailOverviewModel: DetailOverviewModel = viewModel(
@@ -69,6 +73,12 @@ fun DetailScreen(
     }
 }
 
+/**
+ * The details of the cafe.
+ * @param detailState the state of the detail screen.
+ * @param detailItemState the state of the detail item.
+ * @param detailOverviewModel the view model for the detail screen.
+ */
 @Composable
 fun DetailScreenList(
     detailState: DetailState,
@@ -202,6 +212,11 @@ fun DetailScreenList(
     }
 }
 
+/**
+ * Opens the google screen.
+ * @param url the url to open.
+ * @param context the context of the screen.
+ */
 fun openGoogleScreen(url: String, context: Context) {
     val customTabs = CustomTabsIntent.Builder()
         .setShowTitle(true)
@@ -213,6 +228,11 @@ fun openGoogleScreen(url: String, context: Context) {
     )
 }
 
+/**
+ * A component that show a title and it's accompanying text.
+ * @param title the title.
+ * @param text the text.
+ */
 @Composable
 fun TitleAndText(
     @StringRes title: Int,

@@ -5,23 +5,48 @@ import kotlinx.coroutines.flow.flow
 import retrofit2.http.GET
 import retrofit2.http.Url
 
+/**
+ * Cafe api service
+ */
 interface CafeApiService {
+
+    /**
+     * Get all cafes.
+     * @return a [Flow] containing a [List] of [ApiCafe]s.
+     */
     @GET("cafes-gent/records?limit=50")
     suspend fun getCafes(): Wrapper
 
+    /**
+     * Get a cafe by it's name.
+     * @param url: [String] The url with the search query.
+     * @return a [Flow] containing a [ApiCafe].
+     */
     @GET
     suspend fun getCafe(@Url url: String): Wrapper
 
+    /**
+     * Get all cafes that match the search query.
+     * @param url: [String] The url with the search query.
+     * @return a [Flow] containing a [List] of [ApiCafe]s.
+     */
     @GET
     suspend fun getCafesSearch(@Url url: String): Wrapper
 }
 
-// helper functions
-
+/**
+ * Get all cafes as a flow.
+ * @return a [Flow] containing a [List] of [ApiCafe]s.
+ */
 fun CafeApiService.getCafesAsFlow(): Flow<List<ApiCafe>> = flow {
     emit(getCafes().results)
 }
 
+/**
+ * Get all cafes that match the search query as a flow.
+ * @param search: [String] The search query.
+ * @return a [Flow] containing a [List] of [ApiCafe]s.
+ */
 fun CafeApiService.getCafesSearchAsFlow(search: String): Flow<List<ApiCafe>> = flow {
     emit(
         getCafesSearch(
@@ -35,6 +60,11 @@ fun CafeApiService.getCafesSearchAsFlow(search: String): Flow<List<ApiCafe>> = f
     )
 }
 
+/**
+ * Get a cafe by it's name as a flow.
+ * @param name: [String] The name of the cafe.
+ * @return a [Flow] containing a [ApiCafe].
+ */
 fun CafeApiService.getCafeAsFlow(name: String): Flow<ApiCafe> = flow {
     emit(
         getCafe(
