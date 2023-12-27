@@ -16,7 +16,6 @@ import androidx.compose.material.icons.filled.History
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.SearchBar
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -32,31 +31,34 @@ import com.example.boardgamesapp.components.BigCardListItem
 
 @Composable
 fun ExploreScreen(
-    toDetailPage: (id: String) -> Unit,
-    exploreGamesOverviewModel: ExploreGamesOverviewModel = viewModel(
-        factory = ExploreGamesOverviewModel.Factory
+    toDetailPage: (name: String) -> Unit,
+    exploreCafesViewModel: ExploreCafesViewModel = viewModel(
+        factory = ExploreCafesViewModel.Factory
     )
 ) {
-    val gamesOverviewState by exploreGamesOverviewModel.uiState.collectAsState()
+    val cafesState by exploreCafesViewModel.uiState.collectAsState()
+    val cafesListState by exploreCafesViewModel.uiListState.collectAsState()
 
-    val gameApiState = exploreGamesOverviewModel.gameApiState
+    val cafeApiState = exploreCafesViewModel.cafesApiState
 
     Box(modifier = Modifier) {
-        when (gameApiState) {
-            is GamesApiState.Loading -> Text(text = "Loading...")
-            is GamesApiState.Error -> Text(text = "Error while loading the trending games.")
-            is GamesApiState.NotFound ->
+        when (cafeApiState) {
+            is CafesApiState.Loading -> Text(text = "Aan het laden...")
+            is CafesApiState.Error -> Text(text = "Fout tijdens het laden van de Gentse cafés.")
+            is CafesApiState.NotFound ->
                 SearchBarWithElements(
-                    gamesOverviewState = gamesOverviewState,
-                    exploreGamesOverviewModel = exploreGamesOverviewModel,
+                    cafesState = cafesState,
+                    cafesListState = cafesListState,
+                    exploreCafesViewModel = exploreCafesViewModel,
                     toDetailPage = toDetailPage,
                     notFound = true
                 )
 
-            is GamesApiState.Success ->
+            is CafesApiState.Success ->
                 SearchBarWithElements(
-                    gamesOverviewState = gamesOverviewState,
-                    exploreGamesOverviewModel = exploreGamesOverviewModel,
+                    cafesState = cafesState,
+                    cafesListState = cafesListState,
+                    exploreCafesViewModel = exploreCafesViewModel,
                     toDetailPage = toDetailPage,
                     notFound = false
                 )
@@ -67,9 +69,10 @@ fun ExploreScreen(
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SearchBarWithElements(
-    gamesOverviewState: ExploreGamesOverviewState,
-    exploreGamesOverviewModel: ExploreGamesOverviewModel,
-    toDetailPage: (id: String) -> Unit,
+    cafesState: ExploreCafesState,
+    cafesListState: ExploreCafesListState,
+    exploreCafesViewModel: ExploreCafesViewModel,
+    toDetailPage: (name: String) -> Unit,
     notFound: Boolean
 ) {
     Column(
@@ -79,16 +82,16 @@ fun SearchBarWithElements(
     ) {
         SearchBar(
             modifier = Modifier.align(Alignment.CenterHorizontally),
-            query = gamesOverviewState.searchText,
+            query = cafesState.searchText,
             onQueryChange = {
-                exploreGamesOverviewModel.setNewSearchText(it)
+                exploreCafesViewModel.setNewSearchText(it)
             },
             onSearch = {
-                exploreGamesOverviewModel.searchForGames()
+//               TODO: exploreCafesViewModel.searchForGames()
             },
-            active = gamesOverviewState.searchActive,
+            active = cafesState.searchActive,
             onActiveChange = {
-                exploreGamesOverviewModel.setActiveSearch(it)
+                exploreCafesViewModel.setActiveSearch(it)
             },
             leadingIcon = {
                 Icon(
@@ -97,15 +100,15 @@ fun SearchBarWithElements(
                 )
             },
             trailingIcon = {
-                if (gamesOverviewState.searchActive) {
+                if (cafesState.searchActive) {
                     Icon(
                         imageVector = Icons.Default.Close,
                         contentDescription = stringResource(id = R.string.close_icon),
                         modifier = Modifier.clickable {
-                            if (gamesOverviewState.searchText.isNotEmpty()) {
-                                exploreGamesOverviewModel.clearSearchText()
+                            if (cafesState.searchText.isNotEmpty()) {
+                                exploreCafesViewModel.clearSearchText()
                             } else {
-                                exploreGamesOverviewModel.setActiveSearch(false)
+                                exploreCafesViewModel.setActiveSearch(false)
                             }
                         }
                     )
@@ -113,7 +116,7 @@ fun SearchBarWithElements(
             },
             placeholder = { Text(stringResource(id = R.string.searchbar_text)) }
         ) {
-            gamesOverviewState.searchHistory.forEach {
+            cafesState.searchHistory.forEach {
                 Row(
                     modifier = Modifier.padding(
                         start = dimensionResource(id = R.dimen.padding_medium),
@@ -131,8 +134,8 @@ fun SearchBarWithElements(
                     Text(
                         text = it,
                         modifier = Modifier.clickable {
-                            exploreGamesOverviewModel.setNewSearchText(it)
-                            exploreGamesOverviewModel.searchForGames()
+                            exploreCafesViewModel.setNewSearchText(it)
+//                            TODO: exploreCafesViewModel.searchForGames()
                         }
                     )
                 }
@@ -140,11 +143,12 @@ fun SearchBarWithElements(
         }
         if (notFound) {
             Text(
-                text = stringResource(id = R.string.no_games_found)
+                text = stringResource(id = R.string.no_cafes_found)
             )
         } else {
             GamesListComponent(
-                gamesOverviewState = gamesOverviewState,
+                cafesState = cafesState,
+                cafesListState = cafesListState,
                 toDetailPage = toDetailPage
             )
         }
@@ -154,20 +158,11 @@ fun SearchBarWithElements(
 @ExperimentalMaterial3Api
 @Composable
 fun GamesListComponent(
-    gamesOverviewState: ExploreGamesOverviewState,
-    toDetailPage: (id: String) -> Unit
+    cafesState: ExploreCafesState,
+    cafesListState: ExploreCafesListState,
+    toDetailPage: (name: String) -> Unit
 ) {
     val lazyListState = rememberLazyListState()
-
-    if (gamesOverviewState.currentGamesList == gamesOverviewState.originalGamesList) {
-        Text(
-            text = stringResource(id = R.string.trending),
-            style = MaterialTheme.typography.titleLarge,
-            modifier = Modifier.padding(
-                horizontal = dimensionResource(id = R.dimen.padding_medium)
-            )
-        )
-    }
 
     LazyColumn(
         state = lazyListState,
@@ -179,12 +174,13 @@ fun GamesListComponent(
         ),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        items(gamesOverviewState.currentGamesList) {
+        items(cafesListState.cafesList) {
             BigCardListItem(
                 id = it.id,
-                title = if (it.title == null) "" else it.title!!,
-                thumbnail = if (it.thumbnail == null) "" else it.thumbnail!!,
-                year = if (it.year == null) 0 else it.year!!,
+                title = it.nameNl,
+                description = it.descriptionNl,
+                category = it.catnameNl,
+                thumbnail = it.icon,
                 toDetailPage = toDetailPage
             )
         }

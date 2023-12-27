@@ -7,7 +7,9 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedCard
 import androidx.compose.material3.Text
@@ -20,18 +22,20 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
-import coil.compose.AsyncImage
+import coil.compose.SubcomposeAsyncImage
+import coil.decode.SvgDecoder
 import coil.request.ImageRequest
 import com.example.boardgamesapp.R
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun BigCardListItem(
-    id: String,
+    id: Int,
     title: String,
+    description: String,
+    category: String,
     thumbnail: String,
-    year: Int,
-    toDetailPage: (id: String) -> Unit
+    toDetailPage: (name: String) -> Unit
 ) {
     val configuration = LocalConfiguration.current
     val screenWidth = configuration.screenWidthDp.dp
@@ -41,7 +45,7 @@ fun BigCardListItem(
             containerColor = MaterialTheme.colorScheme.surface,
             contentColor = MaterialTheme.colorScheme.onSurface
         ),
-        onClick = { toDetailPage(id) },
+        onClick = { toDetailPage(title) },
         border = BorderStroke(
             dimensionResource(R.dimen.border_small),
             MaterialTheme.colorScheme.outlineVariant
@@ -56,17 +60,25 @@ fun BigCardListItem(
             Box(
                 contentAlignment = Alignment.CenterStart
             ) {
-                AsyncImage(
+                SubcomposeAsyncImage(
                     model = ImageRequest.Builder(LocalContext.current)
                         .data(thumbnail)
+                        .decoderFactory(SvgDecoder.Factory())
                         .crossfade(true)
                         .build(),
-                    placeholder = painterResource(R.drawable.loading_img),
-                    error = painterResource(R.drawable.ic_broken_image),
+                    loading = {
+                        CircularProgressIndicator()
+                    },
+                    error = {
+                        Icon(
+                            painter = painterResource(id = R.drawable.ic_broken_image),
+                            contentDescription = "Error"
+                        )
+                    },
                     contentDescription = "$title.jpg",
                     modifier = Modifier
                         .width(dimensionResource(R.dimen.picture_box_width)),
-                    alignment = Alignment.TopCenter,
+                    alignment = Alignment.CenterStart,
                     contentScale = ContentScale.Crop
                 )
             }
@@ -76,9 +88,8 @@ fun BigCardListItem(
                     .width(screenWidth)
             ) {
                 Text(text = title, style = MaterialTheme.typography.titleLarge)
-                if (year != 0) {
-                    Text(text = year.toString(), style = MaterialTheme.typography.titleMedium)
-                }
+                Text(text = category, style = MaterialTheme.typography.titleMedium)
+                Text(text = description, style = MaterialTheme.typography.bodyMedium)
             }
         }
     }

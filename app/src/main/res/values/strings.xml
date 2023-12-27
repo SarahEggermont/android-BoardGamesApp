@@ -1,32 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name" translatable="false">Board Games</string>
-    <string name="board_games" translatable="false">Board Games Collection</string>
-    <!--    Titles-->
-    <string name="library_title">Your collection</string>
-    <string name="favourites_title">Your favourites</string>
-    <string name="explore_title">Explore more</string>
-    <string name="profile_title">Your profile</string>
+    <string name="app_name">Cafés Gent</string>
+    <string name="favourites_title">Jouw favorieten</string>
+    <string name="explore_title">Ontdek trending cafés</string>
     <string name="detail_game_title">Details</string>
-    <!--    Other strings-->
-    <string name="players">players</string>
-    <string name="back">Go back</string>
-    <string name="search_icon">Search icon</string>
-    <string name="close_icon">Close icon</string>
-    <string name="searchbar_text">Search games</string>
-    <string name="history_icon">History icon</string>
+    <string name="back">Ga terug</string>
+    <string name="search_icon">Zoek icoon</string>
+    <string name="close_icon">Sluit icoon</string>
+    <string name="searchbar_text">Zoek in Gentse cafés</string>
+    <string name="history_icon">Geschiedenis icoon</string>
     <string name="trending">Trending</string>
-    <string name="edit_list">Edit list</string>
-    <string name="library">Library</string>
-    <string name="favorites">Favourites</string>
-    <string name="explore">Explore</string>
-    <string name="no_games_found">No games found</string>
-    <string name="description">Description</string>
-    <string name="wishlist">Wishlist</string>
-    <string name="add_to_wishlist">Add to wishlist</string>
-    <string name="add_to_library">Add to library</string>
-    <string name="remove_from_library">Remove from library</string>
-    <string name="remove_from_favourites">Remove from wishlist</string>
-    <string name="number_of_players">Number of players</string>
-    <string name="playing_time">Playing time</string>
-    <string name="minimum_age">Minimum age</string>
+    <string name="edit_list">Wijzig lijst</string>
+    <string name="favorites">Favorieten</string>
+    <string name="explore">Ontdek</string>
+    <string name="no_cafe_found">Geen café gevonden, probeer het later opnieuw.</string>
+    <string name="description">Beschrijving</string>
+    <string name="cafes_title">Cafés</string>
+    <string name="loading">Aan het laden…</string>
+    <string name="error">Er liep iets mis, probeer het later opnieuw.</string>
+    <string name="no_cafes_found">Geen cafés gevonden, probeer het later opnieuw.</string>
 </resources>

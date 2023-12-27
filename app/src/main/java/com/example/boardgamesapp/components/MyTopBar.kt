@@ -10,7 +10,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import com.example.boardgamesapp.R
 
@@ -35,14 +34,6 @@ fun MyTopBar(
                         contentDescription = stringResource(id = R.string.back)
                     )
                 }
-            } else {
-                // TODO: own app icon
-                val image = painterResource(R.drawable.ic_broken_image)
-//                Image(
-//                    painter = image,
-//                    contentDescription = "App icon",
-//                    modifier = Modifier.height(100.dp)
-//                )
             }
         }
     )

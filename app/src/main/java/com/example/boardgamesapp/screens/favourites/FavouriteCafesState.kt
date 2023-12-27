@@ -1,15 +1,18 @@
 package com.example.boardgamesapp.screens.favourites
 
-import com.example.boardgamesapp.model.Game
+import com.example.boardgamesapp.model.Cafe
 
-data class FavouritesGamesOverviewState(
-    val currentGamesList: List<Game>,
+data class FavouritesCafeState(
     val scrollAtActionIdx: Int = 0,
     val scrollToItemIndex: Int = 0
 )
 
+data class FavouritesCafeListState(
+    val cafesList: List<Cafe> = listOf()
+)
+
 sealed interface FavouritesApiState {
-    data class Success(val tasks: List<Game>) : FavouritesApiState
+    object Success : FavouritesApiState
     object Error : FavouritesApiState
     object Loading : FavouritesApiState
 }
