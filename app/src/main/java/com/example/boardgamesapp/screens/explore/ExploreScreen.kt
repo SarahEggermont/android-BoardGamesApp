@@ -16,7 +16,6 @@ import androidx.compose.material.icons.filled.History
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.SearchBar
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -32,7 +31,7 @@ import com.example.boardgamesapp.components.BigCardListItem
 
 @Composable
 fun ExploreScreen(
-    toDetailPage: (id: Int) -> Unit,
+    toDetailPage: (name: String) -> Unit,
     exploreCafesViewModel: ExploreCafesViewModel = viewModel(
         factory = ExploreCafesViewModel.Factory
     )
@@ -73,7 +72,7 @@ fun SearchBarWithElements(
     cafesState: ExploreCafesState,
     cafesListState: ExploreCafesListState,
     exploreCafesViewModel: ExploreCafesViewModel,
-    toDetailPage: (id: Int) -> Unit,
+    toDetailPage: (name: String) -> Unit,
     notFound: Boolean
 ) {
     Column(
@@ -144,7 +143,7 @@ fun SearchBarWithElements(
         }
         if (notFound) {
             Text(
-                text = stringResource(id = R.string.no_games_found)
+                text = stringResource(id = R.string.no_cafes_found)
             )
         } else {
             GamesListComponent(
@@ -161,19 +160,9 @@ fun SearchBarWithElements(
 fun GamesListComponent(
     cafesState: ExploreCafesState,
     cafesListState: ExploreCafesListState,
-    toDetailPage: (id: Int) -> Unit
+    toDetailPage: (name: String) -> Unit
 ) {
     val lazyListState = rememberLazyListState()
-
-    if (cafesListState.cafesList.isNotEmpty()) {
-        Text(
-            text = stringResource(id = R.string.trending),
-            style = MaterialTheme.typography.titleLarge,
-            modifier = Modifier.padding(
-                horizontal = dimensionResource(id = R.dimen.padding_medium)
-            )
-        )
-    }
 
     LazyColumn(
         state = lazyListState,

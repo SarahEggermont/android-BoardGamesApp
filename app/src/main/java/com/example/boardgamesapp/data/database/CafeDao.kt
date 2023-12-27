@@ -20,8 +20,8 @@ interface CafeDao {
     @Delete
     suspend fun delete(item: DbCafe)
 
-    @Query("SELECT * from cafes WHERE objectid = :objectid")
-    fun getItem(objectid: Int): Flow<DbCafe>
+    @Query("SELECT * from cafes WHERE name_nl = :name")
+    fun getItem(name: String): Flow<DbCafe>
 
     @Query("SELECT * from cafes ORDER BY name_nl ASC")
     fun getAllItems(): Flow<List<DbCafe>>

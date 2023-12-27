@@ -16,11 +16,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.dimensionResource
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.boardgamesapp.R
-import com.example.boardgamesapp.components.CardListItem
+import com.example.boardgamesapp.components.BigCardListItem
 
 @Composable
 fun FavouritesScreen(
-    toDetailPage: (id: Int) -> Unit,
+    toDetailPage: (name: String) -> Unit,
     favouriteCafesViewModel: FavouritesCafesViewModel = viewModel(
         factory = FavouritesCafesViewModel.Factory
     )
@@ -52,7 +52,7 @@ fun CafesListComponent(
     cafesState: FavouritesCafeState,
     cafesListState: FavouritesCafeListState,
     favouritesViewModel: FavouritesCafesViewModel,
-    toDetailPage: (id: Int) -> Unit
+    toDetailPage: (name: String) -> Unit
 
 ) {
     val lazyListState = rememberLazyListState()
@@ -66,9 +66,11 @@ fun CafesListComponent(
         contentPadding = PaddingValues(bottom = dimensionResource(id = R.dimen.padding_small))
     ) {
         items(cafesListState.cafesList) {
-            CardListItem(
+            BigCardListItem(
                 id = it.id,
                 title = it.nameNl,
+                description = it.descriptionNl,
+                category = it.catnameNl,
                 thumbnail = it.icon,
                 toDetailPage = toDetailPage
             )

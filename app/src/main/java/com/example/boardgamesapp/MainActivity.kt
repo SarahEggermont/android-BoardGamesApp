@@ -65,7 +65,7 @@ fun CafesApp() {
                     DETAIL -> currentBackStack?.arguments?.getString("name")
                         ?: stringResource(id = R.string.detail_game_title)
 
-                    else -> stringResource(id = R.string.board_games)
+                    else -> stringResource(id = R.string.cafes_title)
                 }
             ) {
                 navController.popBackStack()
@@ -98,13 +98,13 @@ fun CafesApp() {
             modifier = Modifier.padding(innerPadding)
         ) {
             composable(FAVOURITES) {
-                FavouritesScreen(toDetailPage = { input ->
-                    navController.navigate("Detail/$input")
+                FavouritesScreen(toDetailPage = { name ->
+                    navController.navigate("Detail/$name")
                 })
             }
             composable(EXPLORE) {
-                ExploreScreen(toDetailPage = { input ->
-                    navController.navigate("Detail/$input")
+                ExploreScreen(toDetailPage = { name ->
+                    navController.navigate("Detail/$name")
                 })
             }
             composable(DETAIL) {

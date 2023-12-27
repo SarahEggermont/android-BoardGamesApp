@@ -35,7 +35,7 @@ fun BigCardListItem(
     description: String,
     category: String,
     thumbnail: String,
-    toDetailPage: (id: Int) -> Unit
+    toDetailPage: (name: String) -> Unit
 ) {
     val configuration = LocalConfiguration.current
     val screenWidth = configuration.screenWidthDp.dp
@@ -45,7 +45,7 @@ fun BigCardListItem(
             containerColor = MaterialTheme.colorScheme.surface,
             contentColor = MaterialTheme.colorScheme.onSurface
         ),
-        onClick = { toDetailPage(id) },
+        onClick = { toDetailPage(title) },
         border = BorderStroke(
             dimensionResource(R.dimen.border_small),
             MaterialTheme.colorScheme.outlineVariant
@@ -62,7 +62,7 @@ fun BigCardListItem(
             ) {
                 SubcomposeAsyncImage(
                     model = ImageRequest.Builder(LocalContext.current)
-                        .data("https://visit.gent.be/themes/custom/vg_theme/icon/red/coffee.svg")
+                        .data(thumbnail)
                         .decoderFactory(SvgDecoder.Factory())
                         .crossfade(true)
                         .build(),

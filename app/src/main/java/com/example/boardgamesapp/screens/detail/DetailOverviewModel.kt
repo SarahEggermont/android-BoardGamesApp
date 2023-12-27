@@ -13,6 +13,7 @@ import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
 import com.example.boardgamesapp.CafeApplication
 import com.example.boardgamesapp.data.CafesRepository
+import com.example.boardgamesapp.model.Cafe
 import java.io.IOException
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
@@ -36,22 +37,25 @@ class DetailOverviewModel(
     var detailApiState: DetailApiState by mutableStateOf(DetailApiState.Loading)
         private set
 
-    private val cafeId: Int = checkNotNull(savedStateHandle["objectid"])
+    private val cafeName: String = checkNotNull(savedStateHandle["name"])
 
     init {
-        getApiCafe(cafeId)
+        getApiCafe(cafeName)
     }
 
-    private fun getApiCafe(cafeId: Int) {
+    private fun getApiCafe(cafeName: String) {
         try {
-            viewModelScope.launch { cafesRepository.refresh() }
-
-            uiItemState = cafesRepository.getCafe(cafeId).map { DetailItemState(it!!) }
+            viewModelScope.launch { cafesRepository.refreshOne(cafeName) }
+            uiItemState = cafesRepository.getCafe(cafeName).map { DetailItemState(it) }
                 .stateIn(
                     scope = viewModelScope,
                     started = SharingStarted.WhileSubscribed(5_000L),
-                    initialValue = DetailItemState()
+                    initialValue = DetailItemState(Cafe())
                 )
+            if (uiItemState.value.cafe.nameNl == null) {
+                detailApiState = DetailApiState.NotFound
+                return
+            }
             detailApiState = DetailApiState.Success
         } catch (e: IOException) {
             Log.e("ExploreCafesViewModel", "getApiCafes: ${e.message}")

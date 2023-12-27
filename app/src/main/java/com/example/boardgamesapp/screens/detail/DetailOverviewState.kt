@@ -8,7 +8,7 @@ data class DetailState(
 )
 
 data class DetailItemState(
-    val cafe: Cafe = null!!
+    val cafe: Cafe
 )
 
 sealed interface DetailApiState {

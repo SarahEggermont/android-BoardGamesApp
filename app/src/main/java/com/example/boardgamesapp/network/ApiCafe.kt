@@ -50,6 +50,13 @@ fun Flow<List<ApiCafe>>.asDomainObjects(): Flow<List<Cafe>> {
     return list
 }
 
+fun Flow<ApiCafe>.asDomainObject(): Flow<Cafe> {
+    val cafe = this.map {
+        it.asDomainObject()
+    }
+    return cafe
+}
+
 fun ApiCafe.asDomainObject(): Cafe {
     return Cafe(
         id = this.objectid,
