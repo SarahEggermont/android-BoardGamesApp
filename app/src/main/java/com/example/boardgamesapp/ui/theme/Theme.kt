@@ -80,7 +80,7 @@ private val darkColorScheme = darkColorScheme(
 )
 
 @Composable
-fun BoardGamesAppTheme(
+fun CafeAppTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
     // Dynamic color is available on Android 12+
     dynamicColor: Boolean = true,

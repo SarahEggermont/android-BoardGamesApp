@@ -20,22 +20,27 @@ import com.example.boardgamesapp.components.CardListItem
 
 @Composable
 fun FavouritesScreen(
-    toDetailPage: (id: String) -> Unit,
-    favouritesGamesOverviewModel: FavouritesGamesOverviewModel = viewModel(
-        factory = FavouritesGamesOverviewModel.Factory
+    toDetailPage: (id: Int) -> Unit,
+    favouriteCafesViewModel: FavouritesCafesViewModel = viewModel(
+        factory = FavouritesCafesViewModel.Factory
     )
 ) {
-    val gamesOverviewState by favouritesGamesOverviewModel.uiState.collectAsState()
+    val cafeState by favouriteCafesViewModel.uiState.collectAsState()
+    val cafesListState by favouriteCafesViewModel.uiListState.collectAsState()
 
-    val gameApiState = favouritesGamesOverviewModel.gameApiState
+    val cafeApiState = favouriteCafesViewModel.cafesApiState
 
     Box(modifier = Modifier) {
-        when (gameApiState) {
-            is FavouritesApiState.Loading -> Text(text = "Loading...")
-            is FavouritesApiState.Error -> Text(text = "Error while loading your wishlist.")
-            is FavouritesApiState.Success -> GamesListComponent(
-                gamesOverviewState = gamesOverviewState,
-                wishlistGamesOverviewModel = favouritesGamesOverviewModel,
+        when (cafeApiState) {
+            is FavouritesApiState.Loading -> Text(text = "Aan het laden...")
+            is FavouritesApiState.Error -> Text(
+                text = "Fout tijdens het laden van de Gentse cafés."
+            )
+
+            is FavouritesApiState.Success -> CafesListComponent(
+                cafesState = cafeState,
+                favouritesViewModel = favouriteCafesViewModel,
+                cafesListState = cafesListState,
                 toDetailPage = toDetailPage
             )
         }
@@ -43,10 +48,11 @@ fun FavouritesScreen(
 }
 
 @Composable
-fun GamesListComponent(
-    gamesOverviewState: FavouritesGamesOverviewState,
-    wishlistGamesOverviewModel: FavouritesGamesOverviewModel,
-    toDetailPage: (id: String) -> Unit
+fun CafesListComponent(
+    cafesState: FavouritesCafeState,
+    cafesListState: FavouritesCafeListState,
+    favouritesViewModel: FavouritesCafesViewModel,
+    toDetailPage: (id: Int) -> Unit
 
 ) {
     val lazyListState = rememberLazyListState()
@@ -59,12 +65,11 @@ fun GamesListComponent(
         verticalArrangement = Arrangement.spacedBy(dimensionResource(id = R.dimen.spacer_small)),
         contentPadding = PaddingValues(bottom = dimensionResource(id = R.dimen.padding_small))
     ) {
-        items(gamesOverviewState.currentGamesList) {
+        items(cafesListState.cafesList) {
             CardListItem(
                 id = it.id,
-                title = if (it.title == null) "" else it.title!!,
-                year = if (it.year == null) 0 else it.year!!,
-                thumbnail = if (it.thumbnail == null) "" else it.thumbnail!!,
+                title = it.nameNl,
+                thumbnail = it.icon,
                 toDetailPage = toDetailPage
             )
         }

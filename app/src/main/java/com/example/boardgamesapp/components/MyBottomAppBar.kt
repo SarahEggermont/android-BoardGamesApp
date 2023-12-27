@@ -2,7 +2,6 @@ package com.example.boardgamesapp.components
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
-import androidx.compose.material.icons.filled.List
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBar
@@ -26,25 +25,19 @@ data class BottomAppBarElement(
 @Composable
 fun MyBottomAppBar(
     goToFav: () -> Unit,
-    goToLib: () -> Unit,
     goToExplore: () -> Unit
 ) {
     var selectedItem by rememberSaveable { mutableIntStateOf(0) }
     val items = listOf(
         BottomAppBarElement(
-            stringResource(id = R.string.library),
-            Icons.Filled.List,
-            goToLib
+            stringResource(id = R.string.explore),
+            Icons.Filled.Search,
+            goToExplore
         ),
         BottomAppBarElement(
             stringResource(id = R.string.favorites),
             Icons.Filled.Favorite,
             goToFav
-        ),
-        BottomAppBarElement(
-            stringResource(id = R.string.explore),
-            Icons.Filled.Search,
-            goToExplore
         )
     )
     NavigationBar {

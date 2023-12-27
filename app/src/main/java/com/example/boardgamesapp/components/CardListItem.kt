@@ -27,11 +27,10 @@ import com.example.boardgamesapp.R
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CardListItem(
-    id: String,
+    id: Int,
     title: String,
     thumbnail: String,
-    year: Int,
-    toDetailPage: (id: String) -> Unit
+    toDetailPage: (id: Int) -> Unit
 ) {
     val configuration = LocalConfiguration.current
     val screenWidth = configuration.screenWidthDp.dp
@@ -60,9 +59,6 @@ fun CardListItem(
                     )
             ) {
                 Text(text = title, style = MaterialTheme.typography.titleLarge)
-                if (year != 0) {
-                    Text(text = year.toString(), style = MaterialTheme.typography.titleMedium)
-                }
             }
             Box(
                 contentAlignment = Alignment.CenterEnd,

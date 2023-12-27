@@ -1,13 +1,11 @@
-package com.example.boardgamesapp.screens.detail
+package com.example.boardgamesapp.screens.favourites
 
 import android.util.Log
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
-import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.createSavedStateHandle
 import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
@@ -22,43 +20,37 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 
-class DetailOverviewModel(
-    savedStateHandle: SavedStateHandle,
-    private val cafesRepository: CafesRepository
-) : ViewModel() {
+class FavouritesCafesViewModel(private val cafesRepository: CafesRepository) : ViewModel() {
     private val _uiState =
-        MutableStateFlow(
-            DetailState()
-        )
-    val uiState: StateFlow<DetailState> = _uiState.asStateFlow()
-    lateinit var uiItemState: StateFlow<DetailItemState>
+        MutableStateFlow(FavouritesCafeState())
+    val uiState: StateFlow<FavouritesCafeState> = _uiState.asStateFlow()
+    lateinit var uiListState: StateFlow<FavouritesCafeListState>
 
-    var detailApiState: DetailApiState by mutableStateOf(DetailApiState.Loading)
+    var cafesApiState: FavouritesApiState by mutableStateOf(FavouritesApiState.Loading)
         private set
 
-    private val cafeId: Int = checkNotNull(savedStateHandle["objectid"])
-
     init {
-        getApiCafe(cafeId)
+        getApiCafes()
     }
 
-    private fun getApiCafe(cafeId: Int) {
+    private fun getApiCafes() {
         try {
             viewModelScope.launch { cafesRepository.refresh() }
 
-            uiItemState = cafesRepository.getCafe(cafeId).map { DetailItemState(it!!) }
+            uiListState = cafesRepository.getCafes().map { FavouritesCafeListState(it) }
                 .stateIn(
                     scope = viewModelScope,
                     started = SharingStarted.WhileSubscribed(5_000L),
-                    initialValue = DetailItemState()
+                    initialValue = FavouritesCafeListState()
                 )
-            detailApiState = DetailApiState.Success
+            cafesApiState = FavouritesApiState.Success
         } catch (e: IOException) {
             Log.e("ExploreCafesViewModel", "getApiCafes: ${e.message}")
-            detailApiState = DetailApiState.Error
+            cafesApiState = FavouritesApiState.Error
         }
     }
 
+    // object to tell the android framework how to handle the parameter of the viewmodel
     companion object {
         val Factory: ViewModelProvider.Factory = viewModelFactory {
             initializer {
@@ -68,8 +60,7 @@ class DetailOverviewModel(
                             as CafeApplication
                         )
                 val cafesRepository = application.container.cafesRepository
-                DetailOverviewModel(
-                    this.createSavedStateHandle(),
+                FavouritesCafesViewModel(
                     cafesRepository = cafesRepository
                 )
             }
