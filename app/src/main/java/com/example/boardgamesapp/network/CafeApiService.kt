@@ -1,5 +1,6 @@
 package com.example.boardgamesapp.network
 
+import android.util.Log
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import retrofit2.http.GET
@@ -12,7 +13,7 @@ interface CafeApiService {
 
     /**
      * Get all cafes.
-     * @return a [Flow] containing a [List] of [ApiCafe]s.
+     * @return a [Wrapper] containing a [List] of [ApiCafe]s.
      */
     @GET("cafes-gent/records?limit=50")
     suspend fun getCafes(): Wrapper
@@ -20,7 +21,7 @@ interface CafeApiService {
     /**
      * Get a cafe by it's name.
      * @param url: [String] The url with the search query.
-     * @return a [Flow] containing a [ApiCafe].
+     * @return a a [Wrapper] containing a [List] of [ApiCafe]s.
      */
     @GET
     suspend fun getCafe(@Url url: String): Wrapper
@@ -28,7 +29,7 @@ interface CafeApiService {
     /**
      * Get all cafes that match the search query.
      * @param url: [String] The url with the search query.
-     * @return a [Flow] containing a [List] of [ApiCafe]s.
+     * @return a a [Wrapper] containing a [List] of [ApiCafe]s.
      */
     @GET
     suspend fun getCafesSearch(@Url url: String): Wrapper
