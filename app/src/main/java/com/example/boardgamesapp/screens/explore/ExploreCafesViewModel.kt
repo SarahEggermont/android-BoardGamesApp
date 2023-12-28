@@ -114,7 +114,7 @@ class ExploreCafesViewModel(private val cafesRepository: CafesRepository) : View
     /**
      * Loads the cafes.
      */
-    private fun getApiCafes() {
+    fun getApiCafes() {
         try {
             viewModelScope.launch { cafesRepository.refresh() }
 
