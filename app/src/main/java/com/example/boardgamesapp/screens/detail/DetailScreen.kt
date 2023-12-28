@@ -16,8 +16,6 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Add
-import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.TravelExplore
 import androidx.compose.material3.Button
 import androidx.compose.material3.CircularProgressIndicator
@@ -46,11 +44,10 @@ import com.example.boardgamesapp.R
  */
 @Composable
 fun DetailScreen(
-    detailOverviewModel: DetailOverviewModel = viewModel(
-        factory = DetailOverviewModel.Factory
+    detailOverviewModel: DetailViewModel = viewModel(
+        factory = DetailViewModel.Factory
     )
 ) {
-    val detailOverviewState by detailOverviewModel.uiState.collectAsState()
     val cafeItemState by detailOverviewModel.uiItemState.collectAsState()
 
     val detailApiState = detailOverviewModel.detailApiState
@@ -61,29 +58,19 @@ fun DetailScreen(
             is DetailApiState.Error -> Text(text = stringResource(id = R.string.error))
             is DetailApiState.Success ->
                 DetailScreenList(
-                    detailState = detailOverviewState,
-                    detailItemState = cafeItemState,
-                    detailOverviewModel = detailOverviewModel
+                    detailItemState = cafeItemState
                 )
-
-            is DetailApiState.NotFound -> {
-                Text(text = stringResource(id = R.string.no_cafe_found))
-            }
         }
     }
 }
 
 /**
  * The details of the cafe.
- * @param detailState the state of the detail screen.
  * @param detailItemState the state of the detail item.
- * @param detailOverviewModel the view model for the detail screen.
  */
 @Composable
 fun DetailScreenList(
-    detailState: DetailState,
-    detailItemState: DetailItemState,
-    detailOverviewModel: DetailOverviewModel
+    detailItemState: DetailItemState
 ) {
     val lazyListState = rememberLazyListState()
     val context = LocalContext.current
@@ -122,31 +109,6 @@ fun DetailScreenList(
                     contentScale = ContentScale.Crop
                 )
                 Column {
-                    Button(
-                        onClick = { /*TODO*/ },
-                        contentPadding = PaddingValues(
-                            start = dimensionResource(id = R.dimen.spacer_small),
-                            end = dimensionResource(id = R.dimen.spacer_small)
-                        )
-                    ) {
-                        if (detailState.inFavourites) {
-                            Icon(
-                                Icons.Default.Check,
-                                contentDescription = stringResource(
-                                    id = R.string.remove_from_favs
-                                )
-                            )
-                            Text(text = stringResource(id = R.string.remove_from_favs))
-                        } else {
-                            Icon(
-                                Icons.Default.Add,
-                                contentDescription = stringResource(
-                                    id = R.string.add_to_favs
-                                )
-                            )
-                            Text(text = stringResource(id = R.string.add_to_favs))
-                        }
-                    }
                     Button(
                         onClick = {
                             openGoogleScreen(detailItemState.cafe.url, context)

@@ -29,7 +29,7 @@ import kotlinx.coroutines.launch
  * @param cafesRepository the cafes repository.
  * @constructor loads the cafe details.
  */
-class DetailOverviewModel(
+class DetailViewModel(
     savedStateHandle: SavedStateHandle,
     private val cafesRepository: CafesRepository
 ) : ViewModel() {
@@ -54,7 +54,7 @@ class DetailOverviewModel(
      * Loads the cafe details.
      * @param cafeName the name of the cafe to load.
      */
-    private fun getApiCafe(cafeName: String) {
+    fun getApiCafe(cafeName: String) {
         try {
             viewModelScope.launch { cafesRepository.refreshOne(cafeName) }
             uiItemState = cafesRepository.getCafe(cafeName).map { DetailItemState(it) }
@@ -63,10 +63,6 @@ class DetailOverviewModel(
                     started = SharingStarted.WhileSubscribed(5_000L),
                     initialValue = DetailItemState(Cafe())
                 )
-            if (uiItemState.value.cafe.nameNl == "") {
-                detailApiState = DetailApiState.NotFound
-                return
-            }
             detailApiState = DetailApiState.Success
         } catch (e: IOException) {
             Log.e("ExploreCafesViewModel", "getApiCafes: ${e.message}")
@@ -75,7 +71,7 @@ class DetailOverviewModel(
     }
 
     /**
-     * Factory for the [DetailOverviewModel].
+     * Factory for the [DetailViewModel].
      */
     companion object {
         val Factory: ViewModelProvider.Factory = viewModelFactory {
@@ -86,7 +82,7 @@ class DetailOverviewModel(
                             as CafeApplication
                         )
                 val cafesRepository = application.container.cafesRepository
-                DetailOverviewModel(
+                DetailViewModel(
                     this.createSavedStateHandle(),
                     cafesRepository = cafesRepository
                 )

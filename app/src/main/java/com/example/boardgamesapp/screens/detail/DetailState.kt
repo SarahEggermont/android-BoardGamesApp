@@ -23,7 +23,6 @@ data class DetailItemState(
  */
 sealed interface DetailApiState {
     object Success : DetailApiState
-    object NotFound : DetailApiState
     object Error : DetailApiState
     object Loading : DetailApiState
 }
