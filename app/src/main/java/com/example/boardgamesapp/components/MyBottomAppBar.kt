@@ -17,14 +17,14 @@ import androidx.compose.ui.res.stringResource
 import com.example.boardgamesapp.R
 
 /**
- * Bottom app bar element
+ * Navigation element.
  *
  * @property label the label of the element
  * @property icon the icon of the element
- * @property goToPage the function to navigate to the page of the element
- * @constructor Create empty Bottom app bar element
+ * @property goToPage the function to navigate to the page
+ * @constructor Create empty Navigation element
  */
-data class BottomAppBarElement(
+data class NavigationElement(
     val label: String,
     val icon: ImageVector,
     val goToPage: () -> Unit
@@ -43,12 +43,12 @@ fun MyBottomAppBar(
 ) {
     var selectedItem by rememberSaveable { mutableIntStateOf(0) }
     val items = listOf(
-        BottomAppBarElement(
+        NavigationElement(
             stringResource(id = R.string.explore),
             Icons.Filled.Search,
             goToExplore
         ),
-        BottomAppBarElement(
+        NavigationElement(
             stringResource(id = R.string.about_short),
             Icons.Filled.Info,
             goToAbout

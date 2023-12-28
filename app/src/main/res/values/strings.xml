@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Cafés Gent</string>
-    <string name="favourites_title">Jouw favorieten</string>
     <string name="explore_title">Ontdek trending cafés</string>
     <string name="detail_game_title">Details</string>
     <string name="back">Ga terug</string>
@@ -19,9 +18,6 @@
     <string name="loading">Aan het laden…</string>
     <string name="error">Er liep iets mis, probeer het later opnieuw.</string>
     <string name="no_cafes_found">Geen cafés gevonden, probeer het later opnieuw.</string>
-    <string name="favourites">Favorieten</string>
-    <string name="add_to_favs">Toevoegen aan favorieten</string>
-    <string name="remove_from_favs">Verwijderen uit favorieten</string>
     <string name="description_en">Decription (EN)</string>
     <string name="description_de">Beschreibung (DE)</string>
     <string name="description_fr">Description (FR)</string>
@@ -29,4 +25,7 @@
     <string name="website">Website</string>
     <string name="modified">Laatst gewijzigd op</string>
     <string name="not_found">Er werd geen café gevonden dat aan de zoekcriteria volstaat.</string>
+    <string name="about">Over deze app</string>
+    <string name="about_short">Info</string>
+    <string name="navigation_rail">Navigeer hier tussen items</string>
 </resources>

@@ -46,7 +46,7 @@ fun ExploreScreen(
 
     val cafeApiState = exploreCafesViewModel.cafesApiState
 
-    Box(modifier = Modifier) {
+    Box {
         when (cafeApiState) {
             is CafesApiState.Loading -> Text(text = stringResource(id = R.string.loading))
             is CafesApiState.Error -> Text(text = stringResource(id = R.string.error))
