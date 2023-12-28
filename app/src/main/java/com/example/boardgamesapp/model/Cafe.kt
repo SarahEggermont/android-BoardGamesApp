@@ -6,10 +6,6 @@ package com.example.boardgamesapp.model
  * @property id Unique identifier of the cafe.
  * @property poi Url to the "Point Of Interest"-page of the cafe.
  * @property nameNl Name of the cafe in Dutch.
- * @property nameEn Name of the cafe in English.
- * @property nameFr Name of the cafe in French.
- * @property nameDe Name of the cafe in German.
- * @property nameEs Name of the cafe in Spanish.
  * @property descriptionNl Description of the cafe in Dutch.
  * @property descriptionEn Description of the cafe in English.
  * @property descriptionFr Description of the cafe in French.
@@ -32,10 +28,6 @@ data class Cafe(
     var id: Int = 0,
     val poi: String = "",
     val nameNl: String = "",
-    val nameEn: String = "",
-    val nameFr: String = "",
-    val nameDe: String = "",
-    val nameEs: String = "",
     val descriptionNl: String = "",
     val descriptionEn: String = "",
     val descriptionFr: String = "",

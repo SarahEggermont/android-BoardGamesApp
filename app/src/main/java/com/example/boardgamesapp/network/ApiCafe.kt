@@ -24,10 +24,6 @@ data class GeoPoints(
  * @property objectid the id of the cafe.
  * @property poi the url to the "Point Of Interest"-page of the cafe.
  * @property name_nl the name of the cafe in Dutch.
- * @property name_en the name of the cafe in English.
- * @property name_fr the name of the cafe in French.
- * @property name_de the name of the cafe in German.
- * @property name_es the name of the cafe in Spanish.
  * @property description_nl the description of the cafe in Dutch.
  * @property description_en the description of the cafe in English.
  * @property description_fr the description of the cafe in French.
@@ -50,10 +46,6 @@ data class ApiCafe(
     val objectid: Int,
     val poi: String,
     val name_nl: String,
-    val name_en: String,
-    val name_fr: String,
-    val name_de: String,
-    val name_es: String,
     val description_nl: String,
     val description_en: String,
     val description_fr: String,
@@ -103,10 +95,6 @@ fun ApiCafe.asDomainObject(): Cafe {
         id = this.objectid,
         poi = this.poi,
         nameNl = this.name_nl,
-        nameEn = this.name_en,
-        nameFr = this.name_fr,
-        nameDe = this.name_de,
-        nameEs = this.name_es,
         descriptionNl = this.description_nl,
         descriptionEn = this.description_en,
         descriptionFr = this.description_fr,

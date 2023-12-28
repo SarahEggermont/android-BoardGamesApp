@@ -9,10 +9,6 @@ import com.example.boardgamesapp.model.Cafe
  * @property objectid: Id of the cafe.
  * @property poi: Url to the "Point Of Interest"-page of the cafe.
  * @property name_nl: Name of the cafe in Dutch.
- * @property name_en: Name of the cafe in English.
- * @property name_fr: Name of the cafe in French.
- * @property name_de: Name of the cafe in German.
- * @property name_es: Name of the cafe in Spanish.
  * @property description_nl: Description of the cafe in Dutch.
  * @property description_en: Description of the cafe in English.
  * @property description_fr: Description of the cafe in French.
@@ -38,10 +34,6 @@ data class DbCafe(
     val objectid: Int,
     val poi: String = "",
     val name_nl: String = "",
-    val name_en: String = "",
-    val name_fr: String = "",
-    val name_de: String = "",
-    val name_es: String = "",
     val description_nl: String = "",
     val description_en: String = "",
     val description_fr: String = "",
@@ -70,10 +62,6 @@ fun DbCafe.asDomainCafe(): Cafe {
         this.objectid,
         this.poi,
         this.name_nl,
-        this.name_en,
-        this.name_fr,
-        this.name_de,
-        this.name_es,
         this.description_nl,
         this.description_en,
         this.description_fr,
@@ -102,10 +90,6 @@ fun Cafe.asDbCafe(): DbCafe {
         objectid = this.id,
         poi = this.poi,
         name_nl = this.nameNl,
-        name_en = this.nameEn,
-        name_fr = this.nameFr,
-        name_de = this.nameDe,
-        name_es = this.nameEs,
         description_nl = this.descriptionNl,
         description_en = this.descriptionEn,
         description_fr = this.descriptionFr,
@@ -136,10 +120,6 @@ fun List<DbCafe>.asDomainCafes(): List<Cafe> {
             it.objectid,
             it.poi,
             it.name_nl,
-            it.name_en,
-            it.name_fr,
-            it.name_de,
-            it.name_es,
             it.description_nl,
             it.description_en,
             it.description_fr,
@@ -159,4 +139,36 @@ fun List<DbCafe>.asDomainCafes(): List<Cafe> {
         )
     }
     return cafeList
+}
+
+/**
+ * Converts a list of [Cafe] to a list of [DbCafe].
+ * @return The converted list of [DbCafe].
+ */
+fun List<Cafe>.asDbCafes(): List<DbCafe> {
+    val dbCafeList = this.map {
+        DbCafe(
+            it.id,
+            it.poi,
+            it.nameNl,
+            it.descriptionNl,
+            it.descriptionEn,
+            it.descriptionFr,
+            it.descriptionDe,
+            it.descriptionEs,
+            it.url,
+            it.modified,
+            it.catnameNl,
+            it.address,
+            it.postal,
+            it.local,
+            it.icon,
+            it.type,
+            it.symbol,
+            it.identifier,
+            it.geoPoint[0],
+            it.geoPoint[1]
+        )
+    }
+    return dbCafeList
 }
