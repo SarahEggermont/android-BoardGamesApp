@@ -1,7 +1,7 @@
 package com.example.boardgamesapp.components
 
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBar
@@ -33,12 +33,12 @@ data class BottomAppBarElement(
 /**
  * A bottom navigation bar that navigates between the different screens.
  *
- * @param goToFav the function to navigate to the favorites page.
+ * @param goToAbout the function to navigate to the about page.
  * @param goToExplore the function to navigate to the explore page.
  */
 @Composable
 fun MyBottomAppBar(
-    goToFav: () -> Unit,
+    goToAbout: () -> Unit,
     goToExplore: () -> Unit
 ) {
     var selectedItem by rememberSaveable { mutableIntStateOf(0) }
@@ -49,9 +49,9 @@ fun MyBottomAppBar(
             goToExplore
         ),
         BottomAppBarElement(
-            stringResource(id = R.string.favorites),
-            Icons.Filled.Favorite,
-            goToFav
+            stringResource(id = R.string.about_short),
+            Icons.Filled.Info,
+            goToAbout
         )
     )
     NavigationBar {
