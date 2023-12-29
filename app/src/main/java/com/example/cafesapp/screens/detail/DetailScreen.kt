@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.icons.Icons
@@ -110,11 +111,14 @@ fun DetailScreenList(detailItemState: DetailItemState) {
                     alignment = Alignment.CenterStart,
                     contentScale = ContentScale.Crop,
                 )
-                Column {
+                Column(
+                    modifier = Modifier.widthIn(max = dimensionResource(id = R.dimen.button_width)),
+                ) {
                     Button(
                         onClick = {
                             openGoogleScreen(detailItemState.cafe.url, context)
                         },
+                        modifier = Modifier.fillMaxWidth(),
                     ) {
                         Icon(
                             Icons.Default.TravelExplore,
@@ -123,7 +127,10 @@ fun DetailScreenList(detailItemState: DetailItemState) {
                                     id = R.string.website,
                                 ),
                         )
-                        Text(text = stringResource(id = R.string.website))
+                        Text(
+                            text = stringResource(id = R.string.website),
+                            modifier = Modifier.padding(start = dimensionResource(id = R.dimen.spacer_small)),
+                        )
                     }
                     Button(
                         onClick = {
@@ -135,6 +142,7 @@ fun DetailScreenList(detailItemState: DetailItemState) {
                                 context,
                             )
                         },
+                        modifier = Modifier.fillMaxWidth(),
                     ) {
                         Icon(
                             Icons.Outlined.Map,
@@ -143,7 +151,10 @@ fun DetailScreenList(detailItemState: DetailItemState) {
                                     id = R.string.navigate_to_adress,
                                 ),
                         )
-                        Text(text = stringResource(id = R.string.navigate_to_adress))
+                        Text(
+                            text = stringResource(id = R.string.navigate_to_adress),
+                            modifier = Modifier.padding(start = dimensionResource(id = R.dimen.spacer_small)),
+                        )
                     }
                 }
             }
@@ -163,7 +174,7 @@ fun DetailScreenList(detailItemState: DetailItemState) {
                     ),
             ) {
                 Text(
-                    style = MaterialTheme.typography.bodySmall,
+                    style = MaterialTheme.typography.bodyLarge,
                     text =
                         stringResource(id = R.string.modified) +
                             ": " +
@@ -173,7 +184,7 @@ fun DetailScreenList(detailItemState: DetailItemState) {
                 )
                 Text(
                     text = "${detailItemState.cafe.address}, ${detailItemState.cafe.postal} ${detailItemState.cafe.local}",
-                    style = MaterialTheme.typography.labelLarge,
+                    style = MaterialTheme.typography.titleMedium,
                 )
                 TitleAndText(
                     title = R.string.description_nl,
@@ -214,5 +225,8 @@ fun TitleAndText(
         style = MaterialTheme.typography.titleMedium,
         text = stringResource(id = title),
     )
-    Text(text = text)
+    Text(
+        style = MaterialTheme.typography.bodyLarge,
+        text = text,
+    )
 }

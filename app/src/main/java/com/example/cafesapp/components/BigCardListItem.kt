@@ -4,7 +4,6 @@ import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.CardDefaults
@@ -67,12 +66,13 @@ fun BigCardListItem(
                     vertical = dimensionResource(R.dimen.no_padding),
                 ),
     ) {
-        Row {
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+        ) {
             Box(
                 modifier =
                     Modifier
-                        .width(dimensionResource(R.dimen.picture_width))
-                        .fillMaxHeight(),
+                        .width(dimensionResource(R.dimen.picture_width)),
             ) {
                 SubcomposeAsyncImage(
                     model =
