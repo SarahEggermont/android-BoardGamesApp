@@ -13,6 +13,5 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "BoardGamesApp"
+rootProject.name = "CafeApp"
 include(":app")
- 

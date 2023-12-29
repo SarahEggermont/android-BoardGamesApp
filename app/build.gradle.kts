@@ -52,6 +52,10 @@ android {
     }
 }
 
+tasks.dokkaHtml.configure {
+    outputDirectory.set(file("../documentation/html"))
+}
+
 dependencies {
     implementation("androidx.core:core-ktx:1.12.0")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.2")
@@ -77,15 +81,15 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.5.1")
 
     // Room
-    val room_version = "2.5.1"
-    implementation("androidx.room:room-runtime:$room_version")
+    val roomVersion = "2.5.1"
+    implementation("androidx.room:room-runtime:$roomVersion")
     // optional - Kotlin Extensions and Coroutines support for Room
-    implementation("androidx.room:room-ktx:$room_version")
+    implementation("androidx.room:room-ktx:$roomVersion")
     // To use Kotlin Symbol Processing (KSP)
-    ksp("androidx.room:room-compiler:$room_version")
+    ksp("androidx.room:room-compiler:$roomVersion")
     // optional - Test helpers
-    testImplementation("androidx.room:room-testing:$room_version")
-    annotationProcessor("androidx.room:room-compiler:$room_version")
+    testImplementation("androidx.room:room-testing:$roomVersion")
+    annotationProcessor("androidx.room:room-compiler:$roomVersion")
 
     // Browser
     implementation("androidx.browser:browser:1.7.0")
