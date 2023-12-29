@@ -28,4 +28,13 @@
     <string name="about">Over deze app</string>
     <string name="about_short">Info</string>
     <string name="navigation_rail">Navigeer hier tussen items</string>
+    <string name="logo_Gent">Logo stad Gent</string>
+    <string name="open_data_portal">Open Data Portaal</string>
+    <string name="disclaimer_text">Deze applicatie gebruikt data van het open data portaal van de stad Gent. Het is daarom niet verantwoordelijk voor de data die het beschikbaar maakt.</string>
+    <string name="disclaimer">Disclaimer</string>
+    <string name="contact">Indien u opmerkingen of vragen hebt, aarzal dan niet ons te contacteren via het voorziene formulier!</string>
+    <string name="meer_informatie">Meer informatie over het Open Data Portaal kunt u terugvinden op: https://data.stad.gent/explore.</string>
+    <string name="contact_title">Contact</string>
+    <string name="form_button">Formulier invullen</string>
+    <string name="navigate_to_adress">Navigeer naar café</string>
 </resources>
