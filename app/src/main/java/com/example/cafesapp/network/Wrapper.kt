@@ -1,5 +1,6 @@
 package com.example.cafesapp.network
 
+import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 /**
@@ -10,6 +11,6 @@ import kotlinx.serialization.Serializable
  */
 @Serializable
 data class Wrapper(
-    val totalCount: Int,
+    @SerialName("total_count") val totalCount: Int,
     val results: List<ApiCafe>,
 )
