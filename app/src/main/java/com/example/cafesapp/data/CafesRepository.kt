@@ -65,7 +65,7 @@ interface CafesRepository {
 }
 
 /**
- * Implementation of [CafesRepository] that uses the Gentse cafés API.
+ * Implementation of [CafesRepository] that uses the "Gentse cafés"-API.
  *
  * @param cafeDao the [CafeDao] instance to use.
  * @param cafeApiService the [CafeApiService] instance to use.
@@ -117,7 +117,7 @@ class ApiCafesRepository(private val cafeDao: CafeDao, private val cafeApiServic
      */
     override fun getCafe(name: String): Flow<Cafe> {
         return cafeDao.getItem(name).map {
-            if (it.name_nl == "") {
+            if (it.nameNl == "") {
                 refreshOne(name)
             }
             it.asDomainCafe()

@@ -3,6 +3,7 @@ package com.example.cafesapp.network
 import com.example.cafesapp.model.Cafe
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
+import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 /**
@@ -23,15 +24,15 @@ data class GeoPoints(
  *
  * @property objectid the id of the cafe.
  * @property poi the url to the "Point Of Interest"-page of the cafe.
- * @property name_nl the name of the cafe in Dutch.
- * @property description_nl the description of the cafe in Dutch.
- * @property description_en the description of the cafe in English.
- * @property description_fr the description of the cafe in French.
- * @property description_de the description of the cafe in German.
- * @property description_es the description of the cafe in Spanish.
+ * @property nameNl the name of the cafe in Dutch.
+ * @property descriptionNl the description of the cafe in Dutch.
+ * @property descriptionEn the description of the cafe in English.
+ * @property descriptionFr the description of the cafe in French.
+ * @property descriptionDe the description of the cafe in German.
+ * @property descriptionEs the description of the cafe in Spanish.
  * @property url the url of the cafe.
  * @property modified the date of last adjustment of the cafe's information.
- * @property catname_nl the category name of the cafe in Dutch.
+ * @property catnameNl the category name of the cafe in Dutch.
  * @property address the address of the cafe.
  * @property postal the postal code of the cafe.
  * @property local the city of the cafe.
@@ -39,21 +40,21 @@ data class GeoPoints(
  * @property type the type of the cafe (see_do or eat_drink).
  * @property symbol the symbol-type of the icon of the cafe.
  * @property identifier the identifier of the cafe.
- * @property geo_point_2d The coordinates of the cafe.
+ * @property geoPoint2d The coordinates of the cafe.
  */
 @Serializable
 data class ApiCafe(
     val objectid: Int,
     val poi: String,
-    val name_nl: String,
-    val description_nl: String,
-    val description_en: String,
-    val description_fr: String,
-    val description_de: String,
-    val description_es: String,
+    @SerialName("name_nl") val nameNl: String,
+    @SerialName("description_nl") val descriptionNl: String,
+    @SerialName("description_en") val descriptionEn: String,
+    @SerialName("description_fr") val descriptionFr: String,
+    @SerialName("description_de") val descriptionDe: String,
+    @SerialName("description_es") val descriptionEs: String,
     val url: String,
     val modified: String,
-    val catname_nl: String,
+    @SerialName("catname_nl") val catnameNl: String,
     val address: String,
     val postal: String,
     val local: String,
@@ -61,7 +62,7 @@ data class ApiCafe(
     val type: String,
     val symbol: String,
     val identifier: Int,
-    val geo_point_2d: GeoPoints,
+    @SerialName("geo_point_2d") val geoPoint2d: GeoPoints,
 )
 
 /**
@@ -99,15 +100,15 @@ fun ApiCafe.asDomainObject(): Cafe {
     return Cafe(
         id = this.objectid,
         poi = this.poi,
-        nameNl = this.name_nl,
-        descriptionNl = this.description_nl,
-        descriptionEn = this.description_en,
-        descriptionFr = this.description_fr,
-        descriptionDe = this.description_de,
-        descriptionEs = this.description_es,
+        nameNl = this.nameNl,
+        descriptionNl = this.descriptionNl,
+        descriptionEn = this.descriptionEn,
+        descriptionFr = this.descriptionFr,
+        descriptionDe = this.descriptionDe,
+        descriptionEs = this.descriptionEs,
         url = this.url,
         modified = this.modified,
-        catnameNl = this.catname_nl,
+        catnameNl = this.catnameNl,
         address = this.address,
         postal = this.postal,
         local = this.local,
@@ -115,7 +116,7 @@ fun ApiCafe.asDomainObject(): Cafe {
         type = this.type,
         symbol = this.symbol,
         identifier = this.identifier,
-        geoPoint = listOf(this.geo_point_2d.lon, this.geo_point_2d.lat),
+        geoPoint = listOf(this.geoPoint2d.lon, this.geoPoint2d.lat),
     )
 }
 

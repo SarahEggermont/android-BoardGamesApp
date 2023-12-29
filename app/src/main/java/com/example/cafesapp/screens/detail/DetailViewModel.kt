@@ -49,7 +49,7 @@ class DetailViewModel(
      *
      * @param cafeName the name of the cafe to load.
      */
-    fun getApiCafe(cafeName: String) {
+    private fun getApiCafe(cafeName: String) {
         try {
             viewModelScope.launch { cafesRepository.refreshOne(cafeName) }
             uiItemState =

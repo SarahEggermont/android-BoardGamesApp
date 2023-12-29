@@ -110,6 +110,18 @@ class CafeDaoTest {
         }
 
     /**
+     * Tests [CafeDao.getAllItems] with search query.
+     */
+    @Test
+    @Throws(Exception::class)
+    fun daoGetCafesWithSearchQuery_returnsCafesFromDB() =
+        runBlocking {
+            addTwoCafesToDb()
+            val cafes = cafeDao.getAllItems("Charlatan").first()
+            assertEquals(cafes[0].asDomainCafe(), cafe2)
+        }
+
+    /**
      * Tests [CafeDao.delete].
      */
     @Test

@@ -1,5 +1,6 @@
 package com.example.cafesapp.data.database
 
+import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.example.cafesapp.model.Cafe
@@ -9,15 +10,15 @@ import com.example.cafesapp.model.Cafe
  *
  * @property objectid: Id of the cafe.
  * @property poi: Url to the "Point Of Interest"-page of the cafe.
- * @property name_nl: Name of the cafe in Dutch.
- * @property description_nl: Description of the cafe in Dutch.
- * @property description_en: Description of the cafe in English.
- * @property description_fr: Description of the cafe in French.
- * @property description_de: Description of the cafe in German.
- * @property description_es: Description of the cafe in Spanish.
+ * @property nameNl: Name of the cafe in Dutch.
+ * @property descriptionNl: Description of the cafe in Dutch.
+ * @property descriptionEn: Description of the cafe in English.
+ * @property descriptionFr: Description of the cafe in French.
+ * @property descriptionDe: Description of the cafe in German.
+ * @property descriptionEs: Description of the cafe in Spanish.
  * @property url: Url of the cafe.
  * @property modified: Date of last adjustment of the cafe's information.
- * @property catname_nl: Category name of the cafe in Dutch.
+ * @property catnameNl: Category name of the cafe in Dutch.
  * @property address: Address of the cafe.
  * @property postal: Postal code of the cafe.
  * @property local: City of the cafe.
@@ -25,8 +26,8 @@ import com.example.cafesapp.model.Cafe
  * @property type: Type of the cafe (see_do or eat_drink).
  * @property symbol: Symbol-type of the icon of the cafe.
  * @property identifier: Identifier of the cafe.
- * @property geo_point_x: Geo point x of the cafe.
- * @property geo_point_y: Geo point y of the cafe.
+ * @property geoPointX: Geo point x of the cafe.
+ * @property geoPointY: Geo point y of the cafe.
  * @constructor Creates a [DbCafe] with default values.
  */
 @Entity(tableName = "cafes")
@@ -34,15 +35,15 @@ data class DbCafe(
     @PrimaryKey
     val objectid: Int,
     val poi: String = "",
-    val name_nl: String = "",
-    val description_nl: String = "",
-    val description_en: String = "",
-    val description_fr: String = "",
-    val description_de: String = "",
-    val description_es: String = "",
+    @ColumnInfo(name = "name_nl") val nameNl: String = "",
+    @ColumnInfo(name = "description_nl") val descriptionNl: String = "",
+    @ColumnInfo(name = "description_en") val descriptionEn: String = "",
+    @ColumnInfo(name = "description_fr") val descriptionFr: String = "",
+    @ColumnInfo(name = "description_de") val descriptionDe: String = "",
+    @ColumnInfo(name = "description_es") val descriptionEs: String = "",
     val url: String = "",
     val modified: String = "",
-    val catname_nl: String = "",
+    @ColumnInfo(name = "catname_nl") val catnameNl: String = "",
     val address: String = "",
     val postal: String = "",
     val local: String = "",
@@ -50,8 +51,8 @@ data class DbCafe(
     val type: String = "",
     val symbol: String = "",
     val identifier: Int = 0,
-    val geo_point_x: Double = 0.0,
-    val geo_point_y: Double = 0.0,
+    @ColumnInfo(name = "geo_point_x") val geoPointX: Double = 0.0,
+    @ColumnInfo(name = "geo_point_y") val geoPointY: Double = 0.0,
 )
 
 /**
@@ -63,15 +64,15 @@ fun DbCafe.asDomainCafe(): Cafe {
     return Cafe(
         this.objectid,
         this.poi,
-        this.name_nl,
-        this.description_nl,
-        this.description_en,
-        this.description_fr,
-        this.description_de,
-        this.description_es,
+        this.nameNl,
+        this.descriptionNl,
+        this.descriptionEn,
+        this.descriptionFr,
+        this.descriptionDe,
+        this.descriptionEs,
         this.url,
         this.modified,
-        this.catname_nl,
+        this.catnameNl,
         this.address,
         this.postal,
         this.local,
@@ -79,7 +80,7 @@ fun DbCafe.asDomainCafe(): Cafe {
         this.type,
         this.symbol,
         this.identifier,
-        listOf(this.geo_point_x, this.geo_point_y),
+        listOf(this.geoPointX, this.geoPointY),
     )
 }
 
@@ -92,15 +93,15 @@ fun Cafe.asDbCafe(): DbCafe {
     return DbCafe(
         objectid = this.id,
         poi = this.poi,
-        name_nl = this.nameNl,
-        description_nl = this.descriptionNl,
-        description_en = this.descriptionEn,
-        description_fr = this.descriptionFr,
-        description_de = this.descriptionDe,
-        description_es = this.descriptionEs,
+        nameNl = this.nameNl,
+        descriptionNl = this.descriptionNl,
+        descriptionEn = this.descriptionEn,
+        descriptionFr = this.descriptionFr,
+        descriptionDe = this.descriptionDe,
+        descriptionEs = this.descriptionEs,
         url = this.url,
         modified = this.modified,
-        catname_nl = this.catnameNl,
+        catnameNl = this.catnameNl,
         address = this.address,
         postal = this.postal,
         local = this.local,
@@ -108,8 +109,8 @@ fun Cafe.asDbCafe(): DbCafe {
         type = this.type,
         symbol = this.symbol,
         identifier = this.identifier,
-        geo_point_x = this.geoPoint[0],
-        geo_point_y = this.geoPoint[1],
+        geoPointX = this.geoPoint[0],
+        geoPointY = this.geoPoint[1],
     )
 }
 
@@ -123,39 +124,6 @@ fun List<DbCafe>.asDomainCafes(): List<Cafe> {
         this.map {
             Cafe(
                 it.objectid,
-                it.poi,
-                it.name_nl,
-                it.description_nl,
-                it.description_en,
-                it.description_fr,
-                it.description_de,
-                it.description_es,
-                it.url,
-                it.modified,
-                it.catname_nl,
-                it.address,
-                it.postal,
-                it.local,
-                it.icon,
-                it.type,
-                it.symbol,
-                it.identifier,
-                listOf(it.geo_point_x, it.geo_point_y),
-            )
-        }
-    return cafeList
-}
-
-/**
- * Converts a [List] of [Cafe] to a [List] of [DbCafe].
- *
- * @return The converted [List] of [DbCafe]s.
- */
-fun List<Cafe>.asDbCafes(): List<DbCafe> {
-    val dbCafeList =
-        this.map {
-            DbCafe(
-                it.id,
                 it.poi,
                 it.nameNl,
                 it.descriptionNl,
@@ -173,9 +141,8 @@ fun List<Cafe>.asDbCafes(): List<DbCafe> {
                 it.type,
                 it.symbol,
                 it.identifier,
-                it.geoPoint[0],
-                it.geoPoint[1],
+                listOf(it.geoPointX, it.geoPointY),
             )
         }
-    return dbCafeList
+    return cafeList
 }

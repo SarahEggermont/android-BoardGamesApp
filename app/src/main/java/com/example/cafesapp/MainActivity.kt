@@ -35,7 +35,7 @@ import com.example.cafesapp.components.MyNavigationRail
 import com.example.cafesapp.components.MyTopBar
 import com.example.cafesapp.navigation.NavHostElement
 import com.example.cafesapp.util.CafeNavigationType
-import com.example.compose.CafeAppTheme
+import com.example.cafesapp.ui.theme.CafeAppTheme
 
 /**
  * The main activity of the app.
