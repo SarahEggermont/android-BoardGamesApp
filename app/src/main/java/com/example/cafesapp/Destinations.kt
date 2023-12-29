@@ -7,7 +7,8 @@ import androidx.compose.material.icons.filled.Search
 import androidx.compose.ui.graphics.vector.ImageVector
 
 /**
- * The destinations of the application
+ * The destinations of the application.
+ *
  * @property ABOUT the about route.
  * @property EXPLORE the explore route.
  * @property DETAIL the detail route.
@@ -27,8 +28,8 @@ object Destinations {
  */
 enum class NavigationBarElement(
     @StringRes val title: Int,
-    val icon: ImageVector
+    val icon: ImageVector,
 ) {
     Explore(R.string.explore, Icons.Filled.Search),
-    About(R.string.about_short, Icons.Filled.Info)
+    About(R.string.about_short, Icons.Filled.Info),
 }

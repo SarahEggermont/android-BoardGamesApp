@@ -12,10 +12,10 @@ import com.example.cafesapp.network.asDomainObjects
 import com.example.cafesapp.network.getCafeAsFlow
 import com.example.cafesapp.network.getCafesAsFlow
 import com.example.cafesapp.network.getCafesSearchAsFlow
-import java.net.SocketTimeoutException
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onEach
+import java.net.SocketTimeoutException
 
 /**
  * Repository for the cafes.
@@ -23,12 +23,14 @@ import kotlinx.coroutines.flow.onEach
 interface CafesRepository {
     /**
      * Get all cafes.
+     *
      * @return a [Flow] containing a [List] of [Cafe]s.
      */
     fun getCafes(): Flow<List<Cafe>>
 
     /**
      * Get all cafes that match the search query.
+     *
      * @param search: [String] The search query.
      * @return a [Flow] containing a [List] of [Cafe]s.
      */
@@ -36,6 +38,7 @@ interface CafesRepository {
 
     /**
      * Get a cafe by it's name.
+     *
      * @param name: [String] The name of the cafe.
      * @return a [Flow] containing a [Cafe].
      */
@@ -48,12 +51,14 @@ interface CafesRepository {
 
     /**
      * Refresh the cafes that match the search query.
+     *
      * @param search: [String] The search query.
      */
     suspend fun refreshSearch(search: String)
 
     /**
      * Refresh a cafe by it's name.
+     *
      * @param name: [String] The name of the cafe.
      */
     suspend fun refreshOne(name: String)
@@ -61,6 +66,7 @@ interface CafesRepository {
 
 /**
  * Implementation of [CafesRepository] that uses the Gentse cafés API.
+ *
  * @param cafeDao the [CafeDao] instance to use.
  * @param cafeApiService the [CafeApiService] instance to use.
  */
@@ -70,6 +76,7 @@ class ApiCafesRepository(private val cafeDao: CafeDao, private val cafeApiServic
      * Get all cafes.
      * Tries to get the cafes from the database first,
      * if that fails, tries to get them from the API and stores them locally.
+     *
      * @return a [Flow] containing a [List] of [Cafe]s.
      */
     override fun getCafes(): Flow<List<Cafe>> {
@@ -86,6 +93,7 @@ class ApiCafesRepository(private val cafeDao: CafeDao, private val cafeApiServic
      * Get all cafes that match the search query.
      * Tries to get the cafes from the database first,
      * if that fails, tries to get them from the API and stores them locally.
+     *
      * @param search: [String] The search query.
      * @return a [Flow] containing a [List] of [Cafe]s.
      */
@@ -103,6 +111,7 @@ class ApiCafesRepository(private val cafeDao: CafeDao, private val cafeApiServic
      * Get a cafe by it's name.
      * Tries to get the cafe from the database first,
      * if that fails, tries to get it from the API and stores it locally.
+     *
      * @param name: [String] The name of the cafe.
      * @return a [Flow] containing a [Cafe].
      */
@@ -134,6 +143,7 @@ class ApiCafesRepository(private val cafeDao: CafeDao, private val cafeApiServic
     /**
      * Refresh the cafes that match the search query.
      * Tries to get the cafes from the API and stores them locally.
+     *
      * @param search: [String] The search query.
      */
     override suspend fun refreshSearch(search: String) {
@@ -151,6 +161,7 @@ class ApiCafesRepository(private val cafeDao: CafeDao, private val cafeApiServic
     /**
      * Refresh a cafe by it's name.
      * Tries to get the cafe from the API and stores it locally.
+     *
      * @param name: [String] The name of the cafe.
      */
     override suspend fun refreshOne(name: String) {

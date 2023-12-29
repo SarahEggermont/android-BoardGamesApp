@@ -6,6 +6,7 @@ import com.example.cafesapp.data.DefaultAppContainer
 
 /**
  * The main application class.
+ *
  * @property container the app container.
  */
 class CafeApplication : Application() {

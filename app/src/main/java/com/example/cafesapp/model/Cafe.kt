@@ -22,7 +22,7 @@ package com.example.cafesapp.model
  * @property symbol Symbol-type of the icon of the cafe.
  * @property identifier Identifier of the cafe.
  * @property geoPoint The coordinates of the cafe.
- * @constructor Creates a [Cafe] with empty fields.
+ * @constructor Creates a [Cafe] with default fields.
  */
 data class Cafe(
     var id: Int = 0,
@@ -43,5 +43,5 @@ data class Cafe(
     val type: String = "",
     val symbol: String = "",
     val identifier: Int = 0,
-    val geoPoint: List<Double> = listOf(0.0, 0.0)
+    val geoPoint: List<Double> = listOf(0.0, 0.0),
 )

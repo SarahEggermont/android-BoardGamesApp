@@ -4,6 +4,7 @@ import com.example.cafesapp.model.Cafe
 
 /**
  * The state of the explore screen.
+ *
  * @property searchText the search text.
  * @property searchActive whether the search is active.
  * @property searchHistory the search history.
@@ -11,15 +12,16 @@ import com.example.cafesapp.model.Cafe
 data class ExploreCafesState(
     val searchText: String = "",
     val searchActive: Boolean = false,
-    val searchHistory: List<String> = listOf()
+    val searchHistory: List<String> = listOf(),
 )
 
 /**
  * The state of the explore list.
+ *
  * @property cafesList the list of cafes.
  */
 data class ExploreCafesListState(
-    val cafesList: List<Cafe> = listOf()
+    val cafesList: List<Cafe> = listOf(),
 )
 
 /**
@@ -27,7 +29,10 @@ data class ExploreCafesListState(
  */
 sealed interface CafesApiState {
     object Success : CafesApiState
+
     object NotFound : CafesApiState
+
     object Error : CafesApiState
+
     object Loading : CafesApiState
 }

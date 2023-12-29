@@ -44,6 +44,7 @@ import com.example.compose.CafeAppTheme
 class MainActivity : ComponentActivity() {
     /**
      * The onCreate method of the activity.
+     *
      * @param savedInstanceState the saved instance state.
      */
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -103,6 +104,13 @@ fun CafesApp(
     }
 }
 
+/**
+ * App with permanent navigation drawer, for Expanded window size class.
+ *
+ * @param navigationType the navigation type.
+ * @param navController the nav controller.
+ * @param currentBackStack the current back stack entry.
+ */
 @Composable
 fun PermanentNavigationDrawerCafesApp(
     navigationType: CafeNavigationType,
@@ -153,6 +161,13 @@ fun PermanentNavigationDrawerCafesApp(
     }
 }
 
+/**
+ * App with navigation rail, for Medium window size class.
+ *
+ * @param navigationType the navigation type.
+ * @param navController the nav controller.
+ * @param currentBackStack the current back stack entry.
+ */
 @Composable
 fun NavigationRailCafesApp(
     navigationType: CafeNavigationType,
@@ -197,6 +212,13 @@ fun NavigationRailCafesApp(
     }
 }
 
+/**
+ * App with bottom navigation, for Compact window size class.
+ *
+ * @param navigationType the navigation type.
+ * @param navController the nav controller.
+ * @param currentBackStack the current back stack entry.
+ */
 @Composable
 fun BottomNavigationCafesApp(
     navigationType: CafeNavigationType,

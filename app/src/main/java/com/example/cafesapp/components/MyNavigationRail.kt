@@ -7,6 +7,12 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavDestination
 import com.example.cafesapp.NavigationBarElement
 
+/**
+ * The navigation rail content that navigates between the different screens.
+ *
+ * @param selectedDestination the selected destination.
+ * @param onTabPressed the function to navigate to the page.
+ */
 @Composable
 fun MyNavigationRail(
     selectedDestination: NavDestination?,

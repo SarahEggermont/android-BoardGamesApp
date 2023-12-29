@@ -11,6 +11,7 @@ import retrofit2.Retrofit
 /**
  * The app container.
  * This is used to provide the repositories.
+ *
  * @property cafesRepository the cafes repository.
  */
 interface AppContainer {
@@ -19,25 +20,28 @@ interface AppContainer {
 
 /**
  * The default app container, takes care of dependencies.
+ *
  * @see AppContainer
  */
 class DefaultAppContainer(private val context: Context) : AppContainer {
-
     /**
      * Json settings, to ignore keys in the dataset we don't need.
-     * @return a json converter factory.
+     *
+     * @return a json object.
      */
-    private val json = Json {
-        ignoreUnknownKeys = true
-    }
+    private val json =
+        Json {
+            ignoreUnknownKeys = true
+        }
 
     private val baseUrl = "https://data.stad.gent/api/explore/v2.1/catalog/datasets/"
-    private val retrofit = Retrofit.Builder()
-        .addConverterFactory(
-            json.asConverterFactory("application/json".toMediaType())
-        )
-        .baseUrl(baseUrl)
-        .build()
+    private val retrofit =
+        Retrofit.Builder()
+            .addConverterFactory(
+                json.asConverterFactory("application/json".toMediaType()),
+            )
+            .baseUrl(baseUrl)
+            .build()
 
     private val retrofitService: CafeApiService by lazy {
         retrofit.create(CafeApiService::class.java)
@@ -45,6 +49,7 @@ class DefaultAppContainer(private val context: Context) : AppContainer {
 
     /**
      * Get the cafes repository.
+     *
      * @return the cafes repository.
      */
     override val cafesRepository: CafesRepository by lazy {

@@ -13,8 +13,10 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 
+/**
+ * Tests for the user actions.
+ */
 class UserActionTest {
-
     @get:Rule
     val composeTestRule = createComposeRule()
     private lateinit var navController: TestNavHostController
@@ -26,13 +28,13 @@ class UserActionTest {
             navController.navigatorProvider.addNavigator(ComposeNavigator())
             CafesApp(
                 navigationType = CafeNavigationType.BOTTOM_NAVIGATION,
-                navController = navController
+                navController = navController,
             )
         }
     }
 
     /**
-     * Test if the search function works.
+     * Tests if the search function works.
      */
     @Test
     fun `search for cafe`() {
@@ -50,7 +52,7 @@ class UserActionTest {
     }
 
     /**
-     * Input search text gets cleared after clicking on clear button
+     * Tests if input search text gets cleared after clicking on clear button.
      */
     @Test
     fun `input search text gets cleared after clicking on clear button`() {
@@ -67,7 +69,7 @@ class UserActionTest {
     }
 
     /**
-     * Input search text and return to overview after clearing two times
+     * Tests if input search text is cleared and returns to overview after clearing two times.
      */
     @Test
     fun `input search text and return to overview after clearing two times`() {
@@ -87,7 +89,7 @@ class UserActionTest {
     }
 
     /**
-     * Search text gets added to history
+     * Tests if search text gets added to history after search.
      */
     @Test
     fun `search text gets added to history after searching`() {
@@ -107,7 +109,7 @@ class UserActionTest {
     }
 
     /**
-     * Search for cafe from search history
+     * Tests if can search for cafe from search history.
      */
     @Test
     fun `search for cafe from search history`() {
@@ -133,7 +135,7 @@ class UserActionTest {
     }
 
     /**
-     * Go back from details to overview
+     * Tests if can go back to overview from details.
      */
     @Test
     fun `go back from details to overview`() {

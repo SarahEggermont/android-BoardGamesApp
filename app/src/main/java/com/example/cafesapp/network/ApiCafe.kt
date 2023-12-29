@@ -15,7 +15,7 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class GeoPoints(
     val lon: Double,
-    val lat: Double
+    val lat: Double,
 )
 
 /**
@@ -61,33 +61,38 @@ data class ApiCafe(
     val type: String,
     val symbol: String,
     val identifier: Int,
-    val geo_point_2d: GeoPoints
+    val geo_point_2d: GeoPoints,
 )
 
 /**
  * Extension function to convert a [ApiCafe] to a [Cafe].
+ *
  * @return a [Cafe] object.
  */
 fun Flow<List<ApiCafe>>.asDomainObjects(): Flow<List<Cafe>> {
-    val list = this.map {
-        it.asDomainObjects()
-    }
+    val list =
+        this.map {
+            it.asDomainObjects()
+        }
     return list
 }
 
 /**
  * Extension function to convert a [ApiCafe] to a [Cafe].
+ *
  * @return a [Cafe] object.
  */
 fun Flow<ApiCafe>.asDomainObject(): Flow<Cafe> {
-    val cafe = this.map {
-        it.asDomainObject()
-    }
+    val cafe =
+        this.map {
+            it.asDomainObject()
+        }
     return cafe
 }
 
 /**
  * Extension function to convert a [ApiCafe] to a [Cafe].
+ *
  * @return a [Cafe] object.
  */
 fun ApiCafe.asDomainObject(): Cafe {
@@ -110,17 +115,19 @@ fun ApiCafe.asDomainObject(): Cafe {
         type = this.type,
         symbol = this.symbol,
         identifier = this.identifier,
-        geoPoint = listOf(this.geo_point_2d.lon, this.geo_point_2d.lat)
+        geoPoint = listOf(this.geo_point_2d.lon, this.geo_point_2d.lat),
     )
 }
 
 /**
  * Extension function to convert a list of [ApiCafe] to a list of [Cafe].
+ *
  * @return a [List] of [Cafe]s.
  */
 fun List<ApiCafe>.asDomainObjects(): List<Cafe> {
-    val list = this.map {
-        it.asDomainObject()
-    }
+    val list =
+        this.map {
+            it.asDomainObject()
+        }
     return list
 }

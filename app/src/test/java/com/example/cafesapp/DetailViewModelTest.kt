@@ -18,6 +18,7 @@ import org.junit.Test
 
 /**
  * Tests for the [DetailViewModel].
+ *
  * @property viewModel the [DetailViewModel].
  * @property savedStateHandle the [SavedStateHandle].
  * @property testDispatcher the [TestDispatcherRule].
@@ -33,24 +34,25 @@ class DetailViewModelTest {
 
     @Before
     fun setUp() {
-        viewModel = DetailViewModel(
-            savedStateHandle = savedStateHandle,
-            cafesRepository = FakeApiCafeRepository()
-        )
+        viewModel =
+            DetailViewModel(
+                savedStateHandle = savedStateHandle,
+                cafesRepository = FakeApiCafeRepository(),
+            )
     }
 
-    suspend fun <T> Flow<List<T>>.flattenToElement(): T =
-        flatMapConcat { it.asFlow() }.toList()[0]
+    suspend fun <T> Flow<List<T>>.flattenToElement(): T = flatMapConcat { it.asFlow() }.toList()[0]
 
     /**
      * Tests to see if the [DetailViewModel.getApiCafe] method changes the state.
      */
     @Test
-    fun `getCafe changes the state`() = runTest {
-        viewModel.getApiCafe("Aba-jour")
-        Assert.assertEquals(
-            viewModel.uiItemState.value.cafe.nameNl,
-            FakeApiCafeRepository().getCafe("Aba-jour").first().nameNl
-        )
-    }
+    fun `getCafe changes the state`() =
+        runTest {
+            viewModel.getApiCafe("Aba-jour")
+            Assert.assertEquals(
+                viewModel.uiItemState.value.cafe.nameNl,
+                FakeApiCafeRepository().getCafe("Aba-jour").first().nameNl,
+            )
+        }
 }

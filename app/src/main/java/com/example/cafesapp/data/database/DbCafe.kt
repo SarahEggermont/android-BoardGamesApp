@@ -6,6 +6,7 @@ import com.example.cafesapp.model.Cafe
 
 /**
  * Entity for the cafes.
+ *
  * @property objectid: Id of the cafe.
  * @property poi: Url to the "Point Of Interest"-page of the cafe.
  * @property name_nl: Name of the cafe in Dutch.
@@ -26,7 +27,7 @@ import com.example.cafesapp.model.Cafe
  * @property identifier: Identifier of the cafe.
  * @property geo_point_x: Geo point x of the cafe.
  * @property geo_point_y: Geo point y of the cafe.
- * @constructor Creates a [DbCafe].
+ * @constructor Creates a [DbCafe] with default values.
  */
 @Entity(tableName = "cafes")
 data class DbCafe(
@@ -50,11 +51,12 @@ data class DbCafe(
     val symbol: String = "",
     val identifier: Int = 0,
     val geo_point_x: Double = 0.0,
-    val geo_point_y: Double = 0.0
+    val geo_point_y: Double = 0.0,
 )
 
 /**
  * Converts a [DbCafe] to a [Cafe].
+ *
  * @return The converted [Cafe].
  */
 fun DbCafe.asDomainCafe(): Cafe {
@@ -77,12 +79,13 @@ fun DbCafe.asDomainCafe(): Cafe {
         this.type,
         this.symbol,
         this.identifier,
-        listOf(this.geo_point_x, this.geo_point_y)
+        listOf(this.geo_point_x, this.geo_point_y),
     )
 }
 
 /**
  * Converts a [Cafe] to a [DbCafe].
+ *
  * @return The converted [DbCafe].
  */
 fun Cafe.asDbCafe(): DbCafe {
@@ -106,69 +109,73 @@ fun Cafe.asDbCafe(): DbCafe {
         symbol = this.symbol,
         identifier = this.identifier,
         geo_point_x = this.geoPoint[0],
-        geo_point_y = this.geoPoint[1]
+        geo_point_y = this.geoPoint[1],
     )
 }
 
 /**
- * Converts a list of [DbCafe] to a list of [Cafe].
- * @return The converted list of [Cafe].
+ * Converts a [List] of [DbCafe] to a [List] of [Cafe].
+ *
+ * @return The converted [List] of [Cafe]s.
  */
 fun List<DbCafe>.asDomainCafes(): List<Cafe> {
-    val cafeList = this.map {
-        Cafe(
-            it.objectid,
-            it.poi,
-            it.name_nl,
-            it.description_nl,
-            it.description_en,
-            it.description_fr,
-            it.description_de,
-            it.description_es,
-            it.url,
-            it.modified,
-            it.catname_nl,
-            it.address,
-            it.postal,
-            it.local,
-            it.icon,
-            it.type,
-            it.symbol,
-            it.identifier,
-            listOf(it.geo_point_x, it.geo_point_y)
-        )
-    }
+    val cafeList =
+        this.map {
+            Cafe(
+                it.objectid,
+                it.poi,
+                it.name_nl,
+                it.description_nl,
+                it.description_en,
+                it.description_fr,
+                it.description_de,
+                it.description_es,
+                it.url,
+                it.modified,
+                it.catname_nl,
+                it.address,
+                it.postal,
+                it.local,
+                it.icon,
+                it.type,
+                it.symbol,
+                it.identifier,
+                listOf(it.geo_point_x, it.geo_point_y),
+            )
+        }
     return cafeList
 }
 
 /**
- * Converts a list of [Cafe] to a list of [DbCafe].
- * @return The converted list of [DbCafe].
+ * Converts a [List] of [Cafe] to a [List] of [DbCafe].
+ *
+ * @return The converted [List] of [DbCafe]s.
  */
 fun List<Cafe>.asDbCafes(): List<DbCafe> {
-    val dbCafeList = this.map {
-        DbCafe(
-            it.id,
-            it.poi,
-            it.nameNl,
-            it.descriptionNl,
-            it.descriptionEn,
-            it.descriptionFr,
-            it.descriptionDe,
-            it.descriptionEs,
-            it.url,
-            it.modified,
-            it.catnameNl,
-            it.address,
-            it.postal,
-            it.local,
-            it.icon,
-            it.type,
-            it.symbol,
-            it.identifier,
-            it.geoPoint[0],
-            it.geoPoint[1]
-        )
-    }
+    val dbCafeList =
+        this.map {
+            DbCafe(
+                it.id,
+                it.poi,
+                it.nameNl,
+                it.descriptionNl,
+                it.descriptionEn,
+                it.descriptionFr,
+                it.descriptionDe,
+                it.descriptionEs,
+                it.url,
+                it.modified,
+                it.catnameNl,
+                it.address,
+                it.postal,
+                it.local,
+                it.icon,
+                it.type,
+                it.symbol,
+                it.identifier,
+                it.geoPoint[0],
+                it.geoPoint[1],
+            )
+        }
     return dbCafeList
 }

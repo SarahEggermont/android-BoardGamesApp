@@ -7,12 +7,14 @@ import androidx.room.RoomDatabase
 
 /**
  * Database for the app.
+ *
  * Contains the [CafeDao].
  */
 @Database(entities = [DbCafe::class], version = 4, exportSchema = false)
 abstract class CafeDb : RoomDatabase() {
     /**
      * Gets the [CafeDao].
+     *
      * @return [CafeDao].
      */
     abstract fun cafeDao(): CafeDao

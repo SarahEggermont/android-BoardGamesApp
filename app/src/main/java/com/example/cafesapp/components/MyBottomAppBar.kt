@@ -19,10 +19,10 @@ import com.example.cafesapp.R
 /**
  * Navigation element.
  *
- * @property label the label of the element
- * @property icon the icon of the element
- * @property goToPage the function to navigate to the page
- * @constructor Create empty Navigation element
+ * @property label the label of the element.
+ * @property icon the icon of the element.
+ * @property goToPage the function to navigate to the page.
+ * @constructor Create empty Navigation element.
  */
 data class NavigationElement(
     val label: String,

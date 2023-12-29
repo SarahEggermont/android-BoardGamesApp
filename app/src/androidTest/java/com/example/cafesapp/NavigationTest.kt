@@ -12,8 +12,10 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 
+/**
+ * Tests for the navigation.
+ */
 class NavigationTest {
-
     @get:Rule
     val composeTestRule = createComposeRule()
     private lateinit var navController: TestNavHostController
@@ -25,11 +27,14 @@ class NavigationTest {
             navController.navigatorProvider.addNavigator(ComposeNavigator())
             CafesApp(
                 navigationType = CafeNavigationType.BOTTOM_NAVIGATION,
-                navController = navController
+                navController = navController,
             )
         }
     }
 
+    /**
+     * Verify start destination.
+     */
     @Test
     fun verifyStartDestination() {
         composeTestRule
@@ -37,6 +42,9 @@ class NavigationTest {
             .assertIsDisplayed()
     }
 
+    /**
+     * Test the navigation to the about screen.
+     */
     @Test
     fun navigateToAbout() {
         composeTestRule
@@ -47,6 +55,9 @@ class NavigationTest {
             .assertIsDisplayed()
     }
 
+    /**
+     * Test the navigation to the detail screen.
+     */
     @Test
     fun clickOnCard() {
         // Add a delay to make sure the data is loaded
@@ -55,7 +66,7 @@ class NavigationTest {
             .onNodeWithText("Aba-jour")
             .performClick()
         composeTestRule
-            .onNodeWithText("Aba-jour")
+            .onNodeWithText("Beschrijving (NL)")
             .assertIsDisplayed()
     }
 }

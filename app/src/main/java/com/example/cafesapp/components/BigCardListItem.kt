@@ -27,13 +27,13 @@ import coil.request.ImageRequest
 import com.example.cafesapp.R
 
 /**
- * A card representation of a bar.
+ * A card representation of a cafe.
  *
- * @param title the name of the bar.
- * @param description the description of the bar in Dutch.
- * @param category the category of the bar in Dutch.
- * @param thumbnail the url of the icon of the category of the bar.
- * @param toDetailPage the function to navigate to the detail page of the bar.
+ * @param title the name of the cafe.
+ * @param description the description of the cafe in Dutch.
+ * @param category the category of the cafe in Dutch.
+ * @param thumbnail the url of the icon of the category of the cafe.
+ * @param toDetailPage the function to navigate to the detail page of the cafe.
  */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -42,56 +42,63 @@ fun BigCardListItem(
     description: String,
     category: String,
     thumbnail: String,
-    toDetailPage: (name: String) -> Unit
+    toDetailPage: (name: String) -> Unit,
 ) {
     val configuration = LocalConfiguration.current
     val screenWidth = configuration.screenWidthDp.dp
 
     OutlinedCard(
-        colors = CardDefaults.cardColors(
-            containerColor = MaterialTheme.colorScheme.surface,
-            contentColor = MaterialTheme.colorScheme.onSurface
-        ),
+        colors =
+            CardDefaults.cardColors(
+                containerColor = MaterialTheme.colorScheme.surface,
+                contentColor = MaterialTheme.colorScheme.onSurface,
+            ),
         onClick = { toDetailPage(title) },
-        border = BorderStroke(
-            dimensionResource(R.dimen.border_small),
-            MaterialTheme.colorScheme.outlineVariant
-        ),
-        modifier = Modifier
-            .padding(
-                horizontal = dimensionResource(R.dimen.padding_medium),
-                vertical = dimensionResource(R.dimen.no_padding)
-            )
+        border =
+            BorderStroke(
+                dimensionResource(R.dimen.border_small),
+                MaterialTheme.colorScheme.outlineVariant,
+            ),
+        modifier =
+            Modifier
+                .padding(
+                    horizontal = dimensionResource(R.dimen.padding_medium),
+                    vertical = dimensionResource(R.dimen.no_padding),
+                ),
     ) {
         Row {
             Box(
-                modifier = Modifier
-                    .width(dimensionResource(R.dimen.picture_width))
-                    .fillMaxHeight()
+                modifier =
+                    Modifier
+                        .width(dimensionResource(R.dimen.picture_width))
+                        .fillMaxHeight(),
             ) {
                 SubcomposeAsyncImage(
-                    model = ImageRequest.Builder(LocalContext.current)
-                        .data(thumbnail)
-                        .decoderFactory(SvgDecoder.Factory())
-                        .crossfade(true)
-                        .build(),
+                    model =
+                        ImageRequest.Builder(LocalContext.current)
+                            .data(thumbnail)
+                            .decoderFactory(SvgDecoder.Factory())
+                            .crossfade(true)
+                            .build(),
                     error = {
                         Icon(
                             painter = painterResource(id = R.drawable.ic_broken_image),
-                            contentDescription = "Error"
+                            contentDescription = "Error",
                         )
                     },
                     contentDescription = "$title.jpg",
-                    modifier = Modifier
-                        .width(dimensionResource(R.dimen.picture_width))
-                        .padding(dimensionResource(R.dimen.padding_small))
-                        .align(alignment = Alignment.Center)
+                    modifier =
+                        Modifier
+                            .width(dimensionResource(R.dimen.picture_width))
+                            .padding(dimensionResource(R.dimen.padding_small))
+                            .align(alignment = Alignment.Center),
                 )
             }
             Column(
-                modifier = Modifier
-                    .padding(dimensionResource(R.dimen.padding_small))
-                    .width(screenWidth)
+                modifier =
+                    Modifier
+                        .padding(dimensionResource(R.dimen.padding_small))
+                        .width(screenWidth),
             ) {
                 Text(text = title, style = MaterialTheme.typography.titleLarge)
                 Text(text = category, style = MaterialTheme.typography.titleMedium)

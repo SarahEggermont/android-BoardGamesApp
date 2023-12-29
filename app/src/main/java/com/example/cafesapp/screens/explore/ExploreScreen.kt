@@ -35,6 +35,7 @@ import com.example.cafesapp.util.CafeNavigationType
 
 /**
  * The explore screen.
+ *
  * @param toDetailPage the navigation to the detail page of the cafe.
  * @param navigationType the navigation type.
  * @param exploreCafesViewModel the view model for the explore screen.
@@ -43,9 +44,10 @@ import com.example.cafesapp.util.CafeNavigationType
 fun ExploreScreen(
     toDetailPage: (name: String) -> Unit,
     navigationType: CafeNavigationType,
-    exploreCafesViewModel: ExploreCafesViewModel = viewModel(
-        factory = ExploreCafesViewModel.Factory,
-    ),
+    exploreCafesViewModel: ExploreCafesViewModel =
+        viewModel(
+            factory = ExploreCafesViewModel.Factory,
+        ),
 ) {
     val cafesState by exploreCafesViewModel.uiState.collectAsState()
     val cafesListState by exploreCafesViewModel.uiListState.collectAsState()
@@ -81,10 +83,11 @@ fun ExploreScreen(
 
 /**
  * A column with a searchbar and card-elements.
+ *
  * @param cafesState the state of the explore screen.
  * @param cafesListState the state of the explore list.
  * @param exploreCafesViewModel the view model for the explore screen.
- * @param toDetailPage the navigation to the detail page of the cafe.
+ * @param toDetailPage the function to navigate to the detail page of the cafe.
  * @param notFound whether the cafe is not found.
  * @param navigationType the navigation type.
  */
@@ -99,9 +102,10 @@ fun SearchBarWithElements(
     navigationType: CafeNavigationType,
 ) {
     Column(
-        verticalArrangement = Arrangement.spacedBy(
-            dimensionResource(id = R.dimen.spacer_medium),
-        ),
+        verticalArrangement =
+            Arrangement.spacedBy(
+                dimensionResource(id = R.dimen.spacer_medium),
+            ),
     ) {
         SearchBar(
             modifier = Modifier.align(Alignment.CenterHorizontally),
@@ -127,14 +131,15 @@ fun SearchBarWithElements(
                     Icon(
                         imageVector = Icons.Default.Close,
                         contentDescription = stringResource(id = R.string.close_icon),
-                        modifier = Modifier.clickable {
-                            if (cafesState.searchText.isNotEmpty()) {
-                                exploreCafesViewModel.clearSearchText()
-                            } else {
-                                exploreCafesViewModel.setActiveSearch(false)
-                                exploreCafesViewModel.searchForCafes()
-                            }
-                        },
+                        modifier =
+                            Modifier.clickable {
+                                if (cafesState.searchText.isNotEmpty()) {
+                                    exploreCafesViewModel.clearSearchText()
+                                } else {
+                                    exploreCafesViewModel.setActiveSearch(false)
+                                    exploreCafesViewModel.searchForCafes()
+                                }
+                            },
                     )
                 }
             },
@@ -142,25 +147,28 @@ fun SearchBarWithElements(
         ) {
             cafesState.searchHistory.forEach {
                 Row(
-                    modifier = Modifier.padding(
-                        start = dimensionResource(id = R.dimen.padding_medium),
-                        end = dimensionResource(id = R.dimen.padding_medium),
-                        top = dimensionResource(id = R.dimen.padding_medium),
-                    ),
+                    modifier =
+                        Modifier.padding(
+                            start = dimensionResource(id = R.dimen.padding_medium),
+                            end = dimensionResource(id = R.dimen.padding_medium),
+                            top = dimensionResource(id = R.dimen.padding_medium),
+                        ),
                 ) {
                     Icon(
-                        modifier = Modifier.padding(
-                            end = dimensionResource(id = R.dimen.padding_medium),
-                        ),
+                        modifier =
+                            Modifier.padding(
+                                end = dimensionResource(id = R.dimen.padding_medium),
+                            ),
                         imageVector = Icons.Default.History,
                         contentDescription = stringResource(id = R.string.history_icon),
                     )
                     Text(
                         text = it,
-                        modifier = Modifier.clickable {
-                            exploreCafesViewModel.setNewSearchText(it)
-                            exploreCafesViewModel.searchForCafes()
-                        },
+                        modifier =
+                            Modifier.clickable {
+                                exploreCafesViewModel.setNewSearchText(it)
+                                exploreCafesViewModel.searchForCafes()
+                            },
                     )
                 }
             }
@@ -182,6 +190,12 @@ fun SearchBarWithElements(
     }
 }
 
+/**
+ * A grid (with 2 columns) of card-elements.
+ *
+ * @param cafesListState the state of the explore list.
+ * @param toDetailPage the navigation to the detail page of the cafe.
+ */
 @Composable
 fun CafesGridComponent(
     cafesListState: ExploreCafesListState,
@@ -189,12 +203,10 @@ fun CafesGridComponent(
 ) {
     LazyVerticalGrid(
         columns = GridCells.Fixed(2),
-        verticalArrangement = Arrangement.spacedBy(
-            dimensionResource(id = R.dimen.spacer_small),
-        ),
-        horizontalArrangement = Arrangement.spacedBy(
-            dimensionResource(id = R.dimen.spacer_small),
-        ),
+        verticalArrangement =
+            Arrangement.spacedBy(
+                dimensionResource(id = R.dimen.spacer_small),
+            ),
     ) {
         items(cafesListState.cafesList) {
             BigCardListItem(
@@ -210,6 +222,7 @@ fun CafesGridComponent(
 
 /**
  * A list of card-elements.
+ *
  * @param cafesListState the state of the explore list.
  * @param toDetailPage the navigation to the detail page of the cafe.
  */
@@ -223,12 +236,14 @@ fun CafesListComponent(
 
     LazyColumn(
         state = lazyListState,
-        verticalArrangement = Arrangement.spacedBy(
-            dimensionResource(id = R.dimen.spacer_small),
-        ),
-        contentPadding = PaddingValues(
-            bottom = dimensionResource(id = R.dimen.padding_small),
-        ),
+        verticalArrangement =
+            Arrangement.spacedBy(
+                dimensionResource(id = R.dimen.spacer_small),
+            ),
+        contentPadding =
+            PaddingValues(
+                bottom = dimensionResource(id = R.dimen.padding_small),
+            ),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         items(cafesListState.cafesList) {

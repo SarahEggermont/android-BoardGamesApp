@@ -10,6 +10,7 @@ import org.junit.Test
 
 /**
  * Tests for the [ExploreCafesViewModel].
+ *
  * @property testDispatcher the [TestDispatcher].
  */
 class ExploreCafesViewModelTest {
@@ -21,9 +22,10 @@ class ExploreCafesViewModelTest {
 
     @Before
     fun setUp() {
-        viewModel = ExploreCafesViewModel(
-            cafesRepository = FakeApiCafeRepository()
-        )
+        viewModel =
+            ExploreCafesViewModel(
+                cafesRepository = FakeApiCafeRepository(),
+            )
     }
 
     /**

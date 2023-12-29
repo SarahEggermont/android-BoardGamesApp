@@ -24,7 +24,7 @@ import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import com.example.cafesapp.R
-import com.example.cafesapp.navigation.openGoogleScreen
+import com.example.cafesapp.util.openGoogleScreen
 
 /**
  * The About screen of the app.

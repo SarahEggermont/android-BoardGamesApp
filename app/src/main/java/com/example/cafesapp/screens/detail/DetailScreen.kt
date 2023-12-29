@@ -34,10 +34,11 @@ import coil.compose.SubcomposeAsyncImage
 import coil.decode.SvgDecoder
 import coil.request.ImageRequest
 import com.example.cafesapp.R
-import com.example.cafesapp.navigation.openGoogleScreen
+import com.example.cafesapp.util.openGoogleScreen
 
 /**
  * The detail screen.
+ *
  * @param detailOverviewModel the view model for the detail screen.
  */
 @Composable
@@ -65,6 +66,7 @@ fun DetailScreen(
 
 /**
  * The details of the cafe.
+ *
  * @param detailItemState the state of the detail item.
  */
 @Composable

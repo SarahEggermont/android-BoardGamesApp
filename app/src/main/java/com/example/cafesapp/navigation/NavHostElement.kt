@@ -11,6 +11,13 @@ import com.example.cafesapp.screens.detail.DetailScreen
 import com.example.cafesapp.screens.explore.ExploreScreen
 import com.example.cafesapp.util.CafeNavigationType
 
+/**
+ * The nav host element.
+ *
+ * @param navController the nav controller.
+ * @param modifier the modifier.
+ * @param navigationType the navigation type.
+ */
 @Composable
 fun NavHostElement(
     navController: NavHostController,
@@ -30,7 +37,7 @@ fun NavHostElement(
                 toDetailPage = { name ->
                     navController.navigate("Detail/$name")
                 },
-                navigationType = navigationType
+                navigationType = navigationType,
             )
         }
         composable(Destinations.DETAIL) {
