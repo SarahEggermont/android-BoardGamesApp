@@ -20,6 +20,7 @@ import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import coil.compose.SubcomposeAsyncImage
 import coil.decode.SvgDecoder
@@ -83,7 +84,7 @@ fun BigCardListItem(
                     error = {
                         Icon(
                             painter = painterResource(id = R.drawable.ic_broken_image),
-                            contentDescription = "Error",
+                            contentDescription = stringResource(id = R.string.error_icon),
                         )
                     },
                     contentDescription = "$title.jpg",
