@@ -7,11 +7,11 @@ plugins {
 }
 
 android {
-    namespace = "com.example.boardgamesapp"
+    namespace = "com.example.cafesapp"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.example.boardgamesapp"
+        applicationId = "com.example.cafesapp"
         minSdk = 30
         targetSdk = 33
         versionCode = 1
@@ -28,7 +28,7 @@ android {
             isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
+                "proguard-rules.pro",
             )
         }
     }
