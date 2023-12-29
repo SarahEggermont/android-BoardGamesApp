@@ -11,10 +11,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentWidth
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Edit
-import androidx.compose.material3.FloatingActionButton
-import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.PermanentDrawerSheet
 import androidx.compose.material3.PermanentNavigationDrawer
@@ -46,7 +42,6 @@ import com.example.compose.CafeAppTheme
  */
 @OptIn(ExperimentalMaterial3WindowSizeClassApi::class)
 class MainActivity : ComponentActivity() {
-
     /**
      * The onCreate method of the activity.
      * @param savedInstanceState the saved instance state.
@@ -119,11 +114,12 @@ fun PermanentNavigationDrawerCafesApp(
             MyNavigationDrawerContent(
                 selectedDestination = navController.currentDestination,
                 onTabPressed = { node: String -> navController.navigate(node) },
-                modifier = Modifier
-                    .wrapContentWidth()
-                    .fillMaxHeight()
-                    .background(MaterialTheme.colorScheme.inverseOnSurface)
-                    .padding(dimensionResource(R.dimen.drawer_padding_content)),
+                modifier =
+                    Modifier
+                        .wrapContentWidth()
+                        .fillMaxHeight()
+                        .background(MaterialTheme.colorScheme.inverseOnSurface)
+                        .padding(dimensionResource(R.dimen.drawer_padding_content)),
             )
         }
     }) {
@@ -137,30 +133,14 @@ fun PermanentNavigationDrawerCafesApp(
                     when (currentBackStack?.destination?.route) {
                         Destinations.ABOUT -> stringResource(id = R.string.about)
                         Destinations.EXPLORE -> stringResource(id = R.string.explore_title)
-                        Destinations.DETAIL -> currentBackStack.arguments?.getString("name")
-                            ?: stringResource(id = R.string.detail_game_title)
+                        Destinations.DETAIL ->
+                            currentBackStack.arguments?.getString("name")
+                                ?: stringResource(id = R.string.detail_game_title)
 
                         else -> stringResource(id = R.string.cafes_title)
                     },
                 ) {
                     navController.popBackStack()
-                }
-            },
-            floatingActionButton = {
-                var fabShown = false
-                val fabImageIcon = Icons.Default.Edit
-                when (currentBackStack?.destination?.route) {
-                    Destinations.ABOUT -> {
-                        fabShown = true
-                    }
-                }
-                if (fabShown) {
-                    FloatingActionButton(onClick = { /* TODO */ }) {
-                        Icon(
-                            fabImageIcon,
-                            contentDescription = stringResource(id = R.string.edit_list),
-                        )
-                    }
                 }
             },
         ) { innerPadding ->
@@ -197,30 +177,14 @@ fun NavigationRailCafesApp(
                     when (currentBackStack?.destination?.route) {
                         Destinations.ABOUT -> stringResource(id = R.string.about)
                         Destinations.EXPLORE -> stringResource(id = R.string.explore_title)
-                        Destinations.DETAIL -> currentBackStack.arguments?.getString("name")
-                            ?: stringResource(id = R.string.detail_game_title)
+                        Destinations.DETAIL ->
+                            currentBackStack.arguments?.getString("name")
+                                ?: stringResource(id = R.string.detail_game_title)
 
                         else -> stringResource(id = R.string.cafes_title)
                     },
                 ) {
                     navController.popBackStack()
-                }
-            },
-            floatingActionButton = {
-                var fabShown = false
-                val fabImageIcon = Icons.Default.Edit
-                when (currentBackStack?.destination?.route) {
-                    Destinations.ABOUT -> {
-                        fabShown = true
-                    }
-                }
-                if (fabShown) {
-                    FloatingActionButton(onClick = { /* TODO */ }) {
-                        Icon(
-                            fabImageIcon,
-                            contentDescription = stringResource(id = R.string.edit_list),
-                        )
-                    }
                 }
             },
         ) { innerPadding ->
@@ -249,8 +213,9 @@ fun BottomNavigationCafesApp(
                 when (currentBackStack?.destination?.route) {
                     Destinations.ABOUT -> stringResource(id = R.string.about)
                     Destinations.EXPLORE -> stringResource(id = R.string.explore_title)
-                    Destinations.DETAIL -> currentBackStack.arguments?.getString("name")
-                        ?: stringResource(id = R.string.detail_game_title)
+                    Destinations.DETAIL ->
+                        currentBackStack.arguments?.getString("name")
+                            ?: stringResource(id = R.string.detail_game_title)
 
                     else -> stringResource(id = R.string.cafes_title)
                 },
@@ -263,20 +228,6 @@ fun BottomNavigationCafesApp(
                 goToAbout = { navController.navigate(Destinations.ABOUT) },
                 goToExplore = { navController.navigate(Destinations.EXPLORE) },
             )
-        },
-        floatingActionButton = {
-            var fabShown = false
-            val fabImageIcon = Icons.Default.Edit
-            when (currentBackStack?.destination?.route) {
-                Destinations.ABOUT -> {
-                    fabShown = true
-                }
-            }
-            if (fabShown) {
-                FloatingActionButton(onClick = { /* TODO */ }) {
-                    Icon(fabImageIcon, contentDescription = stringResource(id = R.string.edit_list))
-                }
-            }
         },
     ) { innerPadding ->
         NavHostElement(
