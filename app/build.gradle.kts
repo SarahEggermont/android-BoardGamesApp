@@ -13,6 +13,7 @@ android {
     defaultConfig {
         applicationId = "com.example.cafesapp"
         minSdk = 30
+        //noinspection OldTargetApi
         targetSdk = 33
         versionCode = 1
         versionName = "1.0"
@@ -74,17 +75,23 @@ dependencies {
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
     implementation("com.jakewharton.retrofit:retrofit2-kotlinx-serialization-converter:1.0.0")
     implementation("com.squareup.okhttp3:okhttp:4.12.0")
+    //noinspection NewerVersionAvailable
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.5.1")
 
     // Room
     val roomVersion = "2.5.1"
+    //noinspection GradleDependency
     implementation("androidx.room:room-runtime:$roomVersion")
     // optional - Kotlin Extensions and Coroutines support for Room
+    //noinspection GradleDependency
     implementation("androidx.room:room-ktx:$roomVersion")
     // To use Kotlin Symbol Processing (KSP)
+    //noinspection GradleDependency
     ksp("androidx.room:room-compiler:$roomVersion")
     // optional - Test helpers
+    //noinspection GradleDependency
     testImplementation("androidx.room:room-testing:$roomVersion")
+    //noinspection GradleDependency
     annotationProcessor("androidx.room:room-compiler:$roomVersion")
 
     // Browser
