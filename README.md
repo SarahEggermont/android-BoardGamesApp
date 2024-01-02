@@ -5,4 +5,4 @@ Vanuit een cafe kan genavigeerd worden naar de desbetreffende pagina op [visit.g
 
 Er is geen configuratie nodig om de app te gebruiken.
 
-De documentatie voor dit project is te vinden op [documentation](https://documentation-cafe-app.vercel.app/).
+De documentatie voor dit project is te vinden op <a href="https://documentation-cafe-app.vercel.app/" target="_blank">documentation</a>.
